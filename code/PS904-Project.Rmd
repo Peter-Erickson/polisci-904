@@ -1,0 +1,89 @@
+---
+title: The Pen Mightier Than the Sword? Retired Flag Officers and Generals and Opinion-Editorials
+  Since 2000
+author: "Pete Erickson"
+date: "4/22/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library("here")       # file paths
+library("magrittr")   # pipe operators!
+library("tidyverse")  # workhorse package
+library("lubridate")  # lubridate helps with the package
+library("plyr")
+
+```
+
+First, I import the data set and using the here () function to build the file path.  
+I replace all NA/s with ) in the data set.  
+
+```{r summary}
+# Read in the Data
+dataset <- read_csv(here("data", "MilEditorials23Apr.csv"))
+# Replace NA with 0 in the data
+dataset[is.na(dataset)] <- 0
+
+# Let's view the data so we know what kind of dataframes each of the variables are.  
+dataset
+
+# Note that I may want to convert AuthSe, AuthRank, and Service to some form of numeric.  
+# But I will come back to that.
+
+#See the variable names.  
+summary(dataset)
+names(dataset) 
+```
+
+```{r manipulation}
+
+# Create a Variable for Publishing Year called PubYr
+adjdataset <- dataset %>% 
+  mutate(
+  PubYr = year(PubDate)
+) %>% print()
+
+# Show all articles and authors who published articles on Social Policy, Political Parties, and Administrations/Political Figures
+adjdataset %>% arrange(PubYr) %>% 
+  filter(PolicySocial==1 | PartyGen==1 | PartyName ==1 |PolAdminName==1 )  %>% 
+  select (AuthName, ArtTitle, Source, PubYr) %>% 
+  view()
+
+
+# Create a Variable Called case-count that counts the number of times by publishing year an article published 
+# regarding social policy or general parties or parties by name or administrations occurs
+adjdataset %>% group_by(PubYr) %>% 
+  mutate(
+    case_count=sum(PolicySocial ==1 |PartyGen==1 | PartyName ==1 | PolAdminName==1) 
+  ) %>% 
+  print
+
+# Count the Number of Articles Published By Type
+adjdataset %>% tally(PolicySecurity) 
+adjdataset %>% tally(PersTroopSpt)
+adjdataset %>% tally(GenAdvice)
+adjdataset %>% tally(PolicySocial)
+adjdataset %>% tally(PartyGen)
+adjdataset %>% tally(PartyName)
+adjdataset %>% tally(PolAdminName)
+
+# need to change the type of class these vectors are - to binary
+
+```
+
+```{r simple graphs}
+
+
+
+```
+
+
+
+
