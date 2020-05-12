@@ -1,88 +1,327 @@
 ---
-title: The Pen Mightier Than the Sword? Retired Flag Officers and Generals and Opinion-Editorials
-  Since 2000
+title: "The Pen as a Sword: Retired Military Officers and Opinion-Editorial Usage"
 author: "Pete Erickson"
-date: "4/22/2020"
-output:
-  pdf_document: default
-  html_document: default
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+abstract: |
+  _This paper seeks to explain how retired military opinion-editorial usage has varied in the past 20 years. Using an original data set that captures more than 200 opinion-editorial pieces published by retired military officers in The Wall Street Journal, The Washington Post, The New York Times, and the USA Today since 2000, I argue that recent opinion-editorial usage is weakening the norm of retired military officers remaining apolitical in two distinct ways. First, op-eds published in recent years by retired military officers address topics that are outside the scope of direct security or strategic concerns. Second, there is an increase in recently published op-eds which directly attack Presidential administrations, specifically that of Donald Trump. These two trends are concerning from the perspective of civil-military relations and raise further normative questions about how the American public receives information from military elites._  
+  
+geometry: margin = 1.15in              # margin widths
+fontsize: 12pt                         # text size
+bibliography: researchpaper-ps904.bib # bibliography file
+biblio-style: authoryear               # citation style
+urlcolor: blue                         # links to external URLs
+citecolor: black                       # links to bibliography
+linkcolor: magenta                     # internal figures, footnotes, etc.
+indent: true                          # paragraph format
+                                       # true for indented paragraphs
+                                       
+header-includes:
+    - \usepackage{setspace}
+    - \usepackage{multirow}
+    - \usepackage{indentfirst}
+
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: pdflatex
+    number_sections: false
+    toc: false
+    fig_caption: true
+    citation_package: biblatex
+    includes: 
+      in_header: 
+        - latex-preamble.tex
+  bookdown::htmldocument2: default
+  bookdown::word_document2:
+      toc: false
 ---
+
+\doublespacing 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r}
+```{r, include = FALSE, echo = FALSE}
 library("here")       # file paths
-library("magrittr")   # pipe operators!
 library("tidyverse")  # workhorse package
-library("lubridate")  # lubridate helps with the package
-library("plyr")
-
+library("tidylog")
+library("kableExtra")
+library("knitr")
 ```
 
-First, I import the data set and using the here () function to build the file path.  
-I replace all NA/s with ) in the data set.  
+# Introduction
 
-```{r summary}
+In modern day America, the average citizen does not need to look or go far to hear or see an elite voice attempting to persuade them of the rightness or wrongness of certain courses of action. On the television and on the internet, "experts" in various forms take up a position on a certain issue and attempt to persuade, warn, and otherwise impact public opinion on a host of issues. To a considerable extent, this is a normal and everyday occurrence in a thriving democracy.  
+
+This paper examines the way in which a narrow subset of elites - retired military officers - has attempted to influence public opinion in contemporary America. It is an interesting question worthy of examination for several reasons and from a variety of perspectives. First, even after leaving active duty service, military officers remain part of an institution - the military - that maintains considerable trust among the American public. A 2018 Pew Research Center poll determined that 80% of the American public expects the military to act in the best interests of the American public, compared to business leaders (45%), the media (40%), and elected officials (25%) [@johnson_trust_2018]. Therefore, when leaders of the most trusted institution in the country speak, the public seems to trust them to a high degree. Second, it is an interesting question because as an institution, the military prides itself on being apolitical. In an era of increasing political polarization [@layman_party_2006; @hare_polarization_2014], examining the extent to which opinion-editorial usage by retired military officers has changed may reveal one way in which the military institution has altered its behavior in a polarized political environment. 
+
+To be clear, I do not examine in this paper the efficacy of the opinion pieces authored by retired military officers. I do not address whether the actual op-ed pieces published by retired military officers actually sway public opinion. I am primarily concerned with what trends are evident in opinion-editorial publication from the perspective of the military as an institution: what variation is evident over the past 20 years, if any? Are there patterns that indicate deviation from historical norms and expectations of the military as an apolitical institution, and if so, what might this mean for the military? 
+
+This paper proceeds in three parts. First, I review the basis upon which the norm of apolitical behavior of the military as an institution is based, as well as describe how a polarized environment may impact these norms. Here I review academic literature on civil-military relations and public opinion, as well as current military doctrine. All three are relevant strands that inform our research question. Second, I describe the analytical approach and the data used in this project. Assembling an original data set that includes more than 200 opinion pieces published by retired military officers in major American newspapers since 2000, I conduct a mixed-methods approach. Finally, I describe my results as well as their implications. Overall, the data reveals that the vast majority of opinion pieces penned by retired military officers are in line with traditional civil-military norms. However, I find two trends that may reveal future problems for civil-military relations: first, retired military officers are writing about topics that are not immediately related to national security, and second, retired military officers are criticizing if not attacking political administrations more often than they did in previous eras. 
+
+# The Norm of Remaining Apolitical 
+
+As a norm, the military acting as an objective, apolitical institution is deep and storied in the United States. In a thriving democracy such as the US, an apolitical military can best serve the Republic by defending it regardless of which political party of group holds power. Unlike autocratic societies, where military coups are unfortunate yet frequent in history, the United States had not had a civil-military relations crisis that has risen to the point that a coup has been a real concern. This is not to say that that civil-military crises are infrequent in the US - indeed, they have been rather common - but that these crises have typically been resolved.
+
+The political scientist Samuel Huntington, in his work, _The Soldier and the State: The Theory and Politics of Civil-Military Relations_, argued for civil-military relations to take on a certain character. Written in 1957, during the Cold War, Huntington asserted that two distinct forces would always be in tension with one another in a liberal democracy. The first was a "functional imperative," which Huntington said drove the requirement that a military be strong enough and capable of defeating the military threats it faced [@huntington_soldier_1957]. The second force was a "societal imperative," which Huntington said generated requirements for the military in that the military could never lose so many aspects of it such that it no longer represented the liberal democracy that it defended [@huntington_soldier_1957]. Huntington's point was that America needed a strong military that could win on the battlefield, but cautioned that such a military could not be so foreign in character so as to alienate the tenets of an American liberal society, and that these forces were at odds with each other. Huntington proceeded to argue that the key to resolving the tension between these two opposing forces was to adopt a scheme of "objective civilian control" in which political leaders established the ends and goals of policy, while military leaders developed and implemented plans to accomplish these goals [@huntington_soldier_1957]. To Huntington, separate operating spheres between the political leaders of a democracy and the military as an institution ensured that the military remained "professional," and thus, untainted by political interests and concerns. In this way, Huntington posited that the American military would be up to the task of defeating the very real threats it would face, especially during the Cold War context in which Huntington wrote. 
+
+While Huntington's theory has enjoyed tremendous staying power (Huntington is still studied and taught in many American military institutions), he is not without critics. It would be too burdensome to unpack all of those here, but for clarity, several quick counterarguments to Huntington are worth highlighting. Eliot Cohen, in his work, _Supreme Command,_ argues that the very concept of separate spheres between political and military leaders is flawed. Pointing to leaders such as Lincoln, Clemenceau, and Churchill, and the actions that each took to ensure that the military operated in accordance with each's wishes, Cohen argues that political leaders are ultimately responsible for the outcomes of war, and therefore, are not obligated to grant the military any sort of distinct operating space [@cohen_supreme_2003]. Another scholar, Peter Feaver, argues in his work, _Armed Servants: Agency, Oversight, and Civil-Military Relations_ that a principal-agent approach most accurately conveys how civil-military relations work [@feaver_armed_2005]. American elected civilian leaders, as agents, so argues Huntington, have the responsibility to select military leaders as agents, and to oversee ensuing problems of agency that arise, such as delegating, monitoring, and ensuring the compliance of the military as agents [@feaver_armed_2005]. The point worth highlighting here is that Cohen and Feaver argue that civilian elected leaders have the right to encroach onto what Huntington would call for, a separate military sphere. Note, however, that none of these scholars argue for the opposite - that military leaders should in any way encroach onto or towards the political space. 
+
+It is not only in the academic literature that the tradition and worth of an apolitical military have been cultivated. Indeed, the operational military - those who prepare for fighting and dying on the battlefield - have also been central in upholding the military's apolitical traditions. Retired Army General Douglas MacArthur, a hero of World War Two in the Pacific who is also well known for the controversy surrounding his conduct in the Korean War and his eventual dismissal by President Truman, told the cadets at West Point in May of 1962.
+
+\singlespacing
+
+> **Yours is the profession of arms, the will to win, the sure knowledge that in war there is no substitute for victory, that if you lose, the Nation will be destroyed, that the very obsession of your public service must be Duty, Honor, Country. Others will debate the controversial issues, national and international, which divide men’s minds. But serene, calm, aloof, you stand as the Nation’s war guardians, as its lifeguards from the raging tides of international conflict, as its gladiators in the arena of battle. For a century and a half you have defended, guarded and protected its hallowed traditions of liberty and freedom, of right and justice. Let civilian voices argue the merits or demerits of our processes of government. Whether our strength is being sapped by deficit financing indulged in too long, by federal paternalism grown too mighty, by power groups grown too arrogant, by politics grown too corrupt, by crime grown too rampant, by morals grown too low, by taxes grown too high, by extremists grown too violent; whether our personal liberties are as firm and complete as they should be. These great national problems are not for your professional participation or military solution. Your guidepost stands out like a tenfold beacon in the night: Duty, Honor, Country** [@macarthur_duty_1962].
+
+\doublespacing
+
+Current military doctrine and practices likewise reinforce the notion of the military remaining apolitical. Prior to the 2016 Presidential Election, Marine Corps General (Retired) Joseph Dunford, who then served as the Chairman of the Joint Chiefs of Staff, said that the basis upon which the military is able to maintain the public's trust is it's ability to remain "apolitical and neutral" [@dunford_upholding_2016]. General Martin Dempsey, in an opinion piece published in the Washington Post on July 31, 2016, specifically criticized retired Army Major General Mike Flynn and Marine General John Allen for participating in the Republican and Democratic conventions, respectively, stating that "As generals, they have an obligation to uphold our apolitical traditions. They have just made the task of their successors – who continue to serve in uniform and are accountable for our security - more complicated. It was a mistake for them to participate as they did. It was a mistake for our presidential candidates to ask them to do so" [@dempsey_military_2016]. 
+
+It is important to keep in mind, however, that although the notion of an apolitical military is the theoretical goal of the institution, the practical record remains far from perfect. From MacArthur's clash with President Truman in the early 1950's, to the so-called "Revolt of the Generals" in 2005-2006, military leaders, even those who are retired, have ventured into political territory from time to time. What we have established, though, is clear: an apolitical military that performs its military mission well is what enables the American public to put trust and confidence in the military institution. Having examined the nature of the norm of the military as an apolitical institution, let us now briefly examine the topics of the media, public opinion, and polarization. Each of these topics intersects with the norm of the military as an apolitical institution in a unique way. 
+
+# The Media, Public Opinion, and Polarization
+
+Scholars have long examined the role of elites in impacting public opinion. In his influential study, _The Nature and Origins of Mass Opinion_, John Zaller argues that formations in mass public opinion were the result of three interacting components: "variation in the information carried in elite discourse, individual differences in attention to this information, and individual differences in political values and other predispositions" [@zaller_nature_1992]. Zaller believes that throughout modern day America, most citizens, as non-elites, must rely heavily on the messages that come from elites regarding various topics and issue areas [@zaller_nature_1992]. Zaller further argues that the messages that elites send is necessarily "stereotyped" in some way: that is, the messages that elites send, in order to be understood by regular citizens who are part of the public, must be "short, simple, and highly thematic" [@zaller_nature_1992]. In developing this argument, Zaller is not claiming that regular citizens are uninformed or careless people who are incapable of processing complex information. He is rather acknowledging that most citizens care most about the world that is not "beyond their personal experience," that is, the lives which they must interact with each and every day [@zaller_nature_1992]. His point is that elites play a significant role in helping to form and sway public opinion. 
+
+Michael Robinson further developed an argument in which he examines how elite cues are received and processed. Robinson argues that partisan groups, as a result of ongoing political polarization, are cognitively biased in distinct ways in how they receive and process information [@robinson_who_2019]. As a result, Robinson found that partisans will express confidence in the military in vastly differing ways even after neutral, non-partisan information about various types of military failure is presented to these groups [@robinson_who_2019]. If Republicans are less likely to express a reduction in confidence in the military as an institution than Democrats are, as Robinson alleges, then even accurate, unbiased information is potentially irrelevant, as these differing partisan groups are pre-programmed to selectively see a particular situation as they wish to see it [@robinson_who_2019]. His main point serves to warn us regarding confidence in the military as an institution: there may be real reasons to lose confidence in the military as a result of a particular incident, but partisan filters will prevent a reduction of confidence from actually being expressed. 
+
+Zaller's and Robinson's works are important considerations in synchronizing the relevant literature for this project. Zaller's framework makes it clear that it is a perfectly reasonable assumption that retired military officers who choose to express their opinions through the form of opinion-editorial pieces constitutes a form of elite discourse. Retired military officers have at least twenty years of experience, and in the case of multi-star generals or admirals, usually close to 35 or 40 years of service. Indeed, most retired senior generals and admirals have spent their professional careers solely in the military, and have extensive experience while serving in leadership positions of large organizations and, in many cases, during times of war. Retired military officers are thus elites in the field of national security, and according to Zaller, they rightfully have a potentially significant contribution to make with respect to impacting public opinion in these areas. And yet, we also know that the American public will not necessarily evaluate the opinions of these military experts objectively, but rather through pre-conceived and potentially partisan lenses [@robinson_who_2019]. This consideration will be helpful when we consider our findings and potential implications. 
+
+# Hypotheses
+
+To test whether there has been variation in opinion-editorial usage by retried military officers in the United States, I will examine opinion-editorial pieces published in the four leading newspapers of the United States since January 1, 2000: the _Wall Street Journal_ (WSJ), the _New York Times_ (NYT), the _Washington Post_ (WaPo), and the _USA Today_. This date range is important for several reasons. 
+
+First, let us consider some of the significant ways in which the military as an institution has changed in the past twenty years. Most notably, the post-9/11 US military is a battle-hardened military. The wars in Afghanistan and Iraq continue to the present day, and today's recently retired military generals and admirals are, in many cases, veterans of these conflicts several times over. Moreover, both of these conflicts have thus far failed to reach conclusive ends. Heidi Urben found in a 2009 study that the proportion of military officers who felt that criticizing civilian administrations constituted proper conduct had increased since 1998, reasoning that the likely reason for the change was the frustration encountered while serving in Iraq and Afghanistan [@urben_party_2013].  
+
+Moreover, the military since 2000 has undergone significant social changes. The repeal of the "Don't Ask, Don't Tell" Policy, which was instituted under President Clinton in 1992 and prevented homosexual members of the Armed Forces from revealing their sexual preference, was repealed in 2010. Then, in 2015, under the Obama Administration, the Department of Defense opened up all military occupational specialties to women, many of which, particularly those in the combat arms and special forces, had previously been closed off to  women. These changes in the military are just a subset of the profound change that America as a nation has experienced in the past 20 years. 
+
+Likewise, the media has also undergone significant changes since 2000. Since the mid-2000s, social media has taken over as the primary means in which a majority of Americans receive their news [@martin_how_2018]. Print newspapers still exist, even as many of the leading newspapers have taken up digital offerings, but overall circulation is still down compared to previous era even after factoring in the digital options available. Estimated total daily newspaper circulation in the US in 2000 was 56 million and 59 million for weekday and weekend editions, respectively, while in 2018, the the same figures were 29 million and 31 million. Despite these trends, however, the four newspapers that I examine in this project are the largest of all print newspapers in the United States. 
+
+Moreover, while there a multitude of ways for military elites to express their opinions and to influence public opinion, such as appearing participating in an interview on television or on the radio, published opinion pieces, especially those that run in a major newspaper, possess certain qualities. First, such types of opinion pieces are deliberately authored for the purpose of informing and persuading the public on a salient or timely topic. Second, publishing opinion pieces, especially for major newspapers, is a highly competitive process. For the newspapers that I examine in this study, it is not uncommon to see opinion pieces published by heads of state, members of congress, governmental figures, and heads of industry and academia. So, even though overall newspaper consumption may in fact be down over the past twenty years, there is no evidence that opinion pieces have dropped in popularity.  
+
+Attempting to reconcile the facts that the military prides itself on being a non-partisan and apolitical institution, that military officers with experience in Iraq and Afghanistan are more willing to criticize civilian leaders over the conduct of war, that newspaper circulations (even after accounting for digital offerings) are substantially down over the past 20 years, and that the US political environment is increasingly polarized along partisan lines, I adopt the following hypotheses:
+
+_$H_1$: The majority of op-eds published by retired military officers will be apolitical in tone._
+
+_$H_2$: There will be an increase in the number of op-eds that criticize civilian administration handling regarding the conduct of war in Iraq and Afghanistan._
+
+# The Data
+
+I first assemble the data by creating a data set that consists of opinion-editorial pieces published by retired military officers in the four major newspapers previously identified since January 1, 2000. I employ a search using the Factiva Database and condition my search on several filters: 
+
+  * sources (WSJ, NYT, WaPo, and USA Today)
+  * date range (January 1, 2000 - April 16, 2020)
+  * article type (I select editorial, opinion, and commentary)
+  * perhaps the most difficult filter item, free text that identifies retired military officers as the   authors. I include terms such as "retired military officer," "retired from the Army, Navy, Marine Corps, Air Force," "former Chairman of the Joint Chiefs of Staff," "general," "admiral," and so forth. This is done in order to capture the biographic description that usually accompanies an editorial or opinion piece, such as "General David Petraeus is a retired Army general and former commander of all forces in Afghanistan." 
+
+Factiva allows for the option of selecting print only or an "all-sources" option in the source filter. I select the "all-sources" option because I want to capture any online editorials or opinion pieces, in addition to those that are ran in print editions only. Though digital offerings have certainly expanded in the past twenty years, including digital offerings will enable a better comparison of the data over the past twenty years given that overall newspaper circulation is down over the same time period. Factiva also checks for duplicate articles that are published in different versions of the same newspaper, such as the New York Times and the International version of the New York Times. When the same articles appeared in two different versions of the same newspaper, I counted the article only one time. 
+
+I further notice that when collecting and reviewing the data, some authors are identified as military officers in some opinion pieces, but not in others. This was especially true regarding Andrew Bacevich, a retired Army Colonel who then became a prominent historian and author.^[
+This happened with several other authors, such as Air Force General (Ret) Michael Hayden, who also served as the Director of the National Security Agency. Where I could identify these authors as military officers, I included the article and did a separate search under the author's last name to see if there were any missing articles that were not caught in my search. 
+] I decide to conduct an additional search for Andrew Bacevich and include any other opinion pieces that were published in the sources and over the date range I am examining where he was not identified as a retired military officer. My basis for this decision is that there is a reasonable expectation that some readers would know his background as a retired military officer since it had been previously self-divulged in previous opinion publications.
+
+Ultimately, the data set ends up containing 216 opinion-editorial publications, penned by 129 different authors or author teams.^[There are several co-authored pieces.  Where General (Ret.) David Petraeus wrote one publication and another one was written by General (Ret.) David Petraeus and Michael O'Hanlon, I counted these as two different authors for coding purposes.] Additionally, 10 pieces are written unanimously, with nods by the authors within the article to their being retired from the military in some capacity. 
+
+# Methodological Approach and First Level-Analysis
+
+To test my hypotheses, I conduct a mixed-methods approach that attempts to look for evident trends and patterns among the data. I plan to conduct two steps of analysis.  The first is to categorize each observation by subject, and the second is to categorize each observation in terms of its deviation from traditional civil-military norms of the military as remaining an apolitical institution. 
+
+In the first level of analysis, after capturing key biographical and publication information, such as author name, article title, source, publication date, and branch of service and rank of the author, I code each observation into one of several binary categories that corresponds to the overall subject of the publication. The goal is to create a coding scheme by subject that is sufficiently broad but also specific enough that is helpful in differentiating the overall main point of each publication. The following coding scheme is therefore devised and implemented (all variables are binary, taking on the value of 1 if the publication corresponds to the general definition of the variable, and 0 otherwise):  
+
+\singlespace
+
+  * **PolicySecurity**- if the piece advocates for or denounces a particular course of action directly related to security or operational or strategic decisions of a clear military nature. Examples: the wisdom of troop increases, the Surge in Iraq, etc. 
+  * **PersTroopSupport**- if the piece generally showcases or highlights the work and sacrifice of members of the armed forces, or to defend the work of specific members of the Armed Forces. Examples: remembering our fallen during Memorial Day. 
+  * **GenAdvice**- if the piece is generally written to offer some sort of strategic advice for the nation. Examples: why the US needs to strengthen NATO, or build ties with China, etc. 
+  * **PolicySocial**- if the piece advocates or denounces a particular social policy for adoption by the Armed Forces. Examples: "Don't Ask, Don't Tell" policy, Transgender members of the armed forces, etc. 
+  * **Party**- if the piece explicitly denounces or advocates a position that is explicitly associated with the platform position of a major political party. Examples: why the Republicans/Democrats are wrong on this particular issue, etc. 
+  * **PolAdminName**- if the piece is advocating for or denouncing a particular position held by a political administration, or if the piece is explicitly defending or attacking a political figure by name. Examples: endorsing a Presidential candidate for office, attacking a President for a decision that was made, etc. 
+
+\doublespace
+Separating opinion-editorial publications into one of several distinct categories is an imperfect process, and for purposes of this research project, are completed by hand. Two points are worth mentioning. First, I attempt to keep in mind the fact that opinion pieces are intended to argue for something, and thus are, to an extent, designed to be provocative. With this in mind, I did not take phrases such as "President Bush or Obama should do x and y in Iraq and Afghanistan" as attacks on administrations, and therefore, did not did not code such articles under the variable **PolAdminName**. Every attempt was made to read each article slowly and as objectively as possible, and afterwards, to assign the publication to a category. There were instances in which I had to choose between placing a publication into one of two categories, say, between **PolicySecurity** and **GenAdvice**, but very few if any instances in which I had to choose between categories that differed greatly, such as **PolAdminName** and **PersTroopSupport**. Table 1 reveals the breakdown of the data by article type.     
+
+```{r summary, include = FALSE}
 # Read in the Data
-dataset <- read_csv(here("data", "MilEditorials23Apr.csv"))
-# Replace NA with 0 in the data
-dataset[is.na(dataset)] <- 0
+dataset <- read_csv(here("data", "MilEditorials.csv"))
+dataset %>% print()
+# Replace NA with 0 in the data for variables PolicySecurity thru PolAdminName
+adjdataset <- dataset %>%
+  mutate_at(
+    .vars = vars(PolicySecurity:PolAdminName),
+    .funs = ~ case_when(is.na(.) ~0, TRUE ~ 1)
+) %>% mutate(
+    PubYr = lubridate::year(PubDate)
+) %>% view()
 
-# Let's view the data so we know what kind of dataframes each of the variables are.  
-dataset
+summary(adjdataset)
+names(adjdataset) 
 
-# Note that I may want to convert AuthSe, AuthRank, and Service to some form of numeric.  
-# But I will come back to that.
+# count the number of observations by type of binary variable and store as new dataframe
+countbytype  <- adjdataset %>% count(PolicySecurity, PersTroopSpt, GenAdvice, PolicySocial, Party, PolAdminName) 
 
-#See the variable names.  
-summary(dataset)
-names(dataset) 
 ```
 
-```{r manipulation}
 
-# Create a Variable for Publishing Year called PubYr
-adjdataset <- dataset %>% 
-  mutate(
-  PubYr = year(PubDate)
-) %>% print()
+```{r table, fig.align="center", include=TRUE, echo=FALSE}
+countbytype %>%
+  kable(format="latex", caption="Publications by Article Type") %>%
+  kable_styling(latex_options = "striped") %>% 
+  row_spec(0, bold=T)
+```
+
+Table 1 reveals that an overwhelming majority (186 of 216, or 86%) of the total number of opinion pieces written since 2000 in the four major newspapers examined can be classified according to one of the following three categories: **PolicySecurity**, **PersTroopSupport**, and **GenAdvice**. The remaining 30 publications (14% of the total) fall into one of the other three categories: **PolicySocial**, **Party**, and **PolAdminName**. 
+
+I consider these 186 observations as being in alignment with traditional civil-military norms on the basis that they address topics which American citizens can reasonably expect retired military officers to address. In other words, I consider retired military officers writing on topics related to security policy, support for members of the Armed Forces, and general advice of a strategic nature not to be problematic. In line with Zaller's framework of elite discourse helping to frame public opinion, these 186 observations demonstrate military elites writing on areas of policy in which they reasonably possess considerable expertise. The remaining 30 observations - those that have been classified as **PolicySocial**, **Party**, or **PolAdminName**, require further examination. There may be nothing inappropriate from the perspective of traditional civil-military norms about these remaining observations, but they have been flagged on the basis of the topics that they address.   
+
+# Second-Level Analysis and Results
+
+```{r remaining data, include = FALSE}
 
 # Show all articles and authors who published articles on Social Policy, Political Parties, and Administrations/Political Figures
-adjdataset %>% arrange(PubYr) %>% 
-  filter(PolicySocial==1 | PartyGen==1 | PartyName ==1 |PolAdminName==1 )  %>% 
-  select (AuthName, ArtTitle, Source, PubYr) %>% 
+rem30_obs <-adjdataset %>% arrange(PubYr) %>% 
+  filter(PolicySocial==1 | Party==1 | PolAdminName==1 )  %>% 
+  filter(AuthName != "UNK") %>% filter(AuthName != "Murtha, John") %>% 
+  select (AuthName, ArtTitle, Source, PubYr, PolicySocial, Party, PolAdminName) %>% 
   view()
+```
 
+```{r table2, fig.align = "center", include=TRUE, echo=FALSE}
+rem30_obs %>%
+  kable(format="latex", caption="Remaining Observations") %>%
+  column_spec(1, width="10em") %>% 
+  column_spec(2, width="13em") %>% 
+  column_spec(3:4, width="2.3em") %>%
+  column_spec(5, width="4.9em") %>%
+  column_spec(6:7, width="2.4em") %>% 
+  kable_styling(latex_options="striped", font_size=9) %>% 
+  row_spec(0, bold=T)
+```
 
+```{r code, include=FALSE, echo=FALSE}
 # Create a Variable Called case-count that counts the number of times by publishing year an article published 
 # regarding social policy or general parties or parties by name or administrations occurs
-adjdataset %>% group_by(PubYr) %>% 
+rem30_obs %>% group_by(PubYr) %>% 
   mutate(
-    case_count=sum(PolicySocial ==1 |PartyGen==1 | PartyName ==1 | PolAdminName==1) 
-  ) %>% 
-  print
+    case_count=sum(PolicySocial ==1 |Party==1 | PolAdminName==1) 
+  ) %>% view()
+```
+Of the thirty remaining observations, two are removed upon immediate inspection. One was written by an unknown author and is entitled, "Fists Raised at West Point," and was published in the _Washington Post_ on May 13, 2016. It is removed because the article is actually a compendium of two separate letters sent to the editor by two different authors, one arguing for and the other against female West Point graduates who raised their fists upon graduating, which ignited some controversy about soon-to-be Army lieutenants purportedly making a symbol associated with the "Black Lives Matter" movement [@noauthor_fists_2016]. Because the two separate letters were written anonymously, and were clearly not the deliberate work of a retired military officer who wish to be identified, I removed the observation. The second piece was written by former Democratic Congressman John Murtha, who was also a retired Marine Corps officer. As a politician, the American public can and should expect him to write in that capacity and thus, to make partisan arguments. Not wanting to skew the remaining data, I remove his publication for the remaining analysis. Thus, the second level of analysis proceeds on a total of 28 observations, which are listed and printed in chronological publishing order, in Table 2.
 
-# Count the Number of Articles Published By Type
-adjdataset %>% tally(PolicySecurity) 
-adjdataset %>% tally(PersTroopSpt)
-adjdataset %>% tally(GenAdvice)
-adjdataset %>% tally(PolicySocial)
-adjdataset %>% tally(PartyGen)
-adjdataset %>% tally(PartyName)
-adjdataset %>% tally(PolAdminName)
+A couple of interesting points are worth noting about the data in Table 2. First, one can quickly observe that there appear to be two distinct clusters of observations with respect to publishing year. The first occurs in the time frame between roughly 2004 - 2007, and the second between 2016 - present day. Of the 28 observations listed in Table 2, there are only five observations - one each year in 2003, 2010, 2013, 2014, and 2015, that were not published within these two time periods. The second interesting observation is that of the editorials published between 2016 - present day in Table 2, all fifteen were published in either the New York Times or the Washington Post, and none were published in the Wall Street Journal. The clusters can also be seen in time in Figure 1. 
 
-# need to change the type of class these vectors are - to binary
-
+```{r graph, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
+datatograph <- data.frame(
+  year=c("03", "04", "06", "07", "10", "13","14", "15", "16", "17", "18", "19", "20"), count=c(1, 3, 3, 2, 1, 1, 1, 1, 1, 4, 3, 6, 1)
+)
+ggplot(datatograph, aes(x =year, y =count)) + geom_bar(stat = "identity", width=.2) +
+  labs(
+    x = "Year",
+    y = "Count",
+    color = NULL,
+    title = "Figure 1: Op-Eds Written By Military Retirees",
+    subtitle = "On Topics About Social Policy, Parties, or Administrations"
+  )
 ```
 
-```{r simple graphs}
+To truly determine whether there have been any normative changes in retired military op-ed usage requires a more qualitative approach. To that end, I re-read each of the 28 observations listed in Table 2 and attempt to determine the "appropriateness" of the op-ed. I use the military's own espoused beliefs about the necessity of remaining an apolitical institution to help develop another simple coding mechanism. Recall that Retired Army General Douglas MacArthur cautioned the cadets at West Point in 1962 about involving themselves in matters that do not require a military solution (problems of "politics grown to corrupt," "morals grown too low," and "whether our personal liberties are as firm and complete as they should be") [@macarthur_duty_1962]. And recall more recently, in 2016, that Retired Army General Martin Dempsey lamented the participation of retired generals in the political process by endorsing political candidates and appearing at the conventions of political parties. A section of Dempsey's opinion piece published in the Washington Post bears repeating:
 
+\singlespace
 
+> **The American people should not wonder where their military leaders draw the line between military advice and political preference. And our nation's soldiers, sailors, airmen and Marines should not wonder about the political leanings and motivations of their leaders. As generals, they have an obligation to uphold our apolitical traditions. They have just made the task of their successors – who continue to serve in uniform and are accountable for our security - more complicated** [@dempsey_military_2016].
 
+\doublespace 
+
+MacArthur is exhorting future military leaders to stay in their lanes and focus on military problems as opposed to political ones, while Dempsey is explicitly calling for active and retired military not to engage in expressly political activities. Combined with the arguments made by Samuel Huntington, who called for military leaders to be aware of the opposing forces inherent in the functional and societal imperatives that impact the military, as well as the fact that no prominent scholar of civil-military relations calls for an increase in participation of the military into political waters, allows us to develop a reasonable and clear coding scheme for the second level of analysis, with emphasis on the two characteristics of topic (is the author writing about a reasonable military topic) and political leaning (is the author expressly attacking or supporting specific political figures, from which one can reasonable infer the officer's political bent)? 
+
+Using these characteristics as guidelines, I therefore develop two new variables.  The first is **Result**, which can take on the following values:
+
+\singlespace
+
+  * **Permissible** -if the reader cannot clearly draw conclusions regarding the author's political stances, and if the author is writing on a topic that is directly related to national security 
+  * **Questionable** -if the reader can draw some general conclusion regarding the author's political stance concerning support for or denouncement of sitting or prospective political candidates, or if the the author writes on topics that are indirectly related to national security (Note: I am aware that one can try and include just about any topic under the umbrella of national security. I take a reasonable but clear approach to this, in line with the sentiment expressed by MacArthur and the spirit of Huntington) 
+  * **Inappropriate** -if the reader can clearly draw conclusions or determine the military officer's political stance; or if the author attacks or supports a sitting or prospective political figure; or if the author addresses topics that are clearly outside of the realm of national security, thus commenting on topics that are outside the officer's area of expertise as a retired military officer
+
+\doublespace
+The second new variable I develop is **Justification** in which I briefly comment on why I assigned the value of **Result** for the observation. I simply comment on whether concerns regarding the topics addressed and/or political leanings are raised (I note N/A for those I deem permissible). The results of this second level of analysis are presented in Table 3.  
+
+```{r second level analysis, include = FALSE}
+
+# Present Results of Result and Justification
+secondlayer_obs <-adjdataset %>% arrange(PubYr) %>% 
+  filter(PolicySocial==1 | Party==1 | PolAdminName==1 )  %>% 
+  filter(AuthName != "UNK") %>% filter(AuthName != "Murtha, John") %>% 
+  select (AuthName, ArtTitle, Source, PubYr, Result, Justification) %>% 
+  view()
 ```
+
+```{r table3, include=TRUE, echo=FALSE}
+secondlayer_obs %>%
+  kable(format="latex", caption="Appropriateness of Opinion Pieces Authored By Retired Military Officers in Major US Newspapers, 2000-2020") %>%
+  column_spec(1, width="10em") %>% 
+  column_spec(2, width="14em") %>% 
+  column_spec(3:4, width="2.4em") %>%
+  column_spec(5, width="6.5em") %>%
+  column_spec(6, width="8em") %>%
+  kable_styling(latex_options="striped", font_size=9) %>% 
+  row_spec(0, bold=T)
+```
+
+Table 3 reveals several interesting points regarding the clusters previously identified in Table 2. Eight of the nine opinion pieces published between 2003 and 2007 are take values of **Result** as either questionable or inappropriate. Further, note that the six coded as inappropriate take on values of **Justification** revealed a clear political leaning. Further analysis indicates:
+
+\singlespace
+* Three publications support either President George W. Bush ("War of Words" and "Right Leader, Right Time) or Senator John Kerry ("Medals of Honor") ahead of the 2004 Presidential Election   
+* Three publications either attack ("A Top-Down Review of the Pentagon", "An Army of One Less") or defend ("In Defense of Donald Rumsfeld") then-Secretary of Defense Donald Rumsfeld^[
+Note that the so-called "Revolt of the Generals" occurred in the middle of this time period, referring to the way in which several retired generals and admirals vocally spoke out against the manner in which Secretary Rumsfeld had dealt with the military, particularly in the lead up to the war in Iraq [@kagan_let_2006].
+]
+
+\doublespace
+Despite the fact that these opinion pieces violated traditional civil-military norms, there is a degree of homogeneity in that these inappropriate pieces all revealed clear political preferences, either by endorsing Presidential candidates, or by condemning figures on the basis of what they perceived to be poor leadership by a senior government official related to combat operations. However, the second cluster of publications, written between 2016-2020, reveal a vastly different picture. Four results are worth noting. 
+
+First, this second cluster is larger than the previous one examined  (15 publications total versus nine published between 2003-2007). Second, there is a relative increase in the number of publications that take values of questionable under the variable **Result** (8 of 15, or 53%, compared to 2 of 9, or 22.2% in the first cluster), and a proportionate decrease in the number of inappropriate publications (5 of 15, or 33%, compared to six of nine, or 66%, in the first cluster). Third, there is a sharp increase in the proportion of publications in this cluster that take values of questionable or inappropriate in **Result** due to concerns about the _topics_ that are being addressed in the particular opinion pieces. Indeed, ten of the thirteen publications that take the value of questionable or inappropriate under **Result** correspond to values of **Justification** that indicate the publication addressed a topic that is either indirectly related to national security, or clearly outside the realm of national security. Fourth, three of the pieces coded inappropriate under **Result** take on values of **Justification** of "Topic, Political Leaning," which indicates these publications revealed _both_ a  clear political leaning _and_ addressed a topic that is not directly related to national security. The third and fourth results deserve to be unpacked in further detail.  
+
+## Increasing Diversity of Topics Addressed By Military Officers
+
+Some examples will help show how some of the how the topics of editorial in this second cluster may deviate from national security issues (the title of the article in Table 3 may also help the reader).  Army General (Retired) Stanley McChrystal's _Washington Post_ editorial, "Home Should Not Be a War Zone," comments on the tragic nature of mass shootings in America. He states in the article, "...as a combat veteran and proud American, I believe we need a national response to the gun violence that threatens so many of our communities" [@mcchrystal_home_2016]. In an article published in the _Washington Post_ in 2018 entitled "Good Riddance," McChrystal shares how his beliefs in Robert E. Lee had evolved over the course of his professional career, and why he now believes it is time to discard Confederate statues and other symbols. Admiral (Retired) Mike Mullen and co-authors Lieutenant General (Retired) Mark Hertling and Admiral (Retired) Robert Natter wrote publications ("The Refugees We Need" and "Cutting Refugee Admissions Will Have Severe Consequences for the US Military") explaining how President Trump's immigration policies on refugees harm military readiness. 
+
+While many Americans agree with the stances taken by these retired military officers, the reality is that these topics - domestic violence, the fate of Confederate symbols, and policy stances regarding refugees - are not _directly related_ to national security policy. This is especially true according to the words and ethos espoused by retired Generals MacArthur and Dempsey previously examined. No doubt that all of these problems, and more, are pressing concerns, and issues which America needs to solve. However, it is not clear that the expertise possessed by retired military officers directly translates into helping to solve these issues, or that retired military officers are the right elites to weigh in on how to tackle these concerns. By way of comparison, when compared to publications in the first cluster published between 2003-2007, only one took a value of **Justification** due to concerns about the topic being addressed ("A Multicultural Military"). There is therefore clear evidence that in recent years, retired military officers have addressed topics in opinion-editorial pieces that are more diverse and further from the realm of traditional national security policy than earlier retirees.    
+
+## Increasing Boldness in Criticizing Administrations for Non-Warfighting Reasons 
+
+Next, let us briefly examine the publications that are part of cluster 2 which were deemed inappropriate or questionable due to concerns about revealing political leanings or preferences. Three of these articles, "Take My Security Clearance, too, Mr. President," "Our Republic is Under Attack from the President," and If Good Men Can't Speak the Truth, We Should Be Deeply Afraid," were all authored by Admiral (Retired) William McRaven, and as their titles suggest, they are fairly obvious expressions of disdain for President Trump and/or his administration. Three other articles, "Trump's Border Stunt is a Profound Betrayal of Our Military," "Retired Generals Warned Us About Rumsfeld. Now They're Warning Us About Trump," and "Banning Transgender Troops Only Hurts Us," are likewise fairly clear expressions of disdain either about President Trump himself or policies which his administration has adopted. It would be difficult to classify any of these particular opinion pieces as apolitical and thus, in alignment with historical civil-military norms.  
+
+As noted previously, the publications from cluster one which displayed clear political leanings either expressed support one of the candidates in the 2004 Presidential Election, or took a stance regarding Secretary Rumsfeld's abilities regarding the Iraq War.^[
+The publication, "Medals of Honor" was authored by retired General and former Democratic Presidential Candidate Wesley Clark. The fact that this piece was authored in April 2004, more than two months after he had dropped out of the race for President, indicates that he was writing from the perspective of a retired military officer.
+] The publications from cluster two that adopt a clear political tone do not attack President Trump for how he asserts himself in military affairs nor do they (yet) support or attack his reelection opportunities. Instead, the publications from cluster two that display a clear political leaning either attack the President's policies or his personal character. Like those that display clear partisan leaning from cluster one, these pieces clearly violate civil-military norms, but they do so in a manner that is qualitatively distinct from those which were published between 2003-2007. 
+
+Thus, revisiting the hypotheses of the project, the following conclusions can be reached. The first hypothesis is confirmed - that the majority of op-eds published by retired military officers are in fact apolitical in tone.  In total, 195 of 216 (90.2%) pieces used in this study were found to be within historical civil-military norms.  The second hypotheses, that there would be an increase in the number of op-eds criticizing political administrations regarding the conduct of war in Iraq and Afghanistan, is found to be untrue. In fact, the data reveal the opposite: there is a decrease in the number of opinion pieces which criticize political administrations over the conduct of American wars. Rather, the data revealed that there is a sharp increase in the number of op-eds which address topics that are not clearly related to national security as well as an increase in the number of op-ed pieces which attack a political administrations, namely that of the current President. Further, the data revealed that these attacks and criticisms from retired military officers stem not from his or his administration's waging of war, but rather out of concern for his character and/or policies.
+
+These trends are potentially problematic from the perspective of civil-military relations for several reasons. First, they reveal that in recent years, the perception of military expertise is expanding into areas that fall outside of the scope of what has been traditionally considered to be true military expertise. If retired military officers are writing opinion pieces in major newspapers on topics that do not directly address national security, or topics that are the reasonable jurisdiction of elites with different backgrounds, this could indicate that either these retired military officers, specific media outlets, or American citizens are tapping into the high levels of institutional confidence of the military as an institution in order to argue for or against certain issue areas. Each of these scenarios would be troubling as it would indicate a manipulation of institutional confidence for political or private gain. 
+
+Strictly from the perspective of the retired military officer and the military as an apolitical institution operating in polarized political times, it will require more caution - not less - to maintain its stance as a nonpartisan. This is easier said than done, and the fact is that as leaders who have to exercise moral agency in their daily responsibilities, military officers may act or behave in ways that can readily be perceived through partisan lenses among a public that is polarized. However, retired military officers, though still members of the military as an institution, can likely exercise increased caution even more readily than the active duty officer corps. This is especially true when engaging with the media, and certainly considering the publication of opinion-editorial pieces, which are deliberate and intentional instruments designed to impact public opinion. 
+
+# Counterarguments
+
+One normative counterargument to the findings laid out in this paper is that Huntingtonian logic, and specifically, the concept of "objective civilian control" and the differentiation of separate civilian and military spheres, is outdated and no longer relevant, especially in light of the inconclusive wars fought in Iraq and Afghanistan [@huntington_soldier_1957]. Proponents of this school point to the fact Huntingtonian norms can actually foster poor strategic thinking and that, to a certain degree, the military as a profession is to some degree an inherent political entity in that it has to lobby on its own behalf [@brooks_paradoxes_2020]. Proponents of this school raise many valid concerns, particularly concerning the efficacy with which senior military and civilian leaders are able to form a constructive dialogue that together, enables the nation to achieve its strategic goals. No doubt this is a concern that both civilian and military leaders should address, and perhaps that does require a merging, at least to some degree, of the "separateness" of the professional operating spheres that exist under Huntingtonian norms. However, in the effort to explore new paradigms in how to structure and manage effective civil-military relations, there should be no result that enables the military to be less subordinate to the overall control of civilian leadership than it currently is. Indeed, I agree and join in on those who have made calls for developing senior military leaders who are capable of entering into a more constructive dialogue with civilian leadership for the purposes of implementing better strategy [@rapp_civil-military_2015]. However, it is unreasonable to think that improvements cannot be made without significantly altering the military's apolitical norms. 
+
+Another counterargument to the findings in this paper involves the role of retired military officers vis-a-vis those who are actively serving. Shouldn't military retirees have more liberty and freedom to express themselves and their opinions than those who wear the uniform? In other words, proponents of this counterargument may hold to the belief that active military officers ought to remain apolitical, but that the rules should be different with respect to those who no longer wear the uniform. Ultimately, the answer to this question must be determined by the American public. Yet is is notable that when General (Retired) Dempsey lamented the involvement of Generals (Retired) Allen and Flynn in the 2016 Democratic and Republican conventions, he stated, "They have just made the task of their successors – who continue to serve in uniform and are accountable for our security - more complicated" [@dempsey_military_2016]. What did he mean when he said this? I think at the heart of what he said is the recognition that in the military, perhaps more than in any other institution or profession, those who serve truly stand on the work accomplished by those who have passed before them. Out of today's lieutenant colonels and colonels will come the next generation's three and four star generals and admirals. From a sociological perspective, these future leaders very much watch, observe, and adopt the behaviors of those they look up to. Said differently, I think Dempsey had in mind the notion that for the military officer who retires, his or her subordinates still serving always look to him or her as the officer, for that is how the individual was known to them. In other words, Dempsey is arguing that for the sake of those still serving and who knew you and who must now advise senior civilian policymakers, much in the same way the retired officer used to do, the retired officers ought to remain loyal and thus, apolitical, to the institution.  
+
+A final counterargument or objection to the results in this paper deal with the data used to advance the argument that the nature of opinion pieces authored by retired military officers has qualitatively changed over the past twenty years. An objection can be made that the data examined only four newspapers, which comprise a very small percentage of the overall market for media when one also considers television, blogging sites, and other news outlets. A related objection can be raised by pointing out that the _New York Times_ and the _Washington Post_ in particular lean to the left politically, whereas the _Wall Street Journal_ is more of a centrist or even slightly right-leaning source [@noauthor_allsides_nodate], and therefore, that these sources are more likely to present liberal material than conservative arguments. I acknowledge these counterarguments and argue that more work should be done to gather opinion pieces from more diverse sources to include in the data for further analysis. It is, after all, more likely that a network such as Fox or a publication such as the _Washington Examiner_  would potentially display editorials that advance conservative causes. While having the data from these and other sources would help researchers make broader comparisons, I can still stand confidently by the results of this paper in that the comparison over time was completed over the four same sources. Moreover, I argue that the fact that specific trends occurred over a time period where overall newspaper circulation dropped sharply further enables the results reached to stand up to scrutiny. 
+
+# Conclusion
+
+This paper examined how retired military officers use opinion-editorial pieces to persuade the opinion of the American public of certain issues. Specifically, the goal was to determine if there had been noticeable trends in how retired military officers who penned opinion publications showed any deviation from the traditional norm of the military remaining an apolitical institution. While the data showed that the vast majority (90%) of opinion pieces authored by retired military officers and published in America's four leading newspapers aligned with traditional civil-military norms, two recent trends emerged from the data, both of which should be further explored. 
+
+First, there is a widening of topics which military officers are addressing in their works. This could reveal that recent retirees themselves feel more qualified than those who retired twenty years ago to address topics that are either tangentially or not at all related to national security, or that the media is more willing to publish works by retired military on these subjects, or that the American public is willing to receive and listen to these officers argue for and against these topics, or some combination of these possibilities. Regardless, this trend indicates that traditional military expertise is perceived to have widened, which is possible considering the high degree of institutional confidence the military institution enjoys. 
+
+Second, the data indicates an increased willingness by retired military officers to criticize political figures or administrations, and notably, for reasons other than the figure's or administration's performance related to war fighting. Rather, retired military officers are attacking the current President and his administration for policies and stances on issues such as immigration, refugees, and the general political environment that prevails in the country. This trend differs from that which existed between 2003-2007, when military retirees displayed clear political preferences ahead of the 2004 Presidential Election, or regarding the conduct of the war in Iraq by Secretary of Defense Donald Rumsfeld. 
+
+These two trends indicate that retired military officers are violating traditional civil-military norms, as articulated by retired Generals MacArthur and Dempsey, in ways that differed from previous military retirees. Their continuing to do so, especially in a contentious domestic political environment, stands to weaken the military as an institution, or perhaps worse, to manipulate the institutional confidence the military currently enjoys among the American public, for private or political gain, even if that is not the true intention of these retired officers. 
+
+\singlespace
+\pagebreak
 
 
 
