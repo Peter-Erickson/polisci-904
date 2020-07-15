@@ -52,7 +52,9 @@ library("kableExtra")
 library("knitr")
 library("ggdag")
 library("dagitty")
+library("gridExtra")
 ```
+\newpage
 
 # Introduction
 
@@ -165,6 +167,7 @@ problem_dag %>% tidy_dagitty() %>%
   geom_dag_label_repel(aes(label=label, fill=label), col="white", show.legend=FALSE)+ theme_dag() + labs(title="Figure 1", subtitle="The Impact of Political Polarization and Institutional Credibility on Military Professionalism")
   
 ```
+
 The degree and character of political polarization in a society also has the potential to impact the professionalism of the military as an institution. To understand how, recall that the three salient characteristics of the political polarization prevalent in contemporary America include an increase in the number and scope of issues that have become polarized (the phenomenon referred to as "conflict extension" [@layman_party_2002]), an increase in the strength of negative feelings held by supporters of an issue toward the opposition (the rise of "negative partisanship" [@abramowitz_great_2018]), and an increase in the salience of core issues related to individual and national identity [@white_values_2002; @mann_its_2012; @sides_identity_2018]. These three characteristics convey several implications for the military as an institution and its leaders. 
 
 First, there is increasing difficulty for individuals, to include military professionals, to remain neutral as polarized politics subsumes more and more issues, many of which involve issues which individuals hold to dearly. In previous eras, when polarization was not as extreme as it is today, it was more possible to stay out of politics. Today, polarization seems to do the opposite: polarized politics seem to thrust issues and the unfolding political fight at the individual, even when the individual is not seeking confrontation. A second implication of polarization is that it raises the salience for individuals of right and wrong in a moral sense, which increases the odds of an individual expressing partisan sentiment. In other words, in saying or doing what one believes to be right, one is increasingly likely to also be taking a partisan position. The third and most important implication for the military professional as a result of contemporary political polarization is that it impacts and distorts the notions of two character traits that are held dearly by members of the military profession: loyalty and duty. 
@@ -211,11 +214,11 @@ Of note, when assembling the data, some authors are explicitly identified in som
 From a macro perspective, consider for a moment all that the date range includes with respect to the US military. Indeed, numerous and substantive events, debates, and changes have occurred in this time period for retired military officers to weigh in on. In terms of external threats and wars, this period includes the final years of the Cold War against the Soviet Union, the first war in Iraq, operations in the Balkans, and the post-9/11 wars in Iraq and Afghanistan, as well as a host of smaller but important military operations in Grenada, Panama, Somalia, and Haiti. The military has also undergone significant social and institutional changes in the time period examined. In the late 1970s, the military had ended the draft only years before following the conclusion of the Vietnam War. The debates over "Don't Ask, Don't Tell" and policies regarding women in the combat arms are also included in the data, as are numerous discussions of military budgets, weapons systems, and alliances. 
 Attempting to reconcile the fact that the military as an institution prides itself on being a non-partisan and apolitical institution, that newspaper circulations (even after accounting for digital offerings) are substantially down over the past 40 years, and that the US political environment is increasingly polarized along partisan lines, I adopt the following hypotheses:
 
-**$H_1$: The majority of op-eds published by retired military officers over the time period examine will be apolitical and non-partisan in tone.**
+_$H_1$: The majority of op-eds published by retired military officers over the time period examine will be apolitical and non-partisan in tone._
 
-**$H_2$: Because overall newspaper consumption has dropped in the past 40 years, there will be fewer opinion pieces over time authored by military officers.**
+_$H_2$: Because overall newspaper consumption has dropped in the past 40 years, there will be fewer opinion pieces over time authored by military officers._
 
-**$H_3$: Given that polarization has become increasingly pronounced in the United States in recent years, there will be an increase in the number of op-eds which reveal political and partisan sentiments (indication of a drop in professionalism).** 
+_$H_3$: Given that polarization has become increasingly pronounced in the United States in recent years, there will be an increase in the number of op-eds which reveal political and partisan sentiments (indication of a drop in professionalism)._ 
 
 # First Layer: Topical Analysis
 
@@ -316,18 +319,20 @@ rem_obs <-adjdataset %>% arrange(PubYr) %>%
 ```{r code, include=FALSE, echo=FALSE}
 # Create a Variable Called case-count that counts the number of times by publishing year an article published 
 # regarding social policy or general parties or parties by name or administrations occurs
-rem_obs %>% group_by(PubYr) %>% 
+adj2dataset <- adjdataset %>% group_by(PubYr) %>% 
   mutate(
-    case_count=sum(MilPSoc ==1 | Dom_P==1 | Fig_Nme==1) 
+    case_count=sum(MilPSoc ==1 | Dom_P==1 | Fig_Nme==1), 
+    yr_total_count=sum(War_Ops==1 | Trp_Clt==1| Str_Adv==1 | MilPSoc ==1 | Dom_P==1 | Fig_Nme==1),
+    prop_yr=(case_count/yr_total_count)
   ) %>% view()
 ```
 \doublespace
 
-A couple of interesting observations are worth noting about the data in Table 2. First, one can quickly observe that there appear to be three distinct clusters of observations with respect to publishing year. The first occurs in the time frame between roughly 1998-1999, the second between 2004-2007, and the third between 2016-2019. The clusters can also be seen in time in Figure 1 on the following page. 
+A couple of interesting observations are worth noting about the data in Table 2. First, one can quickly observe that there appear to be three distinct clusters of observations with respect to publishing year. The first occurs in the time frame between roughly 1998-1999, the second between 2004-2007, and the third between 2016-2019. The clusters can also be seen in time in Figure 2 on the following page. 
 
 In the first cluster, the publications refer to multiple disagreements certain retired military officers had about how President Clinton was planning or using military force. One observation, that written by retired Marine Corps General Carl Mundy, discussed implications of changing the policy of "Don't Ask, Don't Tell," which was in place at the time, while another observation, that written by retired Army General Barry McCaffrey, refers to domestic drug policy in the United States - a perfectly acceptable topic given that he, at the time, was serving as President Clinton's Director of the Office of National Drug Control Policy. The second cluster refers to pieces penned around the so-called "Revolt of the Generals," referring to sharp disagreements that entered the public arena between multiple US generals and admirals and President George W. Bush's Secretary of Defense, Donald Rumsfeld. Disagreement about Rumsfeld's leadership, particularly regarding the planning and execution of the early years of the war in Iraq, were central during this period of time. Retired Army General Tommy Franks penned two observations that essentially provided public support for the President at the time, George W. Bush, and Retired Army Major General Paul Eaton, who was a particularly vocal critic of Rumsfeld, authored two of the pieces published in this time period. Finally, the 2016-2019 cluster is indicative mainly of concerns over the candidate and later President Donald Trump. Retired Air Force General Michael Hayden, Navy Admirals Mike Mullen and William McRaven, and Army General Stanley McChrystal are among the retired officers penning pieces during this time period. 
 
-```{r fig2, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
+```{r fig2, fig.height=4, fig.width=6, fig.align="center", include=TRUE, echo=FALSE}
 datatograph <- data.frame(
   year=c("1994","1996","1998","1999","2000","2003", "2004", "2006", "2007", "2010", "2013","2014", "2016", "2017", "2018", "2019", "2020"), count=c(1, 1,2, 3, 1, 1, 3, 3, 3, 1, 1, 1, 6, 5, 4, 6, 1)
 )
@@ -337,8 +342,15 @@ ggplot(datatograph, aes(x =year, y =count)) + geom_bar(stat = "identity", width=
     y = "Count",
     color = NULL,
     title = "Figure 2: # of Op-Eds Written By Military Retirees",
-    subtitle = "On Topics of Social Policy, Domestic Policy, or Individual Figures"
+    subtitle = "On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures"
   )
+```
+
+```{r practice, include = TRUE, echo=FALSE}
+
+plot1<- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=case_count)) + geom_point() + geom_smooth() + labs(x="Year", y="Count", color=NULL, title="Figure 2: Yearly # of Op-Eds Published by Retired Military Officers", subtitle="On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures")
+plot2 <- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=prop_yr)) + geom_point() + geom_smooth() + labs(x="Year", y="Count", color=NULL, title="Figure 2: Proportion of Total Op-Eds Published by Retired Military Officers ", subtitle="On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures")
+grid.arrange(plot1, plot2, ncol=2)
 ```
 
 Evaluating a conclusive level of appropriateness of the opinion pieces listed in Table 2 cannot be definitively solved, precisely because it matters the perspective from which one views how military officers should interact with the American public, especially when attempting to shape public opinion. However, it is possible to determine whether there has been deviation from non-partisan and apolitical norms. Recall that Retired Army General Douglas MacArthur cautioned the cadets at West Point in 1962 about involving themselves in matters that do not require a military solution (in MacArthur's words, of "politics grown to corrupt," "morals grown too low," and "whether our personal liberties are as firm and complete as they should be") [@macarthur_duty_1962], and that more recently, in 2016, Retired Army General Martin Dempsey lamented the participation of retired generals in the political process by endorsing political candidates and appearing at the conventions of political parties:
@@ -351,7 +363,8 @@ Evaluating a conclusive level of appropriateness of the opinion pieces listed in
 
 Using these ideals as guidelines allows us to conduct a second level of analysis, with emphasis on the two characteristics of topic (is the author writing about a reasonable military topic) and political leaning (is the author expressly attacking or supporting specific political figures in a political way, from which one can reasonable infer the officer's political or partisan bent)? 
 
-Using these characteristics as guidelines, I therefore develop two new variables. The first is **Result**, which can take on the following values:\singlespace
+Using these characteristics as guidelines, I therefore develop two new variables. The first is **Result**, which can take on the following values:
+\singlespace
 * **Permissible** -if the reader cannot clearly draw conclusions regarding the author's political stances or partisan preferences; or if the topic addressed in the publication in fact does in fact fall underneath the area of clear military expertise.
 * **Questionable** -if the reader can draw some general, but not final, conclusions regarding the author's political stances or partisan preferences; or if the topic addressed in the publication is questionably an area of reasonable military expertise.
 * **Inappropriate** -if the reader can draw clear conclusions regarding the author's partisan preferences or political leanings; or if the author addresses a topic that is not an area considered to be directly relevant to military expertise, or a matter that the military should judge.
@@ -419,8 +432,8 @@ ggplot(datatograph, aes(x =decade, y =numcount)) + geom_bar(stat = "identity", w
     x = "Period",
     y = "Published Opinion Pieces",
     color = NULL,
-    title = "Figure 4: Total Number of Op-Eds Written By Military Retirees",
-    subtitle = "WSJ, NY Times, Washington Post, USA Today, and LA Times"
+    title = "Figure 4: # of Op-Eds Written By Military Retirees",
+    subtitle = "Published in WSJ, NY Times, Wa Post, USA Today, and LA Times"
   )
 ```
 
