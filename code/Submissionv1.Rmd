@@ -128,6 +128,7 @@ When institutional credibility is high, a demand signal is created by the Americ
 
 When military credibility is low, the theory contends the opposite will occur. Since demand for interactions between the American public and the military is muted when institutional credibility for the military is low, the institution will not engage with the public as frequently nor as intimately because the strong demand signal that existed when institutional credibility was high no longer exists. At the individual level, military elites will also not engage as often with the public, nor will the press ask these elites to. In sum, institutional credibility and respect for the military institution impacts the likelihood of the military institution and military elites interacting with the American public. Such interaction can take a variety of forms. When respect for the military is high, the military is likely to interact, speak to, and dialogue with the American public, and when institutional credibility is low, the military is less likely to do so. 
 
+
 ```{r, include=FALSE, echo=FALSE}
 problem_dag <- dagify(
     MO ~ MP,
@@ -220,7 +221,7 @@ _$H_2$: Because overall newspaper consumption has dropped in the past 40 years, 
 
 _$H_3$: Given that polarization has become increasingly pronounced in the United States in recent years, there will be an increase in the number of op-eds which reveal political and partisan sentiments (indication of a drop in professionalism)._ 
 
-# First Layer: Topical Analysis
+# First Layer Analysis: Topic Addressed
 
 In the first level of analysis, after capturing key biographical and publication information, such as author name, article title, source, publication date, and branch of service and rank of the author, I code each observation into one of several binary categories that corresponds to the overall subject matter of the publication. The goal is to create a coding scheme by subject that is sufficiently broad but also specific enough that is helpful in differentiating the overall main point of each publication. The following coding scheme is therefore devised and implemented (all variables are binary, taking on the value of 1 if the publication corresponds to the general definition of the variable, and 0 otherwise): \singlespace
 
@@ -278,18 +279,19 @@ LATimescount
 ```
 
 
-```{r table, fig.align="center", include=TRUE, echo=FALSE}
+```{r table2, fig.align="center", include=TRUE, echo=FALSE}
 countbytype %>%
   kable(format="latex", caption="Publications by Subject") %>%
   kable_styling(latex_options = "striped", font_size=10, full_width = T) %>% 
   row_spec(0, bold=T)
 ```
 
-Table 1 reveals that an overwhelming majority (289 of 334, or 86.5%) of the total number of opinion pieces written since 1979 in the major newspapers examined can be classified according to one of the following three categories: **War_Ops**, **Trp_Clt**, and **Str_Adv**. It is reasonable to conclude that these op-eds written are appropriate from the perspective of civil-military relations in that they address topics which American citizens can reasonably expect retired military officers to bring their expertise to bear upon. The remaining 45 opinion pieces (13.5% of the total) fall into one of the other three categories: **MilPSoc**, **Dom_P**, and **Fig_Nme** and require further examination.  They are not necessarily inappropriate, but they likely address topics that directly address or are closely related to issues that could be considered as partisan or at least beyond appropriate military expertise. This second layer of analysis will help expose whether there is any indication that professionalism as a norm among retired military officers appears to be weakening. 
+Table 2 reveals that an overwhelming majority (289 of 334, or 86.5%) of the total number of opinion pieces written since 1979 in the major newspapers examined can be classified according to one of the following three categories: **War_Ops**, **Trp_Clt**, and **Str_Adv**. It is reasonable to conclude that these op-eds written are appropriate from the perspective of civil-military relations in that they address topics which American citizens can reasonably expect retired military officers to bring their expertise to bear upon. The remaining 45 opinion pieces (13.5% of the total) fall into one of the other three categories: **MilPSoc**, **Dom_P**, and **Fig_Nme** and require further examination.  They are not necessarily inappropriate, but they likely address topics that may be beyond reasonable military expertise or which reveal partisan preferences. This second layer of analysis will help expose whether there is any indication that professionalism as a norm among retired military officers appears to be weakening. 
 
 \singlespace
 # The Second Layer - Failing to Uphold Professionalism?
 \doublespace
+
 Of the remaining observations, two are removed upon immediate inspection. One was written by an unknown author and is entitled, "Fists Raised at West Point," and was published in _The Washington Post_ on May 13, 2016. It is removed because the article is actually a compendium of two separate letters sent to the editor by two different authors, one arguing for and the other against female West Point graduates who raised their fists upon graduating, which ignited some controversy about soon-to-be Army lieutenants purportedly making a symbol associated with the "Black Lives Matter" movement [@noauthor_fists_2016]. Because the two separate letters taken together do not take a firm position on the subject, but rather show a difference in opinion about a specific event happening in 2016, I remove the observation. The second piece I remove was written by former Democratic Congressman John Murtha, who was also a retired Marine Corps officer. As a politician, the American public can and should expect him to write in the capacity of a politician, and therefore, to make partisan arguments. Not wanting to skew the remaining data, I remove his publication for the remaining analysis. Thus, the second level of analysis proceeds on a total of 43 observations, which are listed and printed in chronological publishing order, in Table 2.
 
 \singlespace
@@ -304,7 +306,7 @@ rem_obs <-adjdataset %>% arrange(PubYr) %>%
   view()
 ```
 
-```{r table2, fig.align = "center", include=TRUE, echo=FALSE}
+```{r table3, fig.align = "center", include=TRUE, echo=FALSE}
   rem_obs %>%
   kable(format="latex", caption="Remaining Observations", longtable=T) %>%
   kable_styling(font_size=10, latex_options="striped", repeat_header_continued=T) %>%
@@ -318,7 +320,7 @@ rem_obs <-adjdataset %>% arrange(PubYr) %>%
 
 ```{r code, include=FALSE, echo=FALSE}
 # Create a Variable Called case-count that counts the number of times by publishing year an article published 
-# regarding social policy or general parties or parties by name or administrations occurs
+# regarding social policy, domestic policy, or political figures/administrations occurs
 adj2dataset <- adjdataset %>% group_by(PubYr) %>% 
   mutate(
     case_count=sum(MilPSoc ==1 | Dom_P==1 | Fig_Nme==1), 
@@ -328,30 +330,9 @@ adj2dataset <- adjdataset %>% group_by(PubYr) %>%
 ```
 \doublespace
 
-A couple of interesting observations are worth noting about the data in Table 2. First, one can quickly observe that there appear to be three distinct clusters of observations with respect to publishing year. The first occurs in the time frame between roughly 1998-1999, the second between 2004-2007, and the third between 2016-2019. The clusters can also be seen in time in Figure 2 on the following page. 
+A couple of interesting observations are worth noting about the data in Table 3. First, one can quickly observe that there appear to be three distinct clusters of observations with respect to publishing year. The first occurs in the time frame between roughly 1998-1999, the second between 2004-2007, and the third between 2016-2019. 
 
 In the first cluster, the publications refer to multiple disagreements certain retired military officers had about how President Clinton was planning or using military force. One observation, that written by retired Marine Corps General Carl Mundy, discussed implications of changing the policy of "Don't Ask, Don't Tell," which was in place at the time, while another observation, that written by retired Army General Barry McCaffrey, refers to domestic drug policy in the United States - a perfectly acceptable topic given that he, at the time, was serving as President Clinton's Director of the Office of National Drug Control Policy. The second cluster refers to pieces penned around the so-called "Revolt of the Generals," referring to sharp disagreements that entered the public arena between multiple US generals and admirals and President George W. Bush's Secretary of Defense, Donald Rumsfeld. Disagreement about Rumsfeld's leadership, particularly regarding the planning and execution of the early years of the war in Iraq, were central during this period of time. Retired Army General Tommy Franks penned two observations that essentially provided public support for the President at the time, George W. Bush, and Retired Army Major General Paul Eaton, who was a particularly vocal critic of Rumsfeld, authored two of the pieces published in this time period. Finally, the 2016-2019 cluster is indicative mainly of concerns over the candidate and later President Donald Trump. Retired Air Force General Michael Hayden, Navy Admirals Mike Mullen and William McRaven, and Army General Stanley McChrystal are among the retired officers penning pieces during this time period. 
-
-```{r fig2, fig.height=4, fig.width=6, fig.align="center", include=TRUE, echo=FALSE}
-datatograph <- data.frame(
-  year=c("1994","1996","1998","1999","2000","2003", "2004", "2006", "2007", "2010", "2013","2014", "2016", "2017", "2018", "2019", "2020"), count=c(1, 1,2, 3, 1, 1, 3, 3, 3, 1, 1, 1, 6, 5, 4, 6, 1)
-)
-ggplot(datatograph, aes(x =year, y =count)) + geom_bar(stat = "identity", width=.2) +
-  labs(
-    x = "Year",
-    y = "Count",
-    color = NULL,
-    title = "Figure 2: # of Op-Eds Written By Military Retirees",
-    subtitle = "On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures"
-  )
-```
-
-```{r practice, include = TRUE, echo=FALSE}
-
-plot1<- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=case_count)) + geom_point() + geom_smooth() + labs(x="Year", y="Count", color=NULL, title="Figure 2: Yearly # of Op-Eds Published by Retired Military Officers", subtitle="On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures")
-plot2 <- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=prop_yr)) + geom_point() + geom_smooth() + labs(x="Year", y="Count", color=NULL, title="Figure 2: Proportion of Total Op-Eds Published by Retired Military Officers ", subtitle="On Topics of Social Policy, Domestic Policy, or Political Administrations/Figures")
-grid.arrange(plot1, plot2, ncol=2)
-```
 
 Evaluating a conclusive level of appropriateness of the opinion pieces listed in Table 2 cannot be definitively solved, precisely because it matters the perspective from which one views how military officers should interact with the American public, especially when attempting to shape public opinion. However, it is possible to determine whether there has been deviation from non-partisan and apolitical norms. Recall that Retired Army General Douglas MacArthur cautioned the cadets at West Point in 1962 about involving themselves in matters that do not require a military solution (in MacArthur's words, of "politics grown to corrupt," "morals grown too low," and "whether our personal liberties are as firm and complete as they should be") [@macarthur_duty_1962], and that more recently, in 2016, Retired Army General Martin Dempsey lamented the participation of retired generals in the political process by endorsing political candidates and appearing at the conventions of political parties:
 
@@ -363,14 +344,9 @@ Evaluating a conclusive level of appropriateness of the opinion pieces listed in
 
 Using these ideals as guidelines allows us to conduct a second level of analysis, with emphasis on the two characteristics of topic (is the author writing about a reasonable military topic) and political leaning (is the author expressly attacking or supporting specific political figures in a political way, from which one can reasonable infer the officer's political or partisan bent)? 
 
-Using these characteristics as guidelines, I therefore develop two new variables. The first is **Result**, which can take on the following values:
-\singlespace
-* **Permissible** -if the reader cannot clearly draw conclusions regarding the author's political stances or partisan preferences; or if the topic addressed in the publication in fact does in fact fall underneath the area of clear military expertise.
-* **Questionable** -if the reader can draw some general, but not final, conclusions regarding the author's political stances or partisan preferences; or if the topic addressed in the publication is questionably an area of reasonable military expertise.
-* **Inappropriate** -if the reader can draw clear conclusions regarding the author's partisan preferences or political leanings; or if the author addresses a topic that is not an area considered to be directly relevant to military expertise, or a matter that the military should judge.
+Using these characteristics as guidelines, I therefore develop two new variables. The first is **Result**, which can take on one of three values: the following values: **Permissible,** if the reader cannot clearly draw conclusions regarding the author's political leaning or partisan preferences; or if the topic addressed in the publication, after a second reading, clearly falls within military expertise; **Questionable,** if the reader can draw some but not complete conclusions regarding the author's political leaning or partisan preferences, or if the topic addressed in the publication is questionably an area of reasonable military expertise; and **Inappropriate,** if the reader can draw clear conclusions regarding the author's partisan preferences or political leanings, or if the author addresses a topic that clearly falls outside of traditional military expertise. The second new variable I develop is **Justification.** In this variable, a brief explanation is placed which addresses why an observation is assigned a particular value of **Result.** 
 
-\doublespace
-The second new variable I develop is **Justification** in which I briefly comment on why I assigned the value of **Result** for the observation. Here I simply comment on whether it is a concern of partisan preferences being revealed and/or topic addressed that are responsible for the value of **Result**. The results of this second level of analysis are presented in Table 3. Note that several publications are deemed to take on values of permissible under the variable **Result**. Importantly, three of these pieces occurred during the first previously identified cluster, 1998-1999. No pieces from the second cluster, 2004-2007 have been deemed permissible, whereas in the third cluster, 2016-2019, three take on the value of permissible. Thus, we now have a picture of how prevalent the publication is of opinion pieces authored by retired military officers in major newspapers which have failed to uphold the norm of non-partisanship and apolitical position. 
+The results of this second level of analysis are presented in Table 3. Note that several publications are deemed to take on values of permissible under the variable **Result**. Importantly, three of these pieces occurred during the first previously identified cluster, 1998-1999. No pieces from the second cluster, 2004-2007 have been deemed permissible, whereas in the third cluster, 2016-2019, three take on the value of permissible. Thus, we now have a picture of how prevalent the publication is of opinion pieces authored by retired military officers in major newspapers which have failed to uphold the norm of non-partisanship and apolitical position. 
 
 \singlespace
 
@@ -384,9 +360,9 @@ secondlayer_obs <-adjdataset %>% arrange(PubYr) %>%
   view()
 ```
 
-```{r table3, include=TRUE, echo=FALSE}
+```{r table4, include=TRUE, echo=FALSE}
 secondlayer_obs %>%
-  kable(format="latex", caption="Concern for Op-Ed Pieces Authored By Retired Military Officers in US Newspapers, 1979-2020", longtable=T) %>%
+  kable(format="latex", caption="Op-Ed Pieces By Retired Military Officers which failed to Uphold Professional Standards, 1979-2020", longtable=T) %>%
   column_spec(1, width="9.5em") %>% 
   column_spec(2, width="15em") %>% 
   column_spec(3:4, width="2.5em") %>%
@@ -397,9 +373,9 @@ secondlayer_obs %>%
 ```
 \doublespace
 
-Figure Two displays the number of opinion pieces authored by retired military officers which failed to uphold the strict standards of professionalism, as espoused by Retired Generals MacArthur and Dempsey, within each applicable year. The results reveal several conclusions. The first is that it clearly shows, in a broad sense, that from 1979 through the first half of 2020, opinion pieces penned at the hand of retired military officers which violate the concepts of professionalism in questionable or inappropriate ways are the exception, not the norm. Indeed, the entire count of questionable or inappropriate publications after conducting the second level of analysis drop to just 30 of 334 total pieces, or 8.9% of the entire sample. Thus, ample support exists to confirm the first hypothesis, that the vast majority of opinion pieces authored by retired military officers will be apolitical and non-partisan in nature.
+Figure 2 displays the number of opinion pieces authored by retired military officers which failed to uphold the strict standards of professionalism, as espoused by Retired Generals MacArthur and Dempsey, within each applicable year. The results reveal several conclusions. The first is that it clearly shows, in a broad sense, that from 1979 through the first half of 2020, opinion pieces penned at the hand of retired military officers which violate the concepts of professionalism in questionable or inappropriate ways are the exception, not the norm. Indeed, the entire count of questionable or inappropriate publications after conducting the second level of analysis drop to just 30 of 334 total pieces, or 8.9% of the entire sample. Thus, ample support exists to confirm the first hypothesis, that the vast majority of opinion pieces authored by retired military officers will be apolitical and non-partisan in nature.
 
-```{r fig3, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
+```{r fig2, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
 datatograph <- data.frame(
   year=c("1998","2000","2003", "2004", "2006", "2007", "2016", "2017", "2018", "2019", "2020"), count=c(2, 1, 1, 3, 3, 1, 5, 4, 4, 5, 1)
 )
@@ -408,22 +384,22 @@ ggplot(datatograph, aes(x =year, y =count)) + geom_bar(stat = "identity", width=
     x = "Year",
     y = "Count",
     color = NULL,
-    title = "Figure 3: # of Op-Eds Written By Military Retirees",
+    title = "Figure 2: # of Op-Eds Written By Military Retirees",
     subtitle = "Failed to Uphold Professional Standards"
   )
 ```
 
 The second hypothesis, which inferred that because overall circulation among major US newspapers has been declining over the past several decades, the number of opinion pieces penned by retired military officers in these outlets would likewise decline, does not appear to be represented from the data. In fact, we find evidence for the opposite trend: retired military officers are penning opinion pieces at an increasing rate, even as overall circulation among the major newspapers are down in terms of overall circulation (even after accounting for digital offerings) over the same time period. 
 
-The third hypothesis, that the number of published opinion pieces which have strained the concept of professionalism has increased, even as political polarization has worsened in the past several decades, is also confirmed, as evidenced by both by Table 3 and Figure 2. It is interesting to note that according to Figure 2, the first publishing year in which an opinion piece penned by a retired officer failed to uphold professional standards occurred in 1998, nearly twenty years into (or almost half) of the entire sample. Why is this the case? Retired military officers in the years preceding 1998 had plenty of reasons to go to the press and air disagreements with political leaders, or to address important topics that may have pushed the limits of professionalism as has been defined in this paper. In fact, many of these officers would have been veterans of the Vietnam and Korean Wars, and perhaps, like Maxwell Taylor, who is in our sample, veterans perhaps of World War Two. At this point, though it is only speculation, one can speculate that the factors of military credibility and political polarization, however imprecise and hazy at this point, may have played a role in keeping the majority of an earlier generation's retired officers out of the popular press.  
+The third hypothesis, that the number of published opinion pieces which have strained the concept of professionalism has increased, even as political polarization has worsened in the past several decades, is also confirmed, as evidenced by both by Table 3 and Figure 3. It is interesting to note that according to Figure 3, the first publishing year in which an opinion piece penned by a retired officer failed to uphold professional standards occurred in 1998, nearly twenty years into (or almost half) of the entire sample. But why is this the case? Retired military officers in the years preceding 1998 had plenty of reasons to go to the press and air disagreements with political leaders, or to address important topics that may have pushed the limits of professionalism as has been defined in this paper. In fact, many of these officers would have been veterans of the Vietnam and Korean Wars, and perhaps, like Maxwell Taylor, who is in our sample, veterans perhaps of World War Two. At this point, though it is only speculation, one can speculate that the factors of military credibility and political polarization, however imprecise and hazy at this point, may have played a role in keeping the majority of an earlier generation's retired officers out of the popular press.  
 
 ## Increasing Diversity of Topics Addressed By Military Officers
 
-It is also clear from the data presented in  Table 3 that several publications are deemed questionable or inappropriate from the perspective of professionalism in that they address topics that are potentially outside of the realm of proper military expertise to address. In his _Washington Post_ editorial, "Home Should Not Be a War Zone," Retired Army General Stanley McChrystal addresses the tragic nature of mass shootings in America. He states in the article, "...as a combat veteran and proud American, I believe we need a national response to the gun violence that threatens so many of our communities" [@mcchrystal_home_2016]. In a later article published in the _Washington Post_ in 2018 entitled "Good Riddance," McChrystal shared how his beliefs in Robert E. Lee had evolved over the course of his professional career, and why he now believes it is now time to discard Confederate statues and other similar symbols. Admiral (Retired) Mike Mullen and co-authors Lieutenant General (Retired) Mark Hertling and Admiral (Retired) Robert Natter wrote publications ("The Refugees We Need" and "Cutting Refugee Admissions Will Have Severe Consequences for the US Military") explaining how President Trump's immigration policies on refugees harm military readiness. 
+It is also clear from the data presented in Table 3 that several publications are deemed questionable or inappropriate from the perspective of professionalism in that they address topics that are potentially outside of the realm of proper military expertise to address. In his _Washington Post_ editorial, "Home Should Not Be a War Zone," Retired Army General Stanley McChrystal addresses the tragic nature of mass shootings in America. He states in the article, "...as a combat veteran and proud American, I believe we need a national response to the gun violence that threatens so many of our communities" [@mcchrystal_home_2016]. In a later article published in the _Washington Post_ in 2018 entitled "Good Riddance," McChrystal shared how his beliefs in Robert E. Lee had evolved over the course of his professional career, and why he now believes it is now time to discard Confederate statues and other similar symbols. Admiral (Retired) Mike Mullen and co-authors Lieutenant General (Retired) Mark Hertling and Admiral (Retired) Robert Natter wrote publications ("The Refugees We Need" and "Cutting Refugee Admissions Will Have Severe Consequences for the US Military") explaining how President Trump's immigration policies on refugees harm military readiness. 
 
 While many Americans agree with the stance these officers have taken on what are clearly important issues, one can simultaneously and not unreasonably ask whether it is appropriate for retired military officers to be considered appropriate elite voices on these specific issue areas. Again, the potential issue as it is related to the concept of military professionalism is not that these officers should not have an opinion on these topics, but whether they, as retired military officers, ought to be considered as appropriate mouthpieces by the American public on these issues. It is not unreasonable to insist that policy arenas involving appropriate responses to mass violence, the future of Confederate symbols, and refugee/immigration policy for the nation belong to non-military elites.    
 
-```{r fig4, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
+```{r fig3, fig.height=4, fig.width=5, fig.align="center", include=TRUE, echo=FALSE}
 datatograph <- data.frame(
   decade=c("1979-1989", "1989-1999", "1999-2009", "2009-2019" ), numcount=c(13, 51, 102, 161)
 )
@@ -432,14 +408,23 @@ ggplot(datatograph, aes(x =decade, y =numcount)) + geom_bar(stat = "identity", w
     x = "Period",
     y = "Published Opinion Pieces",
     color = NULL,
-    title = "Figure 4: # of Op-Eds Written By Military Retirees",
+    title = "Figure 3: # of Op-Eds Written By Military Retirees",
     subtitle = "Published in WSJ, NY Times, Wa Post, USA Today, and LA Times"
   )
 ```
 
 # Conclusion: How Can the Military Remain Professional?
 
-The goal of this paper was to explore and examine the ways in which political polarization and institutional credibility have impacted the professionalism of the military over the past fifty years. Examining the published opinion pieces authored by retired military officers in major US newspapers revealed that together, institutional credibility and political polarization have generated changes in the professionalism of some retired military officers, and more broadly, in how they as elites are communicating with the American public. Though the data examined demonstrates that the vast majority of op-eds published by retired military officers in the past fifty years exhibited professional standards, the data also showed two worrisome trends: that retired military officers are arguing about topics that fall outside of the traditional umbrella of national security, and that they are expressing clear partisan preferences at a greater rate than they previously did. Moreover, both of these trends have increased under the past four years of Donald Trump's Presidency. 
+The goal of this paper was to explore and examine the ways in which political polarization and institutional credibility have impacted the professionalism of the military over the past fifty years. Examining the published opinion pieces authored by retired military officers in major US newspapers revealed that together, institutional credibility and political polarization have generated changes in the professionalism of some retired military officers, and more broadly, in how military elites communicate with the American public. Though the data examined demonstrates that the vast majority of op-eds published by retired military officers in the past fifty years exhibited professional standards, the data also showed two worrisome trends: that retired military officers are arguing about topics that fall outside of the traditional umbrella of national security, and that they are expressing clear partisan preferences at a greater rate than they previously did. Moreover, both of these trends have increased under the past four years of Donald Trump's Presidency. These trends are captured in Figure 4, below, which shows the number (left) and proportion (right) of opinion pieces authored by retired military officers over the past 40 years that addressed issues of social policy, domestic policy, or specific political figures or administrations. The graphs tell an interesting story: the number and proportion were both basically 0 40 years ago, then increased slightly until about 2003, at which point, both decreased until roughly 2011. After that, both the number and proportion have risen sharply. Nearly 40% of all opinion pieces in 2019 published in major US newspapers by retired military officers were written about topics that fell outside of traditional national security topics. 
+
+```{r build plots, include = FALSE, echo=FALSE}
+plot1<- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=case_count)) + geom_point() + geom_smooth() + labs(x="Year", y="Number", color=NULL)
+plot2 <- ggplot(data=adj2dataset, mapping=aes(x=PubYr, y=prop_yr)) + geom_point() + geom_smooth() + labs(x="Year", y="Proportion", color=NULL)
+```
+
+```{r figure 4, include=TRUE, warning= FALSE, message = FALSE, echo=FALSE}
+grid.arrange(plot1, plot2, ncol=2, top="Figure 4: #/Proportion of Op-Eds Published by Retired Military Officers, 1979-2020", bottom="On Topics of Social Policy, Domestic Policy, and Political Administrations/Figures")
+```
 
 This paper also developed a theory for how the interaction of increasing institutional credibility and increasing political polarization has potential to harm the professional military ethic. Maintaining credibility and trust with the American public remains crucial for the military, but should a polarized political climate endure, which is suggested by the majority of American politics scholars who study polarization, the military needs to also understand that credibility and trust can be abused if it is handled inappropriately - a legitimate risk in a polarized environment. This is especially likely if military professionals, to include retirees, abuse the high level of credibility they currently enjoy to take up and advocate for partisan positions, or worse, to jockey with civilian leaders for power [@brooks_shaping_2008-1]. Unfortunately, as this paper illustrates, there are hints of this occurring. The letter signed by concerned graduates of West Point, which was clearly aimed at Secretaries Pompeo and Esper, and discussed at greater length earlier in this paper, is clear evidence of this. 
 
