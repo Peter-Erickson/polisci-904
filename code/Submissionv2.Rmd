@@ -371,10 +371,15 @@ secondlayer_obs <-adjdataset %>% arrange(PubYr) %>%
   filter(Author != "UNK") %>% filter(Author != "Murtha, John") %>% 
   select (Author, Title, Source, PubYr, Ques_Prof, Justification) %>% 
   view()
+```
 
-#Now Prep the data that I need to analyze polarization levels.  I will try first by 
+```{r polarization logit analysis, include=FALSE}
+
+#Now I Prep the data that I need to analyze polarization levels.  I will try first by 
 # eliminating the NA values but I will do this by indexing the first 334 rows of the 
-# data, which corresponds to the number of observations that I have.  I do this by #creating a new data set called slimdata
+# data, which corresponds to the number of observations that I have.  I do this by #creating a new data set called slimdata.  
+
+# Note: this is sloppy.  There has to be a better way to get rid of NA values. 
 
 slimdata <- polaradjdataset[1:334,] %>% 
   view()
@@ -392,10 +397,9 @@ logmodel <- glm(
 tidy(logmodel)
 glance(logmodel)
   
-
 # now  make prediction data using the mean institutional credibility scores.  Vary #polarization and the three topics I am interested in.  
   
-predictiondata <- tibble(House_polarization_level=seq(min(slimdata$House_distance_dim1), max(slimdata$House_distance_dim1), by=.01), Credibility = mean(slimdata$Inst_Cred_Gallup)) %>%
+predictiondata <- tibble(House_distance_dim1=seq(min(slimdata$House_distance_dim1), max(slimdata$House_distance_dim1), by=.01), Inst_Cred_Gallup = mean(slimdata$Inst_Cred_Gallup)) %>%
 crossing(Ques_Prof = c(0,1), MilPSoc = c(0,1), Dom_P = c(0,1), Fig_Nme = c(0,1))
 
 predictiondata
@@ -414,9 +418,30 @@ predictions <- augment(logmodel, newdata=predictiondata) %>%
       .prob < .5 ~ "Violation of Professionalism not likely"
     )
   ) 
-predictions %>% arrange(.prob, .fitted, Report, Night, desc(.fitted)) %>% 
+predictions %>% arrange(.prob, .fitted, MilPSoc, Dom_P, Fig_Nme, desc(.fitted)) %>% 
   view()
- 
+
+
+# stopping point here.  now let's try some graphs
+# notice that the predictions are not in (0, 1)
+ggplot(predictions) +
+  aes(x = .fitted) +
+  geom_histogram()
+
+# if we wanted predictions on the probability scale,
+#   we predict on the log scale,
+#   then apply inverse-logit (logistic CDF)
+# use plogis(): cumulative probability of the logistic distribution
+
+# demonstration: scatter log odds (x) and predicted probability (y)
+# with 95% CIs
+# (CIs don't look smooth in this example because .se.fit depends on X data)
+predictions %>%
+  ggplot() +
+  aes(x = .fitted, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() 
+```
 ```
 
 ```{r table4, include=TRUE, echo=FALSE}
