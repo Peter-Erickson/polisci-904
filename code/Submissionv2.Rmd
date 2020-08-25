@@ -385,30 +385,32 @@ slimdata <- polaradjdataset[1:334,] %>%
   view()
 
 
-#next, conduct a logit regression where the DV is values of Ques_Prof along
-#several IVs
+#next, conduct logit regressions where the DV is values of Ques_Prof along
+#two IVs, political polarization and institutional credibility.  
 
-logmodel <- glm(
-  Ques_Prof ~ Inst_Cred_Gallup + House_distance_dim1 + MilPSoc + Dom_P + Fig_Nme, 
+#model 1
+
+logmodel1 <- glm(
+  Ques_Prof ~ Inst_Cred_Gallup + House_distance_dim1, 
   family=binomial(link="logit"), 
   data=slimdata
   )
   
-tidy(logmodel)
-glance(logmodel)
+tidy(logmodel1)
+glance(logmodel1)
   
-# now  make prediction data using the mean institutional credibility scores.  Vary #polarization and the three topics I am interested in.  
+# now  make prediction data using the mean institutional credibility scores.  Vary #polarization and hold institutional credibility constant.  
   
 predictiondata <- tibble(House_distance_dim1=seq(min(slimdata$House_distance_dim1), max(slimdata$House_distance_dim1), by=.01), Inst_Cred_Gallup = mean(slimdata$Inst_Cred_Gallup)) %>%
-crossing(Ques_Prof = c(0,1), MilPSoc = c(0,1), Dom_P = c(0,1), Fig_Nme = c(0,1))
+crossing(Ques_Prof = c(0,1))
 
 predictiondata
 
 # actual prediction data now with code.  Create variables that tie the model together. #Create Variables .prob, conf.low, conf.high, and pred_final_rec
 
-augment(logmodel, newdata = predictiondata)
+augment(logmodel1, newdata = predictiondata)
 
-predictions <- augment(logmodel, newdata=predictiondata) %>% 
+predictions <- augment(logmodel1, newdata=predictiondata) %>% 
   mutate(
     .prob=plogis(.fitted),
     conf.low = plogis(.fitted -(qnorm(.975) * .se.fit)),
@@ -418,11 +420,10 @@ predictions <- augment(logmodel, newdata=predictiondata) %>%
       .prob < .5 ~ "Violation of Professionalism not likely"
     )
   ) 
-predictions %>% arrange(.prob, .fitted, MilPSoc, Dom_P, Fig_Nme, desc(.fitted)) %>% 
+predictions %>% arrange(.prob, .fitted, Ques_Prof, desc(.fitted)) %>% 
   view()
 
-
-# stopping point here.  now let's try some graphs
+# now let's try some graphs
 # notice that the predictions are not in (0, 1)
 ggplot(predictions) +
   aes(x = .fitted) +
@@ -441,7 +442,65 @@ predictions %>%
   aes(x = .fitted, y = .prob) +
   geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
   geom_smooth() 
+
+
+# model2
+
+logmodel2 <- glm(
+  Ques_Prof ~ House_distance_dim1 + Inst_Cred_Gallup, 
+  family=binomial(link="logit"), 
+  data=slimdata
+  )
+  
+tidy(logmodel2)
+glance(logmodel2)
+  
+# now  make prediction data using the mean institutional credibility scores.  Vary #institutional credibilty and hold political polarization constant.  
+  
+predictiondata2 <- tibble(Inst_Cred_Gallup=seq(min(slimdata$Inst_Cred_Gallup), max(slimdata$Inst_Cred_Gallup), by=1), House_distance_dim1 = mean(slimdata$House_distance_dim1)) %>%
+crossing(Ques_Prof = c(0,1))
+
+predictiondata2
+
+# actual prediction data now with code.  Create variables that tie the model together. #Create Variables .prob, conf.low, conf.high, and pred_final_rec
+
+augment(logmodel2, newdata = predictiondata2)
+
+predictions2 <- augment(logmodel2, newdata=predictiondata2) %>% 
+  mutate(
+    .prob=plogis(.fitted),
+    conf.low = plogis(.fitted -(qnorm(.975) * .se.fit)),
+    conf.high = plogis(.fitted + (qnorm(.975) * .se.fit)),
+    pred_final_rec = case_when(
+      .prob >= .5 ~ "Likely Violation of Professionalism",
+      .prob < .5 ~ "Violation of Professionalism not likely"
+    )
+  ) 
+predictions2 %>% arrange(.prob, .fitted, Ques_Prof, desc(.fitted)) %>% 
+  view()
+
+
+# stopping point here.  now let's try some graphs
+# notice that the predictions are not in (0, 1)
+ggplot(predictions2) +
+  aes(x = .fitted) +
+  geom_histogram()
+
+# if we wanted predictions on the probability scale,
+#   we predict on the log scale,
+#   then apply inverse-logit (logistic CDF)
+# use plogis(): cumulative probability of the logistic distribution
+
+# demonstration: scatter log odds (x) and predicted probability (y)
+# with 95% CIs
+# (CIs don't look smooth in this example because .se.fit depends on X data)
+predictions2 %>%
+  ggplot() +
+  aes(x = .fitted, y = .prob) +
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
+  geom_smooth() 
 ```
+
 ```
 
 ```{r table4, include=TRUE, echo=FALSE}
