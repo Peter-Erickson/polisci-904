@@ -1,0 +1,220 @@
+---
+title: "The Limits of Loyalty: Postmodernism, Polarization, and Military Professionalism  (Prospectus)"
+author: "Peter M. Erickson"
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+abstract: |
+  
+  _This dissertation seeks to explore the relationship of postmodernism and political polarization and their impact on the US military profession. The fundamental question that I seek to answer is, "how is rising political polarization shaping the military as a profession in the United States, and what are the implications of these changes, both in terms of national security and the future of the military profession?" In answering this question, I develop a theory that, at its core, argues that the nature of rising political polarization fundamentally challenges the conception of loyalty among members of the military profession. I further argue that the strain of loyalty is especially problematic for military, as it is a profession that by its nature holds mutiple loyalties simultaneously: to the Constitution, to the President as Commander-in-Chief, to Congress, and to the American People. Balancing these competing loyalties becomes more difficult, I argue, as political polarization worsens, because of the fundamental values - not mere policy differences - that are at the root of many polarized political battles today. In the dissertation, I seek to employ a mixed-methods approach that incorporates several case studies, as well as quantitative analysis, to support my theory. This dissertation will contribute to the fields of American politics, international security, and civil-military relations by further illuminating the mechanisms through which political polarization is impacting the military institution. Specifically, it will provide a contrarian view to recent civil-military relations scholars who have argued that the traditional concept of military professionalism should be significantly redesigned, if not abandoned entirely. This dissertation will argue the opposite: that what is needed most in politically polarizing times, such as those the US is in right now, is a return to and embrace of traditional conceptions of military professionalism - an effort that will require deliberate action by not just military leaders, but elected civilian leaders as well._   
+geometry: margin = 1.15in              # margin widths
+fontsize: 12pt                         # text size
+bibliography: researchpaper-ps904.bib # bibliography file
+biblio-style: authoryear               # citation style
+urlcolor: blue                         # links to external URLs
+citecolor: black                       # links to bibliography
+linkcolor: magenta                     # internal figures, footnotes, etc.
+indent: true                          # paragraph format
+                                       # true for indented paragraphs
+                                       
+header-includes:
+    - \usepackage{setspace}
+    - \usepackage{multirow}
+    - \usepackage{indentfirst}
+    
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: pdflatex
+    number_sections: false
+    toc: false
+    fig_caption: true
+    citation_package: biblatex
+    includes: 
+      in_header: 
+        - latex-preamble.tex
+  bookdown::htmldocument2: default
+  bookdown::word_document2:
+      toc: false
+---
+
+\doublespacing 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, include = FALSE, echo = FALSE}
+library("here")       # file paths
+library("tidyverse")  # workhorse package
+library("tidylog")
+library("kableExtra")
+library("knitr")
+library("ggdag")
+library("dagitty")
+library("gridExtra")
+library("broom")
+library("dplyr")
+library("reshape2")
+```
+\newpage
+
+## Introduction and Research Question
+
+In late May and early June 2020, racial tension and concerns about police brutality gripped the American public following the death of George Floyd, an unarmed black man, by police in Minneapolis. In many cities and communities across the nation, peaceful protests were followed in some cases by periods of rioting and looting. On June 1, after giving remarks at the Rose Garden, President Donald Trump walked to St. John's Church after security forces visibly displaced throngs of protesters in neighboring Lafayette Square. Flanked by members of his cabinet, to include the Secretary of Defense, and with the Chairman of the Joint Chiefs of Staff not far behind, the President held up a Bible at the church, stared into the cameras of the media, and, several minutes later, returned to the White House. 
+
+In the days and weeks that followed, a full-blown civil-military relations crisis ensued  [@feaver_military_2020]. The Secretary of Defense, Mark Esper, publicly disagreed with a threat made by President Trump to invoke the Insurrection Act of 1807 to use active-duty forces to quell domestic riots [@esper_secretary_2020], and General Mark Milley, the Chairman of the Joint Chiefs of Staff, told senior military officers graduating from the National Defense University that he "should not have been there (accompanying the President on the walk to St. John's Church)", as his presence "created a perception of the military involved in domestic politics" [@milley_official_2020]. 
+
+Several retired military officers also weighed in, not only on the Trump administration's handling of specific events near the White House, but on a host of broader topics that dominated the popular dialogue in America after the death of George Floyd, to include the state of American racial relations. Upon paying close attention to what these retired military officers said, though, one can notice that there was in fact fairly substantial variation in both the substance and tone of their remarks. While all of them expressed concerns about the President potentially ordering active-duty military forces to confront what many Americans believed were peaceful protesters, and thus, violating Constitutional protections afforded by First Amendment [@brooks_dismay_2020; @dempsey_former_2020], some officers went much further in their criticisms. Indeed, some of these retired military officers accused the President of failing to possess the overall fitness to lead [@goldberg_james_2020], promote harmonious racial policies  [@allen_moment_2020], and demonstrate adequate leadership abilities [@mullen_i_2020]. In the months following George Floyd's death, moreover, several retired and currently-serving military officers have further made public arguments on a variety of topics that are directly related to President Donald Trump, including race in America [@askew_anti-racist_2020] and voter fraud as it relates to the upcoming Presidential Election [@nagl__2020].
+
+While America has witnessed numerous incidents in its history in which tension between civilian and military elites has been present, the events of the Summer of 2020 between the Trump administration and some - though certainly not all - retired  military officers raises important questions, particularly I argue, because the context did not involve combat overseas.  These questions include: why did several retired military elites speak out so strongly against President Trump? Why did some of these elites confine their criticism to concerns over the Constitution, while others sounded more like representatives of the Democratic Party? Are these events that occurred during the Summer of 2020, and the military response generated in response to these events, an isolated chapter in American history, or is there something more disturbing underneath the surface regarding contemporary American civil-military relations?  
+
+This dissertation seeks to explore the impacts of rising domestic political polarization on the US military as an institution and profession. The primary argument espoused in this dissertation is that certain features of the polarized environment impact how military officers view and exercise the concept of loyalty, a claim that I argue holds significant ramifications for US national security. Using a mixed-methods approach, I develop a theory and then test it using a mixture of quantitative analysis and several qualitative case studies.  I conclude with discussing the implications for such an argument. 
+
+# The Scholarly Literature and Why This Question Matters
+
+The question of how political polarization affects changes in the concept of military professionalism spans several related literatures, most notable of which are American Politics and International Relations. Broadly speaking, this project is focused on how one aspect of domestic politics, political polarization, impacts a specific but important aspect of international relations, civil-military relations, which itself spans a wide and diverse literature. Because I intend to focus my work on the military institution, my dissertation will also rely on literature from the fields of sociology, mainly regarding the development of organizations and professions, and ethics, to include military ethics. 
+
+Within the American Politics literature, there is broad recognition that political polarization levels in contemporary America are higher now than at any point since the end of the American Civil War [@hare_polarization_2014], but there are multiple explanations for what has caused this trend, ranging from a growing divide over matters pertaining to race and religion [@abramowitz_great_2018], the size and role of government [@sides_two_2015], and disagreements over specific policy issues [@mann_its_2012]. Despite the herculean task of disentangling the roots of the causes of polarization, virtually all scholars agree that political polarization is a genuine problem and should spark concern. 
+
+One of these major concerns is the impact of polarized domestic politics on American foreign policy in a broad sense, and specifically, on America's ability to lead and impact the world. Kenneth Schultz, for instance, underscored four challenges that have emerged as a result of America's polarized domestic politics, including the ability to obtain bipartisan support for "risky undertakings," the ability to learn the "lessons of foreign policy failure," the inability to "make long term commitments to allies and adversaries" as a result of "dramatic policy swings from one administration to another," and the "vulnerability" of America's electoral system to foreign third party adversaries [@schultz_perils_2017]. Because the military is a central actor in shaping America's foreign policy, obtaining a better understanding of how political polarization shapes various military institutions specifically will yield findings that may bear on helping policymakers and academics help solve each of the problems Schultz identifies.  
+
+Thankfully, a small but growing number of civil-military relations scholars have looked at aspects of this question in recent years. But the focus of these works has been, I believe, not on the impact of polarization on the military itself but on other important but peripheral components of the military's relationship with American society. One recent dissertation completed by Michael Robinson at Stanford University in 2018, for instance, found that partisan affiliation significantly affects public credibility and trust in the military perhaps resulting in or as a consequence of media "echo chambers" which may incentivize military leaders to offer opinions partisan opinions without fear of sanction [@robinson_danger_2018]. Robinson's work builds off of previous work by Heidi Urben in which she found that active military officers believe less strongly that retired military officers should remain apolitical or non-partisan in retirement [@urben_party_2013], a norm that has existed for decades or more. Together, Robinson and Urben join other scholars in providing a wealth of information regarding public opinion and the military, and in particular, how aspects of political polarization shape partisan differences regarding topics such as the use of force [@golby_jim_elite_2017] and military elite endorsement of political candidates [@golby_military_2012]. 
+
+In their own right, these scholarly developments are interesting and important, but another debate in the civil-military relations field has recently emerged, or to be more correct, reawakened. At the center of this debate is the degree to which the concept of military professionalism should be altered if not discarded altogether [@brooks_paradoxes_2020]. The debate is not new because in actuality, it began as soon as Samuel Huntington published his seminal work in 1957, _The Soldier and the State_. While I do not lay out the full synopsis of the book nor the the various critiques here explicitly, the central question in this debate is whether the concept of military professionalism, which Huntington espoused as essential to achieving military security during the Cold War and as the US military has largely inculcated among its officer corps for the last couple of generations, separates the military too much from civilians, leading to gaps in the development and execution of strategic outcomes [@rapp_civil-military_2015; @dubik_just_2016; @brooks_paradoxes_2020]. These criticisms largely point to the American failures in Iraq and Afghanistan to produce and implement strategy and achieve a better and lasting peace - criticisms which this author, for what it is worth, shares. But I contend that something is missing in this debate, namely, a thorough exploration and theoretical outworking of the impacts of political polarization on the military institution. 
+
+Why does this matter? I contend that the impacts of contemporary political polarization on civil-military relations and on the military institution specifically matters and should be studied more thoroughly because, as I intend to show, portions of the military institution, though not all, have started to argue and disagree with civilian leaders in ways that are substantively different than previous civil-military feuds. To be sure, military and civilian relationships are in tension by their very nature in that the leaders of a democracy allow a most undemocratic institution, the military, to protect the polity [@feaver_civil-military_1996]. And as American history proves, there have been countless instances in which civilian and military leaders disagreed. Many of these rise to the level of common knowledge: Lincoln fired McClellan because he lost confidence in him as a wartime Commander; Truman sacked MacArthur because the latter was insubordinate regarding the future of war in Asia; and Obama and McChrystal clashed about troop levels in Afghanistan. 
+
+Beyond these episodes in which President and wartime commander locked horns, consider several other instances of "civilians" and "military" clashing. One episode is certainly the way in which the Vietnam war escalated in ways that, at least according to H.R. McMaster, military generals at the time knew were destined to fail [@mcmaster_dereliction_1998]. A more recent example, and one much studied and commented upon by civil-military relations scholars, is the so-called "Revolt of the Generals" that occurred following the early years of the invasion of Iraq, which involved several recently-retired generals and admirals sharply criticizing Secretary of Defense Rumsfeld's leadership dynamics [@cook_revolt_2008]. The point here is that civil-military conflict is anything but novel, but that when it occurs, it is usually, for understandable reasons, involving a clear national security issue, such as a war, combat operations, or items of a related sort, such as military budgets, weapons programs, etc. 
+
+While these types of disagreements are important and will certainly feature in my intended dissertation (I hope!), my motivation in choosing my intended topic is because we are now seeing portions of the military institution (particular retired military officers) openly disagree with civilian leaders on topics that I believe are, even by the widest of academic definitions, way outside of appropriate military expertise. In other words, there is a world of difference between retired generals criticizing a President for conduct of a war, but entirely another when generals criticize (or applaud) the President for his domestic policies that have little if anyting to do with national security. I contend that the latter is taking place, and that the reasons for such developments, as well as their implications, deserve to be further explored. I further believe that while such developments are catching the attention of civil-military relations scholars, most of the work done on this topic is impressionistic [@golby_jim_keep_2020] as opposed to systematic. In other words, civil-military relations scholars have identified that polarized partisan politics serve as a risk for the military, but few have explored in a systematic way what these risks are, how serious they are, the mechanisms through which they work, and what the implications are for the future of the military. I hope to fill this gap. In doing so, I hope to also contribute to the reawakened debate regarding military professionalism and its role vis-a-vis the American military institution. 
+
+## Polarization and Military Professionalism
+
+how increasing domestic political polarization impacts conceptions of loyalty in military professions, and to examine the implications of these changes in loyalty on broader security outcomes. For at least the past 75 years[need footnote here], the US military has prided itself on being not merely an organization charged with the defense of the nation, but a profession. That is, on being an institution marked by several unique traits, including: providing a unique service that requires special skills (the application and management of violence); establishing and maintaining standards of behavior and performance, as well as policing itself when members of that profession fail to uphold these standards; and building and maintaining trust between itself, the profession, with the client whom it serves (the American people) [insert source here]. The US military, further, is both by statute and by normative standards an apolitical and non-partisan institution with multiple, simultaneous loyalties: to the Constitution of the United States; to the President of the United States as the Commander-in-Chief; and to Congress. But what happens if and when the objects of the military's multiple loyalties not merely disagree, but become severely divided ideologically? Can such an outcome exist, and if it can, is there empirical proof that such a trend is occurring? If so, what are the normative implications, both for the military as a profession, and for the nation's security, and are there actions that can be taken to halt such a trend? 
+
+
+
+ 
+
+## The Concept and Structure of Loyalty
+
+Figure One, below, shows one possible way to conceptualize the system of problems generated by increasing political polarization and its impact on the military profession, as well as the roles of other structural variables, including the institutional credibility of the military profession, and other various military outcomes. From left to right, this conceptual model suggests that aspects of political polarization are simulataneously driving changes in the institutional credibility of the military as well as changes in the professional character/nature of the military. This is made more complicated, as the model suggests, that the intervening variable of institutional credibility is also driving some changes in the professional character of the military. 
+
+In my dissertation, I situate changing conceptions of loyalty as a major subcomponent of the arrow running from political polarization to changes in military professionalism. At the same time, I do think that political polarization is impacting the credibility of the military institution, which in turn may likewise be driving changes in military professionalism. The specific mechanisms through which this is occurring, if at all, however, need to be developed, proposed, and tested.  
+
+
+
+```{r figure one, include=FALSE, echo=FALSE}
+problem_dag <- dagify(
+    MO ~ MP,
+    MP ~ PP + IC,
+    IC~PP,
+    coords = tribble(
+      ~ name,      ~ x,    ~ y,
+      "MO", 1, .5,
+      "MP", .7, .5,
+      "IC", .3, .2,
+      "PP", .1,.5,
+    ))
+    
+
+problem_dag %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_edges()+
+  geom_dag_point()+
+  geom_dag_text_repel(aes(label=name), show.legend=FALSE)+
+  theme_dag()
+```
+
+```{r include=TRUE, echo=FALSE, fig.height=5, fig.width=7}
+
+problem_dag %>% tidy_dagitty() %>% 
+  dag_label(labels=c("MO"="Changes in\n Military\n Outcomes", 
+                     "MP"="Military\n Professionalism", 
+                     "PP"="Increasing\n Political\n Polarization", 
+                     "IC"="Institutional\n Credibility")) %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_edges()+
+  geom_dag_point()+
+  geom_dag_text()+ 
+  geom_dag_label_repel(aes(label=label, fill=label), col="white", show.legend=FALSE)+ theme_dag() + labs(title="Figure One", subtitle="The Impact of Political Polarization on Military Professionalism")
+  
+```
+
+At this stage in the dissertation phase, I do not know how polarization is impacting conceptions of loyalty, or even if it is, for sure. I strongly suspect that it is, however, for a couple of reasons. First, the military is, I believe, susceptible to charges of failing to uphold the ideal of loyalty based on the nature of the organization in that it ultimately is charged to enact violence on behalf of the state. Harold Lasswell said of military officers that their skill is the "management of violence" [need quote from Huntington]. As the bonds of loyalty forged on the battlefield are strong and different in ways than loyalty forged in other environments, I suspect that the military and its leaders will take very seriously any accusations that the corporate entity or individual officers are failing to be loyal to a number of ideals. In the Army, for example, the first "Army Value," as it is called by the militar service,  which is summarized as the acronym, "LDRSHIP" (short for "leadership"), is the word "loyalty." [need cite for the Army values here].  
+
+A second reason that I suspect polarization is impacting the conception of loyalty among the military professions stems from some of the mechanisms that we know regarding how political polarization operates. Politics of American scholars, though not united in agreement regarding the causes of polarization, have agreed that polarization is working through at least three mechanisms, all of which, I believe, impact the military in its normative role qua non-partisan and apolitical American institution. First, there is a sharp increase in the number and scope of issues that have been subsumed by partisan debate and disagreement (a phenomenon referred to among scholars of American Politics as "conflict extension" [@layman_party_2002]). A second mechanism exists through the increase in the strength of negative feelings held by one partisan group towards those of the other side, a phenomenon referred to as "negative partisanship" [@abramowitz_great_2018]. Third, there is an increase in the salience of debates over issues that individual partisans consider core to their individual identities [@white_values_2002; @mann_its_2012; @sides_identity_2018]. Each of these three features of the politically polarized landscape strain the concept of military professionalism in important ways, and taken together, comprise a significant challenge to the individual military professional and thus, to the professional nature of the military as a whole. These challenges are theorized in Table 1, below. 
+
+\singlespacing
+\begin{table}[ht]
+\begin{footnotesize}
+\caption{Mechanisms of Rising Political Polarization Which Impact Military Professionalism} % title of Table
+\centering % used for centering table
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|p{5cm}|}
+    \hline
+    \textbf{Features of Increasing Political Polarization} & \textbf{Associated Mechanism} & \textbf{Potential Impact on Military Professionalism}  \\ \hline
+    \textbf{Conflict Extension} & Less politically-neutral space exists as partisan disagreements subsume a greater number of issues. It becomes increasingly difficult to remain "out of politics." & Military Professionals face an increasingly difficult prospect of remaining apolitical. \\ \hline
+    \textbf{Negative Partisanship} & Strong feelings of personal dislike and disdain arise against those who hold to opposing political views. There is a belief that those on the "other side" are greatly wrong and flawed. & There is a greater willingness to confront or take issue with those who hold opposing views.\\ \hline
+    \textbf{Core and dearly-held issues are increasingly at stake} & As the issues to which one holds most dear are at stake, the salience of one's identity and sense of belonging to a particular group is raised. Associated with this phenomenon is a belief that not just preference, but moral right and wrong, are at stake. & Military professionals face potential changes in one's concept and notion of loyalty. There is a sense that failing to take action over a certain issue is equivalent to failing to uphold a sense of loyalty to an important group, idea, or concept.\\ \hline
+\end{tabular}
+\label{table:comparison} % is used to refer this table in the text
+\end{footnotesize}
+\end{table}
+\doublespacing
+
+The first way in which the concept of military professionalism is challenged as a result of increasing political polarization is that there is increasing difficulty for individuals to remain politically neutral, non-partisan, or otherwise apolitical - a hallmark of military professionalism. This happens because as "conflict extension" [@layman_party_2002] occurs, an increasing number of issues are brought into partisan battlegrounds, and thus, there is less politically-neutral territory. When polarization levels in America were not as high as they are today, it was more possible for individuals to either stay out of politics, avoid partisan squabbles, and otherwise to stay politically neutral. Today's polarizing environment seems to have the opposite impact: polarized politics seem to thrust issues and the unfolding political fight at the individual citizen, even when the individual is not deliberately seeking confrontation. There is no theoretical reason to suspect that this mechanism would not impact military leaders. Military leaders are citizens of the Republic, and though the institutional ethos of the military profession is to remain apolitical, such an ideal is difficult to uphold if less and less neutral political space exists. 
+
+A second challenge to military professionalism stems from the "negative partisanship"[@abramowitz_great_2018] that dominates the polarized American political landscape. Strong feelings towards those on a host of other issues are becoming increasingly hostile. These feelings are growing increasingly strong likely because of the other prominent features of political polarization: a decrease in the availability of neutral political space, and the importance of issues that are at stake in many of today's political debates.  
+
+A third, and I contend a more insidious, mechanism through which increasing political polarization works to impact military professionalism is by altering one's sense of loyalty and identity. This occurs because the issues that are at stake as political polarization increases are in many instances involving issues that individuals associate with core concepts of one's identity, and thus, one's sense of moral right and wrong. Because individuals care about their identities and what they believe to be right and wrong, they are willing to defend these values, even at a cost. The rise of "identity politics" in America as political polarization has worsened illustrates this point. 
+
+However, it is also precisely on this point that the military institution is perhaps most vulnerable to increasing political polarization. I contend that the rise of identity politics can and will be harmful if a military professional's identity and the loyalties associated with that identity directly conflict with his or her identity and loyalty as a professional soldier. As any soldier knows, and as civilians can reasonably understand,few traits are more sacred in the military than loyalty. Indeed, the virtue of loyalty is extolled in a host of codes and mantras that have played a central part of the American military since its inception, and loyalty is captured, either in word or in spirit, in a host of phrases and professional codes. In the middle of the West Point Cadet Prayer is the eloquently written plea, "make us to choose the harder right instead of the easier wrong" [@wheat_west_1918]. Even Huntington spent a great deal talking about the importance of loyalty as a trait to the very essence of the military profession. He recognized that in order for civilian control to be effective, the military profession had to organize itself as a "hierarchy of obedience," which required "loyalty and obedience" to stand out as "the highest military virtues" [@huntington_soldier_1957, 73].
+
+High levels of political polarization obfuscates the ideal of loyalty, however, and thus pose a significant risk to the professional nature of the military. As core issues that involve individual perceptions of moral right and wrong are at stake in an increasing number of partisan battles, individuals, to include military officers, are more likely to become attached to or otherwise invested in these issues. This is especially true when the justification for taking or not taking action invokes the concept of loyalty. As a result, highly polarized political climates increase the likelihood that two different military officers may adopt completely different opinions or stances on an issue, each believing that the other is not only morally wrong, but failing to act out of loyalty in accordance with a specific oath or moral code.
+
+# Accounting for Institutional Credibility 
+
+The previous section described how increasing political polarization presents significant challenges to the concept of military professionalism. But when will these challenges become public knowledge, and perhaps more relevant, how does increasing political polarization impact the credibility of the military institution? 
+
+One can imagine several possible scenarios. It is reasonable to consider that as political polarization increases, respect and trust in seemingly partisan institutions would decrease, while trust in nonpartisan and apolitical institutions would rise. But why? Would such a trend reflect a genuine increase in trust in the nonpartisan institution, or would it reflect the simple consequence that as one institution becomes less respected, others might simply gain as a result? Certainly, more work needs to be done in this area.  
+
+Nonetheless, I contend that when institutional credibility is high, a demand signal is created by the American public such that future interactions between the military institution and the American public are encouraged and welcomed. From an institutional perspective, the military might respond to the public's demand signal for increased military interaction by increasingly participating in public ceremonies, parades, and other showcases of military prowess (at sporting venues, for instance). From an individual perspective, military elites, especially retired military officers, would be psychologically primed to increasingly dialogue with the American public when military credibility is high. By extension, other outlets such as the press would also be primed to showcase military elites when military credibility runs high, because these elites represent an institution that commands a high degree of public respect. 
+
+When military credibility is low, the theory contends the opposite will occur. Since demand for interactions between the American public and the military is muted when institutional credibility for the military is low, the institution will not engage with the public as frequently nor as intimately because the strong demand signal that existed when institutional credibility was high no longer exists. At the individual level, military elites will also not engage as often with the public, nor will the press ask these elites to. In sum, institutional credibility and respect for the military institution impacts the likelihood of the military institution and military elites interacting with the American public. Such interaction can take a variety of forms. When respect for the military is high, the military is likely to interact, speak to, and dialogue with the American public, and when institutional credibility is low, the military is less likely to do so.
+
+Ultimately, four possible worlds exist when the impacts of military credibility and political polarization are considered in tandem (see Table 2, below). The first is when political polarization and military credibility are both low. When these conditions hold, there is no anticipated drop in military professionalism by the military institution nor its individual elites. With these conditions, the military does not have an out-sized platform to interact with the American public, nor are there outstanding incentives for the military to raise significant disagreement over any domestic political issues. 
+\singlespacing
+\begin{table}[ht]
+\begin{footnotesize}
+\caption{Four Types of "Military Professionalism Worlds" Where Institutional Credibility and Political Polarization Vary} % title of Table
+\centering % used for centering table
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|p{5cm}|}
+    \hline
+    Influence of Variables & \textbf{Low Institutional Credibility} & \textbf{High Institutional Credibility}  \\ \hline
+    \textbf{Low Political Polarization} & Negligible anticipated impacts. Traditional Professionalism is Expected by the Military, Civilian Leaders, and the American Public & Possible Impacts. There is a demand for military voice, but little substantive matter stemming from US domestic politics that can cause crucial disagreement. Little incentive to deviate from traditional concepts of loyalty and duty. \\ \hline
+    \textbf{High Political Polarization} & Possible Impacts. Polarization raises the stakes of domestic politics, but military professionals are constrained from voicing their opinions and/or interfacing with the public due to low institutional credibility with the American public &  Highly Likely Impacts to Professionalism. Likely impacts. Military professionals have a "platform with the public" due to high institutional credibility, and high polarization raises the likelihood of disagreement between individual military elites and civilian leaders on a number of crucial topics.\\ \hline
+\end{tabular}
+\label{table:comparison} % is used to refer this table in the text
+\end{footnotesize}
+\end{table}
+\doublespacing
+The second possible set of conditions is when political polarization is low and institutional credibility is high. When these set of conditions exist, the military has a platform to interact with the public, as the public highly respects the military institution. The military enjoys this high level of trust and does not want to lose it. Further, because the degree of political polarization is low, there is little incentive for the military as an institution or military elites to use the trust they enjoy with the American public to adopt or denounce an issue associated with any partisan entity. The high institutional credibility increases the chance of the military interacting with the public in an unprofessional way, but the low political polarization removes the incentives of doing so. 
+
+The third type occurs when political polarization is high, but institutional credibility of the military is low. Under these conditions, the military does not command the respect of the American public like it does when credibility of the institution is high, and thus, does not possess a considerable outlet to interact with the American public. However, the incentives of loyalty and duty still loom large in the minds of some military elites as a result of the high degree of political polarization, and thus, a dip in professionalism is still possible. 
+
+The final set of conditions exists when political polarization and institutional credibility are high. It is in this world that I contend the American military finds itself in now in 2020. Under these conditions, the military faces dual dangers. High institutional credibility risks the military institution unilaterally acting or another body co-opting the military institution to speak out an a number of issue areas, and simultaneously, the highly polarized environment risks the military advocating for or denouncing partisan sentiments in the name of upholding the very traits it is most adhered to - loyalty and duty. Indeed, this set of conditions comprise a very dangerous world for the military institution and the military professional. 
+
+# Plan of the Dissertation and the Data Generating Process
+
+To complete my dissertation, I plan on incorporating a mixed-methods approach that relies on first, proposing a theory for how political polarization impacts and affects the overarching structure of loyalty that military officers - and the military as an institution - face. I then seek to test that theory using both empirical and quantitative data, as well as a series of qualitative case studies. I plan to conclude by discussing the implications of my findings. My dissertatino will be a book style projecte composed of at least seven chapters.  
+
+In Chapter 1, I plan to frame my research question, lay out my research agenda, and review the relevant literature for my research project. In this introductory chapter, I will motivate the project by pointing out recent cases in which the American military institution has been at the center of partisan political struggles. My point in making this claim is not to argue that this place of political contention is new; indeed, it is not. There have been many times and instances in which the military has been at odds with other American political institutions and actors. My motivation, rather, is to argue that the behavior of the military institution itself - to include active and retired military officers who serve as elites - are demonstrating behavioral patterns that are at odds with traditional norms of military professionalism. This chapter will include an extensive review of the concept of military professionalism, a concept first coined by Samuel Huntington, and an extensive review of the concept of military professionalism, first coined by Samuel Huntington, and a series of critiques that Huntington's concept has endured over the years [@janowitz_professional_1960; @finer_man_1962; @feaver_civil-military_1996; @brooks_paradoxes_2020]. 
+
+In Chapter 2, I plan to empirically show the deviation in military professionalism that Chapter 1 describes. Using quantitative analysis of an original data set that I collected this past Summer of more than 340 opinion-editorial pieces written by retired military officers since 1979 and published in top American newspapers, in print and online, I will demonstrate that the topics upon which retired military officers are writing, as well as the tone and tenor of their remarks, have changed in a statistically meaningful way. 
+
+In Chapter 3, I want to develop a theory for why these changes have occurred. My theory will argue that increases in the levels of political polarization and institutional credibility/prestige have driven these changes. At the heart of my theory is the idea that certain features of political polarization have so altered the political preferences of some military elites such that significant changes have occurred to fundamental concepts and structures of loyalty that exist within and outside of the military as an institution. My theory up until this point does not explain, however, why these divergences in political preferences have risen to the level of public knowledge, which I attempt to show in Chapter 2. Therefore, the other key feature that I need to incorporate into my theory is that the public credibility or prestige of these military actors has also risen, enabling them to make arguments to the public without fear of backlash. This portion of the theory is an argument about the prestige of military elites as well as of the military institution, and how that prestige translates into the ability to message to the public.
+
+
+
+
