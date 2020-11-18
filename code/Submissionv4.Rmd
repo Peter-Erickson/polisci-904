@@ -1,0 +1,635 @@
+---
+title: "When the Pen Becomes a Sword: Retired US Military Officers and Op-Ed Use in Contemporary America"
+author: "Peter M. Erickson"
+date: |
+  `r format(Sys.time(), '%B %d, %Y')`
+abstract: |
+  
+  _This paper explores variation in the professionalism of opinion pieces authored by retired US military officers and published in major US newspapers since 1979. In doing so, this paper develops a theory which argues that increasing political polarization in the United States impacts the military as a profession by straining the individual military officer's concept of loyalty in important ways. Drawing on an original data set of more than 340 opinion-editorial pieces published by retired military officers in The Wall Street Journal, The Washington Post, The New York Times, The Los Angeles Times, and the USA Today since 1979, the paper argues there has been an increase in published opinion pieces which fail to uphold the concept of military professionalism as defined by historical military norms and standards. The paper concludes by arguing that the concept of "politicization of the military" --- something that previous civil-military relations scholars have identified and described --- must be widened to account not only for efforts by politicians to use the military for political advantages, but also for the novel phenomenon of retired military officers appealing to one's concept of loyalty to achieve political ends. The author argues that such a development, if uncorrected, will cause significant damage to the military as a profession._  
+geometry: margin = 1.15in              # margin widths
+fontsize: 12pt                         # text size
+bibliography: researchpaper-ps904.bib # bibliography file
+biblio-style: authoryear               # citation style
+urlcolor: blue                         # links to external URLs
+citecolor: black                       # links to bibliography
+linkcolor: magenta                     # internal figures, footnotes, etc.
+indent: true                          # paragraph format
+                                       # true for indented paragraphs
+                                       
+header-includes:
+    - \usepackage{setspace}
+    - \usepackage{multirow}
+    - \usepackage{indentfirst}
+    - \usepackage{caption}
+    
+    
+output: 
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: pdflatex
+    number_sections: false
+    toc: false
+    fig_caption: true
+    citation_package: biblatex
+    includes: 
+      in_header: 
+        - latex-preamble.tex
+  bookdown::htmldocument2: default
+  bookdown::word_document2:
+      toc: false
+---
+
+\doublespacing 
+
+\captionsetup[table]{labelformat=empty}
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, include = FALSE, echo = FALSE}
+library("here")       # file paths
+library("tidyverse")  # workhorse package
+library("tidylog")
+library("kableExtra")
+library("knitr")
+library("ggdag")
+library("dagitty")
+library("gridExtra")
+library("broom")
+library("dplyr")
+library("reshape2")
+library(stargazer)
+```
+\newpage
+
+# Introduction
+
+In late May and early June 2020, racial tension and concerns about police brutality gripped the American public following the death of George Floyd, an unarmed black man, by police in Minneapolis. In many cities and communities across the nation, peaceful protests were followed in some cases by periods of rioting and looting. On June 1, after giving remarks at the Rose Garden, President Donald Trump walked to St. John's Church after security forces visibly displaced throngs of protesters in neighboring Lafayette Square. Flanked by members of his cabinet, to include the Secretary of Defense, and with the Chairman of the Joint Chiefs of Staff not far behind, the President held up a Bible at the church, stared into the cameras of the media, and, several minutes later, returned to the White House. 
+
+In the days and weeks that followed, a civil-military relations crisis ensued  [@feaver_military_2020]. The Secretary of Defense, Mark Esper, publicly disagreed with the President's threat to invoke the Insurrection Act of 1807 to use active-duty forces to quell domestic riots [@esper_secretary_2020], and General Mark Milley, the Chairman of the Joint Chiefs of Staff, told senior military officers graduating from the National Defense University that he "should not have been there" (accompanying the President on the walk to St. John's Church), as his presence "created a perception of the military involved in domestic politics" [@milley_official_2020]. 
+
+Furthermore, several retired military officers weighed in not only on the Trump administration's handling of specific events near the White House, but also on the broader issues of race in America. For those paying attention to what these retired officers said, it is clear that there was substantial variation in the tone and tenor of each of these officer's remarks. While all of them expressed deep concern about the prospect of active-duty forces confronting peaceful protesters, and thus, violating protections held by the First Amendment of the US Constitution [@brooks_dismay_2020; @dempsey_former_2020], some officers went much further in their criticisms, leveling direct insults of the President's fitness to lead [@goldberg_james_2020], his administration's broader policies on race in America [@allen_moment_2020], and his general leadership abilities [@mullen_i_2020]. Moreover, in the weeks and months since George Floyd's death, retired and currently-serving military officers have further taken up the pen to argue for a variety of topical issues that are in one way or form related to President Donald Trump and his administration's response to a variety of current themes in domestic politics, including race in America [@askew_anti-racist_2020] and the US Postal Service and concerns about the upcoming Presidential Election [@nagl__2020].  
+
+This paper examines the way in which retired military officers have attempted to influence public opinion in contemporary America by authoring opinion-editorial publications. It is a question worthy of examination for many reasons, including that at its root, at least three factors are involved, each of which may shape civil-military relations: military professionalism, political polarization, and institutional credibility of the military. The main argument of this paper is that a weakening of the concept of military professionalism can clearly be seen in the way retired military officers have made arguments in the public square over the past four decades, that the main variable that can explain this variation is increasing political polarization within American Society. Further, this paper argues that the military institution is particularly susceptible to increasing political polarization because of the way the concept of loyalty is used to make arguments that contain a clear partisan or political leaning. These developments reveal the extent to which increasing political polarization is synonymous with a fractured domestic public, and highlight the extraordinary challenge that the US military will likely face to remain a  professional in an enduring polarized political climate.  
+
+This paper proceeds in four parts. First, the paper briefly reviews the concept of military professionalism in order to orient the reader to the central role this concept has played in the ethos of the modern American military. Second, the paper builds a theory that demonstrates how certain features of today's polarized political landscape challenge the concept of loyalty for the individual military professional. Third, the paper explores and analyzes a data set which consists of more than 340 opinion-editorial pieces published in major US newspapers by retired military officers since the late 1970s. This analysis ultimately shows that although the vast majority of op-eds published by retired military officers maintain professional standards, there is clear evidence that retired military officers are using the pen both to argue about topics that fall outside of the realm of traditional national security topics, and to express clear partisan preferences when making their arguments. The analysis also shows that this trend has worsened as the American political climate has become increasingly polarized over the past several decades. Finally, the paper concludes by briefly exploring the implications of these results on the military as an institution, and specifically, on its ability to remain professional in a highly polarized setting that will likely endure.  
+
+\singlespace
+# Military Professionalism as a Foundational Trait
+\doublespace
+The ideal of the US military acting as an objective, apolitical and non-partisan institution is long and storied. As a concept, the idea of a professional military stems from the post-WW2 era, when the US military was locked in the Cold War struggle against the Soviet Union. Perhaps the strongest and certainly one of the original intellectual founders of a professional military is the political scientist, Samuel Huntington, who, in his 1957 work, _The Soldier and the State: The Theory and Politics of Civil-Military Relations_, asserted that two distinct forces would always be in tension with one another in a liberal democracy such as the United States. The first was a "functional imperative," which Huntington said drove the requirement that a military be strong enough and capable of defeating the military threats it faced, and the second was a "societal imperative," which Huntington said generated requirements for the military in that the military could never lose so many aspects of it such that it no longer represented the liberal democracy that it defended [@huntington_soldier_1957, 1-3]. Huntington's point was that America needed a strong military that could win on the battlefield, but cautioned that such a military could not be so foreign in character so as to alienate the character of American liberal society. Huntington further argued that the key to resolving the tension generated by these two opposing forces was to adopt a scheme of "objective civilian control" in which political leaders established the ends and goals of policy, while military leaders developed and implemented the military plans to accomplish these goals [@huntington_soldier_1957, 80-85]. To Huntington, separate operating spheres between the political leaders of a democracy and the military as an institution would ensure that the military remained "professional," and thus, untainted by partisan interests and concerns. In this way, Huntington posited that the American military would best meet the task of defeating security threats while also remaining apolitical.   
+
+While Huntington's theory has enjoyed tremendous staying power (Huntington is still studied and taught in many American military institutions), he is not without critics [see, for example, @feaver_civil-military_1996; @cohen_supreme_2003; @feaver_armed_2005; and @brooks_paradoxes_2020]. It would be too burdensome to unpack all of those here, but one of the earliest and richest critiques of Huntington came from S.E. Finer. Finer's 1962 book, _The Man on Horseback: The Role of the Military in Politics_, argued that Huntington's concept of professionalism simply was not strong enough by itself to keep the military out of politics [@finer_man_1962]. In fact, Finer foresaw military officers adopting an ethic of professionalism such that they would actually be more likely, not less likely, to become involved in political issues [@finer_man_1962, 22-23]. 
+
+Finer was especially concerned that the adoption of professionalism would lead to long-serving military professionals believing that they knew what was best for their country over and above that of temporary elected civilian leaders [@finer_man_1962, 22-23]. In fact, Finer warned that "the moment the military draw this distinction between nation and the government in power, they begin to invent their own private notion of the national interest, and from this it is only a skip to the constrained substitution of this view for that of the civilian government…this purported care for the national interest as defined by the military is indeed one of their main reasons for intervening" [@finer_man_1962]. Therefore, in Finer's view, what was really needed to keep the military out of politics was not merely adoption of an ethic that relied on professionalism, but rather a deep internalization of "the principle of civil supremacy" [@finer_man_1962].^[
+Importantly, neither Huntington's concept of professionalism nor Finer's critique of the same are arguing for blind obedience by the military to all civilian orders and directions, a point that is, in the author's opinion, often missed in debates about military professionalism. On the contrary, both Huntington and Finer make room and acknowledge that there are instances when military disobedience is not only required, but justified. However, both agree that in general terms, these situations should be exceedingly rare.]
+
+It is not only in the academic literature that the tradition and worth of an apolitical military has been cultivated. The operational military has also been central in upholding the military's non-partisan traditions, albeit with a far less-than-perfect record. Retired Army General Douglas MacArthur, a hero of World War Two in the Pacific and later, Commander of the military occupation of Japan, is well known for his disagreement with President Truman regarding American strategic goals during the Korean War. And yet, MacArthur's address to the cadets at West Point in 1962, as an 82 year old retired officer, speaks to the importance that MacArthur felt of the military professional focusing on appropriate military conduct: 
+
+\singlespacing
+
+> **Yours is the profession of arms, the will to win, the sure knowledge that in war there is no substitute for victory, that if you lose, the Nation will be destroyed, that the very obsession of your public service must be Duty, Honor, Country. Others will debate the controversial issues, national and international, which divide men’s minds. But serene, calm, aloof, you stand as the Nation’s war guardians, as its lifeguards from the raging tides of international conflict, as its gladiators in the arena of battle. For a century and a half you have defended, guarded and protected its hallowed traditions of liberty and freedom, of right and justice. Let civilian voices argue the merits or demerits of our processes of government. Whether our strength is being sapped by deficit financing indulged in too long, by federal paternalism grown too mighty, by power groups grown too arrogant, by politics grown too corrupt, by crime grown too rampant, by morals grown too low, by taxes grown too high, by extremists grown too violent; whether our personal liberties are as firm and complete as they should be. These great national problems are not for your professional participation or military solution. Your guidepost stands out like a tenfold beacon in the night: Duty, Honor, Country** [@macarthur_duty_1962].
+
+\doublespacing
+
+Finally, current military doctrine and norms further reinforce the centrality of professional, apolitical, and non-partisan conduct by the military. For example, prior to the 2016 Presidential Election, Marine Corps General Joseph Dunford, who at the time served as Chairman of the Joint Chiefs of Staff, said that the basis upon which the military is able to maintain the public's trust is it's ability to remain "apolitical and neutral" [@dunford_upholding_2016]. At nearly the same time, his predecessor, Retired Army General Martin Dempsey, published an opinion-editorial piece in _The Washington Post_ which criticized retired Army Major General Mike Flynn and Marine Corps General John Allen for participating in the Republican and Democratic conventions. Dempsey wrote, "As generals, they [Flynn and Allen] have an obligation to uphold our apolitical traditions. They have just made the task of their successors – who continue to serve in uniform and are accountable for our security - more complicated. It was a mistake for them to participate as they did. It was a mistake for our presidential candidates to ask them to do so" [@dempsey_military_2016]. 
+
+Although a professional and non-partisan military is the theoretical goal of the institution, the practical record and results remain far from perfect. From MacArthur's clash with President Truman in the early 1950's, to the so-called "Revolt of the Generals" in 2005-2006, military leaders, even those who are retired, have ventured into political territory, in one form or another, on more than one occasion. Nonetheless, academic theorists, military tradition, and contemporary military leaders have long argued for the importance of the military remaining grounded in professional conduct that is both non-partisan and apolitical. At its core, it is this type of professional conduct which ultimately postures the military to earn the trust and confidence of the American people^[There are certainly other aspects that impact the military's ability to earn the public's trust, such as performing its military missions well, winning in combat, etc.]. 
+
+To be clear, the concept of military professionalism does not impose a normative prohibition on the publication of an opinion piece, or the expression of other forms of public dialogue, by a military professional. In fact, one of the foundations of Huntington's concept of military professionalism is the fact that military leaders possess unique and specialized skills that civilians simply do not have. Moreover, multistar generals and admirals in the contemporary military possess in many cases upwards of 30 and sometimes 40 years of service, and it is entirely reasonable to conclude that these high-ranking officers in particular have been privy to decisions and experiences occurring at or near the highest levels of government. In other words, their experiences are not confined to only tactical matters. They are familiar with issues ranging from how wars should be best fought, to future security threats looming on the horizon, to fixing the institutional culture of a military service, and much more.    
+
+It is reasonable, therefore, to conclude that a professional opinion piece written by a military officer would take on three qualities. First, a professionally-written opinion piece would address a relevant military topic consistent with the military expertise of the author. In the US context in particular, where the military conducts a variety of roles and performs a variety of missions, this would include a wide swath of topics, while at the same time, certain topics would be considered out of the realm of relevant military expertise, such as partisan domestic politics. Second, from the perspective of both expertise and institutional credibility, a professional opinion piece would be based on the officer's personal experiences and be written from an individual's perspective so as not to infer that an argument is being made on behalf of the military. Third, a professionally-written opinion piece would be free of of partisan sentiment or expression, whether advocacy or denouncement. If one of these three qualities -- addressing a relevant military topic, written from the perspective of an individual officer's expertise, free of partisan sentiment -- fails to be upheld, there is an increasing likelihood that the officer's words can be conveyed and/or received as unprofessional.
+
+If and when a military officer violates standards of military professionalism when conveying an opinion to the American public, his or her words can cause great harm, either to American society, the military as an institution, or a combination of both. To understand how and why this is the case, we will now turn our attention to understanding the impacts on military professionalism caused by two changes that have developed within American Society in the past 50 years. The first is a gradual increase in the American public's opinion of the military as an institution, and the second, more significant change is the steady increase in political polarization within American society. 
+
+# The Impact of Credibility and Polarization
+
+## _Military Credibility and Expertise_
+
+The credibility of the American military as an institution has increased during the past fifty years. Today in fact, relative to other government institutions, the American public trusts the military to a remarkably high degree. For example, according to a recent Pew Research Center poll, 80% of the American public expects the military to act in the best interests of the American public, compared to tho percentage who believe the same about business leaders (45%), the media (40%), and elected officials (25%) [@johnson_trust_2018].  
+
+Military leaders are, rightfully so, cognizant of the benefits of holding the American public's trust. Former Chief of Staff of the Army, Retired General Ray Odierno, told fellow Army generals that "of great importance within the Army Profession is the duty of each of us to be a steward of our profession and to maintain its essential and hard won trust with society [Ray Odierno in @us_army_repairing_2014]. For this reason, for example, there has been a concerted effort by the services to identify and punish senior leaders who engage in activities that may damage the "hard won" trust Odierno is referring to, activities such as sexual or financial misconduct [@us_army_repairing_2014]. 
+
+Scholars have shown that when elites possess a high degree of credibility, their ability to influence and shape public opinion is likewise high. In his influential study, _The Nature and Origins of Mass Opinion_, John Zaller argues that formations in mass public opinion are the result of three interacting components: "variation in the information carried in elite discourse, individual differences in attention to this information, and individual differences in political values and other predispositions" [@zaller_nature_1992]. Zaller argues that throughout modern America, most citizens, as non-elites, must rely heavily on the messages that come from elites regarding various topics and issue areas [@zaller_nature_1992]. Zaller further argues that the messages that elites send is necessarily "stereotyped" in some way: that is, the messages that elites send, in order to be understood by regular citizens who are part of the public, must be "short, simple, and highly thematic" [@zaller_nature_1992]. In developing this argument, Zaller is not claiming that regular citizens are uninformed or careless people who are incapable of processing complex information, but rather acknowledging that most citizens care most about a world that is not "beyond their personal experience" [@zaller_nature_1992]. Thus, his main point is simply that elites play a significant role in forming and swaying public opinion. 
+
+Therefore, as the public's trust in the military has grown in the years since Vietnam, so has the military's potential to impact public opinion. This is especially true of military elites, to include retired military officers who previously held substantial rank and positions of authority. An increase in credibility of the institution may not indicate that the military or particular military elites will actually engage in behavior to deliberately impact public opinion, but rather that the potential to do so has increased. The American people tend to listen to those whom they trust. 
+
+## _Political Polarization Today - Unique in America's History_
+
+The second and more influential societal change that has occurred over the past fifty years in America is the rise of a polarized political landscape. Though this is not the first time in America's history that political polarization has been a dominant feature of domestic politics, multiple scholars have argued that polarization has worsened in recent decades [@hare_polarization_2014; @bonica_mapping_2014], and some have argued that polarization is at the worse level since the end of the American Civil War [@hare_polarization_2014]. Although scholars have offered differing explanations for the cause of the political polarization evident today, ranging from concerns over race and religion [@abramowitz_great_2018], to the size and role of government [@sides_two_2015], to fierce policy disagreements over policy issues [@mann_its_2012], there is a fair amount of common ground among scholars regarding how polarization has impacted contemporary domestic politics. It is worth unpacking several features of America's polarized landscape, particularly for how these features might alter professional military behavior specifically and civil-military relations more broadly. 
+
+The polarized political climate today extends to far more issues than previously polarized periods in American history [@layman_party_2002], is marked by stronger negative feelings towards those who hold opposing views [@abramowitz_great_2018], and, at root, involves fundamental issues of both personal and national identity that are not conducive to any reasonable form of compromise [@abramowitz_great_2018; @mohler_jr_gathering_2020]. Through the lens of these characteristics, one can begin to adequately grasp the challenges of polarization to the professional character of the nation's military.  
+
+The first important characteristic of the polarized political climate is its all-encompassing scope. Fewer and fewer issue areas and policy matters are outside of the reaches of polarization, a phenomenon that American politics scholars have dubbed "conflict extension" [@layman_party_2002]. These scholars note that as polarization has increased, more issue areas have become divisive in a partisan sense. The practical effect of "conflict extension" is that the perceived non-partisan or apolitical space has significantly shrunk. In fact, scholars have also shown that consistent with trends of increasing polarization, voters who identify as liberals have become more more liberal across more categories of issues, and that the same trend holds for conservatives [@abramowitz_great_2018]. This includes a range of social welfare, cultural, and racial issues, all of which are important in the minds of the electorate and partisans [@layman_party_2006]. Whereas in previous political eras, the prospect for cooperation on issues that were not politically polarized remained high, the prospect for cooperation across partisan sides is lower as a result of the shrinking, non-partisan space [@layman_activists_2010]. 
+
+The second important characteristic of today's polarizing climate involves the rise of strong, negative feelings that each side espouses towards those who hold differing opinions on a variety of issues. Known as the rise of "negative partisanship" [@abramowitz_great_2018], citizens holding strongly negative feelings toward those who hold different political opinions is not a phenomenon that has occurred only among political elites; instead, this trend has been shown to have grown among all voters since at least the late 1970s [@abramowitz_great_2018]. The effect of "conflict extension" and "negative partisanship" is a reduction in perceived or actual nonpartisan space as well as a genuine belief that opposing partisans are deeply wrong and flawed.  
+
+The third characteristic of today's polarizing environment is that the issues which partisans disagree about do not involve matters of simple policy difference, but rather deep and fundamental beliefs about individual and national identities and purposes [@abramowitz_great_2018; @sides_identity_2018; @mohler_jr_gathering_2020]. Indeed, the election of President Donald Trump and his years in office as President have raised the salience on a host of fundamental issues, many of which are dearly held by various parts of the electorate, including attitudes about race, immigration, and religion  [@sides_identity_2018]. The impact of this particular feature of contemporary political polarization in America is that real moral issues are at stake for partisans on each respective side of the political divide.  
+
+Taken together, these three characteristics of contemporary US political polarization offer a sobering assessment of the contemporary political landscape. As a large body of research indicates, it is right to understand that America finds itself today not merely in yet another polarized period, but rather in a tumultuous era that may well challenge the very definition of what America is and what it stands for [@mann_its_2012; @sides_identity_2018; @abramowitz_great_2018; @mohler_jr_gathering_2020]. For anyone - citizens, military officers, or elected officials - to assume that the military will automatically escape these dynamics of polarization simply because of the legacy of the military's professional ethos is to underestimate the strength and all-encompassing nature of the divisions in American society that political polarization underscores. Let us now turn our attention to understanding how the features of today's politically polarized climate may impact the professional nature of the military institution.
+
+\singlespace
+# When Words Become Weaponized - A Theory of Political Polarization and Military Professionalism
+\doublespace
+
+Figure One, below, shows describes a theory for how the variables of political polarization, institutional credibility, military professionalism, and other military outcomes may relate to each other. The theory contends that increasing political polarization ultimately reduces military professionalism, but that there may also be an intervening variable, rising institutional credibility, that also is impacted by political polarization and yet further impacts military professionalism. Finally, though it is outside the scope of this paper, I contend that an increase in political polarization may at some point cause discernible changes in various military outcomes. Such outcomes may include a multitude of topics, but would include items such as military effectiveness, to include the military's ability to fight and win battles [@talmadge_dictators_2015], and to formulate sound strategic advice [@rapp_civil-military_2015]. Indeed, the full degree to which and in what ways polarization will impact the military are not yet fully known. 
+
+```{r figure one, include=FALSE, echo=FALSE}
+problem_dag <- dagify(
+    MO ~ MP,
+    MP ~ PP + IC,
+    IC~PP,
+    coords = tribble(
+      ~ name,      ~ x,    ~ y,
+      "MO", 1, .5,
+      "MP", .7, .5,
+      "IC", .3, .2,
+      "PP", .1,.5,
+    ))
+    
+
+problem_dag %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_edges()+
+  geom_dag_point()+
+  geom_dag_text_repel(aes(label=name), show.legend=FALSE)+
+  theme_dag()
+```
+
+```{r include=TRUE, echo=FALSE, fig.height=5, fig.width=7}
+
+problem_dag %>% tidy_dagitty() %>% 
+  dag_label(labels=c("MO"="Changes in\n Military\n Outcomes", 
+                     "MP"="Reduction in\n Military\n Professionalism", 
+                     "PP"="Increasing\n Political\n Polarization", 
+                     "IC"="Rising\n Institutional\n Credibility")) %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_edges()+
+  geom_dag_point()+
+  geom_dag_text()+ 
+  geom_dag_label_repel(aes(label=label, fill=label), col="white", show.legend=FALSE)+ theme_dag() + labs(title="Figure One", subtitle="The Impact of Political Polarization on Military Professionalism")
+  
+```
+
+What mechanisms might be at work through increasing political polarization that ultimately impact military professionalism? To answer this important question, I rely on the three major characteristics of the contemporary polarized political landscape previously identified by scholars of American Politics. These included, first, a sharp increase in the number and scope of issues that have been subsumed by partisan debate and disagreement (the phenomenon referred to as "conflict extension" [@layman_party_2002]); second, the increase in the strength of negative feelings held by one partisan group towards those of the other side (the rise of "negative partisanship" [@abramowitz_great_2018]); and third, an increase in the salience of debates over issues that individual partisans consider core to their individual identities [@white_values_2002; @mann_its_2012; @sides_identity_2018]. Each of these three features of the politically polarized landscape strain the concept of military professionalism in important ways, and taken together, comprise a significant challenge to the individual military professional and thus, to the professional nature of the military as a whole. These challenges are summarized in Table 1, below. 
+
+\singlespacing
+\begin{table}[ht]
+\begin{footnotesize}
+\caption{Mechanisms of Rising Political Polarization Which Impact Military Professionalism} % title of Table
+\centering % used for centering table
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|p{5cm}|}
+    \hline
+    \textbf{Features of Increasing Political Polarization} & \textbf{Associated Mechanism} & \textbf{Potential Impact on Military Professionalism}  \\ \hline
+    \textbf{Conflict Extension} & Less politically-neutral space exists as partisan disagreements subsume a greater number of issues. It becomes increasingly difficult to remain "out of politics." & Military Professionals face an increasingly difficult prospect of remaining apolitical. \\ \hline
+    \textbf{Negative Partisanship} & Strong feelings of personal dislike and disdain arise against those who hold to opposing political views. There is a belief that those on the "other side" are greatly wrong and flawed. & There is a greater willingness to confront or take issue with those who hold opposing views.\\ \hline
+    \textbf{Core and dearly-held issues are increasingly at stake} & As the issues to which one holds most dear are at stake, the salience of one's identity and sense of belonging to a particular group is raised. Associated with this phenomenon is a belief that not just preference, but moral right and wrong, are at stake. & Military professionals face potential changes in one's concept and notion of loyalty. There is a sense that failing to take action over a certain issue is equivalent to failing to uphold a sense of loyalty to an important group, idea, or concept.\\ \hline
+\end{tabular}
+\label{table:comparison} % is used to refer this table in the text
+\end{footnotesize}
+\end{table}
+\doublespacing
+
+The first way in which the concept of military professionalism is challenged as a result of increasing political polarization is that there is increasing difficulty for individuals to remain politically neutral, non-partisan, or otherwise apolitical - a hallmark of military professionalism. This happens because as "conflict extension" [@layman_party_2002] occurs, an increasing number of issues are brought into partisan battlegrounds, and thus, there is less politically-neutral territory. When polarization levels in America were not as high as they are today, it was more possible for individuals to either stay out of politics, avoid partisan squabbles, and otherwise to stay politically neutral. Today's polarizing environment seems to have the opposite impact: polarized politics seem to thrust issues and the unfolding political fight at the individual citizen, even when the individual is not deliberately seeking confrontation. There is no theoretical reason to suspect that this mechanism would not impact military leaders. Military leaders are citizens of the Republic, and though the institutional ethos of the military profession is to remain apolitical, such an ideal is difficult to uphold if less and less neutral political space exists. 
+
+A second challenge to military professionalism stems from the "negative partisanship"[@abramowitz_great_2018] that dominates the polarized American political landscape. Strong feelings towards those on a host of other issues are becoming increasingly hostile. These feelings are growing increasingly strong likely because of the other prominent features of political polarization: a decrease in the availability of neutral political space, and the importance of issues that are at stake in many of today's political debates.  
+
+A third, and I contend a more insidious, mechanism through which increasing political polarization works to impact military professionalism is by altering one's sense of loyalty and identity. This occurs because the issues that are at stake as political polarization increases are in many instances involving issues that individuals associate with core concepts of one's identity, and thus, one's sense of moral right and wrong. Because individuals care about their identities and what they believe to be right and wrong, they are willing to defend these values, even at a cost. The rise of "identity politics" in America as political polarization has worsened illustrates this point. 
+
+However, it is also precisely on this point that the military institution is perhaps most vulnerable to increasing political polarization. I contend that the rise of identity politics can and will be harmful if a military professional's identity and the loyalties associated with that identity directly conflict with his or her identity and loyalty as a professional soldier. As any soldier knows, and as civilians can reasonably understand,few traits are more sacred in the military than loyalty. Indeed, the virtue of loyalty is extolled in a host of codes and mantras that have played a central part of the American military since its inception, and loyalty is captured, either in word or in spirit, in a host of phrases and professional codes. In the middle of the West Point Cadet Prayer is the eloquently written plea, "make us to choose the harder right instead of the easier wrong" [@wheat_west_1918]. Even Huntington spent a great deal talking about the importance of loyalty as a trait to the very essence of the military profession. He recognized that in order for civilian control to be effective, the military profession had to organize itself as a "hierarchy of obedience," which required "loyalty and obedience" to stand out as "the highest military virtues" [@huntington_soldier_1957, 73].
+
+High levels of political polarization obfuscates the ideal of loyalty, however, and thus pose a significant risk to the professional nature of the military. As core issues that involve individual perceptions of moral right and wrong are at stake in an increasing number of partisan battles, individuals, to include military officers, are more likely to become attached to or otherwise invested in these issues. This is especially true when the justification for taking or not taking action invokes the concept of loyalty. As a result, highly polarized political climates increase the likelihood that two different military officers may adopt completely different opinions or stances on an issue, each believing that the other is not only morally wrong, but failing to act out of loyalty in accordance with a specific oath or moral code. A couple of recent cases illustrate how military officers, active and retired, are invoking the concept of loyalty to make an appeal to action that is, if not outright hostile to, certainly not helpful for, the ideal of military professionalism. 
+
+First, in June 2020, following President Trump's largely unpopular move of displacing protesters from Lafayette Square, a letter published by West Point alumni expressly called out prominent West Point alumni serving in the Trump administration. Though it did not mention individuals by name, the letter was intended and acknowledged by media as directed towards the Secretary of Defense, Mark Esper, and the Secretary of State, Mike Pompeo, who are both graduates of West Point's Class of 1986 [@gaouette_group_nodate]. The charges of the letter were both damning and striking: "...We are concerned that fellow graduates serving in senior-level, public positions are failing to uphold their oath of office and their commitment to Duty, Honor, Country"[@anonymous_authors_letter_2020]. The letter's clear implication is that Secretaries Esper and Pompeo have forsaken their oaths of office, the US Constitution, and the values that West Point stands for (the values of duty, honor, and country). 
+
+Then, in July 2020, several recent West Point graduates, who are now officers in the US Army, released an open letter addressed to the Superintendent, Commandant, Academic Dean, and Athletic Director of West Point. The letter's authors expressed concern that West Point had not done all it could do to be a "anti-racist" institution, and made a list of requests of the Academy's leadership, including "releasing a public statement acknowledging the existence of systemic racism at West Point, demonstrating commitment to anti-racism..., outlining anti-racist education..., and detailing plans to eradicate Confederate memorialization" [@askew_anti-racist_2020]. The authors further stated that, "we hope Academy leadership will agree that, by writing this proposal, we are espousing the same values that West Point seeks to instill in its graduates: leadership, duty, respect, selfless service, honor, integrity, and personal courage" [@askew_anti-racist_2020]. 
+
+And in August, 2020, yet another open letter, this time written by a pair of retired Army Lieutenant Colonels, John Nagl and Paul Yingling, addressed the Chairman of the Joint Chiefs of Staff, General Mark Milley, invoked the concept of loyalty to frame a very disconcerting prospect: active duty military forces removing President Trump from office if, in January, he fails to accept the results of the election [@nagl__2020]. Nagl and Yingling assert that Milley has a choice to make. As the letter states to Milley, "the choice between these two options [_removing the President from office, or nothing_] lies with you...your duty is to give unambiguous orders directing U.S. military forces to support the Constitutional transfer of power. Should you remain silent, you will be complicit in a coup d’état [@nagl__2020,_emphasis mine].
+
+Each of these three instances could deserve a much longer exposition and analysis, but the important thing to notice here as it relates to political polarization is how in each case, the concept of loyalty is used to justify taking action, but even more than that, to use the concept of loyalty to bring disdain and perhaps even shame on someone for failing to act in accordance with the letter's demands. This is remarkable in that in effect, political polarization has served to draw up battle lines for America's warriors, its venerated and historically apolitical institution. 
+
+# Accounting for Institutional Credibility 
+
+The previous section described how increasing political polarization presents significant challenges to the concept of military professionalism. But when will these challenges become public knowledge, and perhaps more relevant, how does increasing political polarization impact the credibility of the military institution? 
+
+One can imagine several possible scenarios. It is reasonable to consider that as political polarization increases, respect and trust in seemingly partisan institutions would decrease, while trust in nonpartisan and apolitical institutions would rise. But why? Would such a trend reflect a genuine increase in trust in the nonpartisan institution, or would it reflect the simple consequence that as one institution becomes less respected, others might simply gain as a result? Certainly, more work needs to be done in this area.  
+
+Nonetheless, I contend that when institutional credibility is high, a demand signal is created by the American public such that future interactions between the military institution and the American public are encouraged and welcomed. From an institutional perspective, the military might respond to the public's demand signal for increased military interaction by increasingly participating in public ceremonies, parades, and other showcases of military prowess (at sporting venues, for instance). From an individual perspective, military elites, especially retired military officers, would be psychologically primed to increasingly dialogue with the American public when military credibility is high. By extension, other outlets such as the press would also be primed to showcase military elites when military credibility runs high, because these elites represent an institution that commands a high degree of public respect. 
+
+When military credibility is low, the theory contends the opposite will occur. Since demand for interactions between the American public and the military is muted when institutional credibility for the military is low, the institution will not engage with the public as frequently nor as intimately because the strong demand signal that existed when institutional credibility was high no longer exists. At the individual level, military elites will also not engage as often with the public, nor will the press ask these elites to. In sum, institutional credibility and respect for the military institution impacts the likelihood of the military institution and military elites interacting with the American public. Such interaction can take a variety of forms. When respect for the military is high, the military is likely to interact, speak to, and dialogue with the American public, and when institutional credibility is low, the military is less likely to do so.
+
+Ultimately, four possible worlds exist when the impacts of military credibility and political polarization are considered in tandem (see Table 2, below). The first is when political polarization and military credibility are both low. When these conditions hold, there is no anticipated drop in military professionalism by the military institution nor its individual elites. With these conditions, the military does not have an out-sized platform to interact with the American public, nor are there outstanding incentives for the military to raise significant disagreement over any domestic political issues. 
+\singlespacing
+\begin{table}[ht]
+\begin{footnotesize}
+\caption{Four Types of "Military Professionalism Worlds" Where Institutional Credibility and Political Polarization Vary} % title of Table
+\centering % used for centering table
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|p{5cm}|}
+    \hline
+    Influence of Variables & \textbf{Low Institutional Credibility} & \textbf{High Institutional Credibility}  \\ \hline
+    \textbf{Low Political Polarization} & Negligible anticipated impacts. Traditional Professionalism is Expected by the Military, Civilian Leaders, and the American Public & Possible Impacts. There is a demand for military voice, but little substantive matter stemming from US domestic politics that can cause crucial disagreement. Little incentive to deviate from traditional concepts of loyalty and duty. \\ \hline
+    \textbf{High Political Polarization} & Possible Impacts. Polarization raises the stakes of domestic politics, but military professionals are constrained from voicing their opinions and/or interfacing with the public due to low institutional credibility with the American public &  Highly Likely Impacts to Professionalism. Likely impacts. Military professionals have a "platform with the public" due to high institutional credibility, and high polarization raises the likelihood of disagreement between individual military elites and civilian leaders on a number of crucial topics.\\ \hline
+\end{tabular}
+\label{table:comparison} % is used to refer this table in the text
+\end{footnotesize}
+\end{table}
+\doublespacing
+The second possible set of conditions is when political polarization is low and institutional credibility is high. When these set of conditions exist, the military has a platform to interact with the public, as the public highly respects the military institution. The military enjoys this high level of trust and does not want to lose it. Further, because the degree of political polarization is low, there is little incentive for the military as an institution or military elites to use the trust they enjoy with the American public to adopt or denounce an issue associated with any partisan entity. The high institutional credibility increases the chance of the military interacting with the public in an unprofessional way, but the low political polarization removes the incentives of doing so. 
+
+The third type occurs when political polarization is high, but institutional credibility of the military is low. Under these conditions, the military does not command the respect of the American public like it does when credibility of the institution is high, and thus, does not possess a considerable outlet to interact with the American public. However, the incentives of loyalty and duty still loom large in the minds of some military elites as a result of the high degree of political polarization, and thus, a dip in professionalism is still possible. 
+
+The final set of conditions exists when political polarization and institutional credibility are high. It is in this world that I contend the American military finds itself in now in 2020. Under these conditions, the military faces dual dangers. High institutional credibility risks the military institution unilaterally acting or another body co-opting the military institution to speak out an a number of issue areas, and simultaneously, the highly polarized environment risks the military advocating for or denouncing partisan sentiments in the name of upholding the very traits it is most adhered to - loyalty and duty. Indeed, this set of conditions comprise a very dangerous world for the military institution and the military professional. 
+
+# Methodological Approach, Data, and Hypotheses
+
+```{r introduction, include = FALSE}
+
+# Read in the Data
+
+dataset <- read_csv(here("data", "MilEditorials.csv"))
+dataset %>% print()
+# Only read in the first 354 rows - is there a better way to get rid of N/A data?
+
+# Replace NA with 0 in the data for variables letter_ed to online_only, and leg_act #to role
+adjdataset <- dataset[1:353,] %>%
+  mutate_at(
+    .vars = vars(letter_ed:online_only, Leg_Act:Role),
+    .funs = ~ case_when(is.na(.) ~0, TRUE ~ 1)
+) %>% mutate(
+    PubYr = lubridate::year(PubDate)
+) %>% view()
+
+summary(adjdataset)
+names(adjdataset) 
+
+# count the number of observations by type of binary variable and store as new dataframe
+countbytype  <- adjdataset %>% 
+  count(Topic) %>% print()
+
+
+# count the number of observations by source
+countbysource <- adjdataset %>% 
+  count(Source) %>% print()
+
+#count the number of times each source occurs in the data
+WSJcount <- adjdataset %>% count(Source=="WSJ")
+WSJcount
+
+NYTcount <- adjdataset %>% count(Source=="NYT")
+NYTcount
+
+WaPOcount <- adjdataset %>% count(Source=="WaPO")
+WaPOcount
+
+USATodaycount <- adjdataset %>% count(Source=="USA Today")
+USATodaycount
+
+LATimescount <- adjdataset %>% count(Source=="LA Times")
+LATimescount
+
+# Create a new variable called Yrcount, which is a count of the yearly number of published op-eds
+
+adjdataset <- adjdataset %>% 
+  group_by(PubYr) %>% 
+  mutate(Yrcount=n()) %>% 
+  view()
+```
+
+Ultimately, I aim to see whether the discourse of retired military officers has changed over time, specifically since the 1970s, as polarization has worsened dramatically. To answer this question, I assemble and examine a data set that consists of opinion-editorial publications authored by retired military officers in major US newspapers. My methodological approach involves two fundamental steps. First, I determine what topics retired military officers have been writing about over time. Second, I apply a normative lens to determine if there have been shifts in the tone and tenor of the pieces authored by these officers, particularly regarding the professional aspects of the military previously discussed (apolitical in nature, non-partisan, relying on relevant military expertise, etc.). In essence, I want to answer the questions, what are these retired military officers writing about, and then, using the normative approach to military professionalism just discussed, are these op-ed's deviating from the concept of military professionalism, and how? 
+
+To assemble the data, I use the Factiva and Nexus-Uni databases, conducting a search that focuses keywords in the byline (author field) such as "retired military officer," "retired from the Army, Navy, Marine Corps, Air Force," "former Chairman of the Joint Chiefs of Staff," "General," "Admiral," and so forth. I confine my search to the largest US newspapers that regularly run opinion-editorial pieces, which includes  _The Wall Street Journal_ (WSJ), _The New York Times_ (NYT), _The Washington Post_ (WaPo), _The Los Angeles Times_, and _The USA Today_. The time period for the data includes the period January 1, 1979 - 30 August, 2020, the main limitation being that not all of the Newspaper sources are available for previous date periods. I also open my search to include both print and online offerings in order to ensure that I am capturing any opinion pieces published digitally. The data only include publications classified as either editorials or commentaries/opinions by the databases. Thus, other types of pieces that may still be authored by retired military officers, such as letters to the editor and/or published interviews, are not included.
+
+The data set contains 344 observations, penned by 185 different authors or author teams.^[There are several co-authored pieces. For example, where General (Retired) David Petraeus wrote one publication and another one was written by General (Retired) David Petraeus and Michael O'Hanlon, I counted these as two different authors for coding purposes.] Several authors penned multiple pieces, including Retired Army Lieutenant General (23 publications) and Retired Air Force General Michael Hayden (20 publications). Ten publications were written anonymously, with at best general recognition by the authors to their previous military service and/or rank. From a macro perspective, consider for a moment all that the date range includes with respect to the US military. Indeed, numerous and substantive events, debates, and changes have occurred in this time period for retired military officers to weigh in on. In terms of external threats and wars, this period includes the final years of the Cold War against the Soviet Union, the first war in Iraq, operations in the Balkans, and the post-9/11 wars in Iraq and Afghanistan, as well as a host of smaller but important military operations in Grenada, Panama, Somalia, and Haiti. The military has also undergone significant social and institutional changes in the time period examined. In the late 1970s, the military had ended the draft only years before following the conclusion of the Vietnam War. The debates over "Don't Ask, Don't Tell" and policies regarding women in the combat arms are also included in the data, as are numerous discussions of military budgets, weapons systems, and alliances. It is also interesting to note, as shown in Figure Two, below, that retired military officers have increasingly written and successfully published opinion-editorial pieces in the sources examined over the past forty years. 
+
+```{r figure two, fig.height=4, fig.width=5, fig.align="center", warning=FALSE, include=TRUE, echo=FALSE}
+  
+# construct a scatter plot with line and smoothing
+
+ggplot(data=adjdataset, aes(x=PubYr, y=Yrcount)) + geom_point() + geom_line() + geom_smooth(method="loess") + labs(
+  x="Year", 
+  y="yearly count", 
+  title="Figure Two: Number of Op-Eds Published by Retired Military\n Officers (WSJ, NYT, WaPo, USA Today, LA Times)",
+  subtitle= "1979-2020",
+  caption="Note: As of 29 October 2020"
+  ) + scale_x_continuous(limits=c(1979, 2020)) + scale_y_continuous(limits=c(-7, 28)) + 
+geom_vline(xintercept = 1981, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1989, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1993, size=.2, colour="dodgerblue") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=2017, size=.2, colour="tomato") +
+  geom_text(aes(x=1981, label="Reagan",y=10), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=15), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=20), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=-2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=-2), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=-2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) 
+  
+```
+
+There are both advantages and disadvantages to confining my data to select US newspapers, as I have. The primary advantage is that these sources offer longevity across a time period of forty-one years; in doing so, they provide the researcher with an opportunity to detect patterns across several decades. The primary disadvantage is that by limiting myself to only the five newspapers I examine, I am not including a large number of modern social media and blogging sites, contemporary webpages, and other digital offerings that presumably showcase the opinions of retired military officers. In fact, it is likely that more opinion pieces are available through these other types of media outlets. Is this a serious limitation? 
+
+After all, it is true that over time, social media has taken over as the primary means in which a majority of Americans receive their news [@martin_how_2018]. Print newspapers still exist, but overall circulation is still down today compared to earlier years, even after factoring in the expanse of digital options available today^[As a means of rough comparison, estimated total daily newspaper circulation in the US in 2000 was 62 million and 54 million for weekday and weekend editions, respectively, while in 2018, the the same figures were 29 million and 31 million [@barthel_leading_2019]]. But these trends do not seem to impact the story that Figure Two reveals so clearly, that retired military officers are publishing their opinions in at least the newspapers examined for this paper at an increasingly greater frequency than in previous decades. 
+
+I contend that the data I am able to assemble will still be very informative for several reasons. First, publishing opinion-editorial pieces, especially in a major, competitive newspaper such as the ones from which I gather the data, is a highly competitive process. In the newspapers that I examine in this study, for instance, it is not uncommon to see opinion pieces regularly published by heads of state, members of congress, governmental figures, and leaders of industry and academia. Additionally, opinion pieces are deliberately authored for the purpose of informing and persuading the public on a salient or timely topic. They are different from interviews or commentary that may be asked by a questioner because the author must take time to put forth his or her position in writing. Limiting the data to publications in the five major US newspapers allows the researcher to truly examine the views and arguments an author intended to convey to a significant swath of the American Public, as opposed to a niche group or smaller following, on a given topic or policy. 
+
+Of note, when assembling the data, some authors are explicitly identified in some of their publications as retired military officers, but not in others.^[This was true of several individuals, including Alexander Haig, a retired Army General who later served as Secretary of State under Ronald Reagan;  Robert McFarlane, a retired Marine Corps Lieutenant Colonel who later served as the National Security Adviser to President Reagan, Andrew Bacevich, a retired Army Colonel who then became a prominent historian and author; and Michael Hayden, a retired Air Force General who served as director of the National Security Agency and the Central Intelligence Agency]. I conduct a separate search for all opinion pieces penned by these authors, regardless of whether they were identified as a retired military officer or not, concluding that it is best do so for coding purposes. 
+
+Attempting to reconcile the fact that the military as an institution prides itself on being a non-partisan and apolitical institution, that newspaper circulations (even after accounting for digital offerings) are substantially down over the past 40 years, and that the US political environment is increasingly polarized,  I adopt the two following hypotheses:
+
+_$H_1$: The majority of op-eds published by retired military officers over the time period examine will be apolitical and non-partisan in tone._
+
+_$H_2$: Given that polarization has become increasingly pronounced in the United States over the time period examined, there will be an increase in recent years in the number of op-eds written about topics that are not relevant to military expertise, or that reveal inappropriate partisan sentiments. Such a trend may indicate that increasing political polarization is impacting military professionalism among a small but important part of the military institution, retired military officers._ 
+
+# First Layer Analysis: Topics Addressed
+
+In the first level of analysis, I code each observation into one of several binary categories that corresponds to the overall topic or subject of the publication. The goal is to create a coding scheme that captures a concise number of topical descriptions that are still sufficiently broad enough to reveal variation in the topic addressed by retired military authors. I develop a total of six topical variables, and each observation takes on the value of 1 if the publication corresponds to the general definition of the variable, and 0 otherwise.
+
+These topical variables are: war fighting and operations, if the piece advocates for or denounces a particular course of action directly related to operational or war fighting decisions of a clear military nature; troop support and institutional culture, if the publication generally highlights the work and sacrifice of members of the armed forces, defends the work of specific members of the Armed Forces, or makes a call for action to improve a service's institutional culture; strategic advice, if the piece is generally written to offer some sort of strategic advice for the nation, to include the wisdom of pursuing particular alliances or agreements, or adopting a specific weapons platform or military budget; military social policy, if the piece advocates for or denounces a particular social policy that _directly influences_ the armed forces (Examples include: debates over keeping or removing the "Don't Ask, Don't Tell" policy, opening up combat roles to women, the role of Transgender members of the armed forces); domestic policy, if the piece advocates for or denounces a position on a policy that _does not directly_ influence the armed forces in its day to day activities (Examples include: support for the second amendment, national immigration policy, and whether confederate statues should be taken down or left up); and political figures, if the piece advocates for or denounces a particular position held by a political administration, or _if the main point of the piece_ is to explicitly defend or attack a political figure by name (Examples: endorsing a Presidential candidate for office, or for attacking a President or member of Congress for a decision that was made).
+
+Up front, separating opinion-editorial publications into one of several distinct categories is an imperfect process. It requires a thoroughly objective reading of the publication as possible. To aid the coding process, I identify the thesis statement of each opinion piece, which in most cases is identifiable in either the lead or concluding paragraph of the opinion piece. In most cases, identifying and re-reading the thesis of each op-ed makes it possible to reasonably classify the publication by topic. Two additional points, however, are worth emphasizing here. 
+
+First, opinion pieces are intended to argue for something, and thus are, to an extent, designed to be at least mildly provocative. With this in mind, I did not necessarily code pieces that called for a political figure or institution to take a specific action into the category of _figures by name_.  Again, the identification of the publication's thesis statement aided significantly in identifying the main thrust of the argument, and thus, in classifying the argument by topic. Second, there were some instances in which I had to choose between placing a publication into one of two categories. However, in instances of choosing between two categories, the choice to classify between categories was usually between categories that were reasonably close. For example, there were a few instances of choosing to classify a publication between the war fighting and operations category and the strategic advice category, but no instances of choosing between the war fighting and operations category and the domestic policy category. Table 3 reveals the breakdown of all examined publications by article type.     
+
+```{r table3, fig.align="center", include=TRUE, echo=FALSE}
+countbytype %>%
+  kable(format="latex", caption="Publications by Subject") %>%
+  kable_styling(latex_options = "striped", font_size=10, full_width = T) %>% 
+  row_spec(0, bold=T)
+```
+An overwhelming majority (293 of 344, or 85.2%) of the total number of opinion pieces in the data set fall into the categories of war fighting and operations, troop support and institutional culture, and strategic advice. Moreover, I conclude that these observations pose no problem for norms of military professionalism, as they are written on topics that I contend are clearly related to one's relevant military experience. The remaining 51 publications (14.8% of the observations) are coded as falling under the other three categories of topics: social policy directly related to the military, domestic policy, and political figures by name. These observations require a second and more-thorough examination to determine whether the content of these publications indicate a drop in the norm of military professionalism.
+
+\singlespace
+# The Second Layer - Failing to Uphold Professionalism?
+\doublespace
+
+Conclusively determining whether an observation failed to uphold military professionalism is once again an imperfect and somewhat subjective evaluation. However, the work of academic theorists and decades of military norms make clear that at a minimum, military professionalism emphasizes behavior by military officers that is relevant to one's military expertise, as well as absent of partisan expression or preferences. Recall that Retired Army General Douglas MacArthur cautioned the cadets at West Point in 1962 about involving themselves in matters that do not require a military solution (in MacArthur's words, of "politics grown to corrupt," "morals grown too low," and "whether our personal liberties are as firm and complete as they should be") [@macarthur_duty_1962], and that more recently, in 2016, Retired Army General Martin Dempsey lamented the participation of retired generals in the political process by endorsing political candidates and appearing at the conventions of political parties:
+
+\singlespace
+
+> **The American people should not wonder where their military leaders draw the line between military advice and political preference. And our nation's soldiers, sailors, airmen and Marines should not wonder about the political leanings and motivations of their leaders. As generals, they have an obligation to uphold our apolitical traditions. They have just made the task of their successors – who continue to serve in uniform and are accountable for our security - more complicated** [@dempsey_military_2016].
+
+\doublespace 
+
+Relying on these two central ideals of military professionalism, relevant military expertise and non-partisan/apolitical expression, allows the researcher to ask two important questions: first, is the author addressing a topic related and applicable to the officer's military expertise, and second, is the author making an argument without clearly conveying or expressing political or partisan preferences? If the answer to either of these two questions is "no," then the publication might violate the concept of military professionalism. I therefore develop two new variables, _questionable professionalism_ and _justification_. The first variable is binary and codes as '1' the observations which may violate the concept of military professionalism, and the second variable briefly captures the basis for a possible violation, i.e. whether it is a violation of topic or of expression of political sentiment. The results of this analysis on the remaining 51 observations are displayed in Table 4, below. Several observations are worth noting.  
+
+```{r second level analysis, include = FALSE}
+
+# Show all articles and authors who published articles on Domestic Policy and Social Policy 
+adjdataset %>% arrange(PubYr) %>% 
+  filter(Topic=="DomesticPolicy" | Topic=="SocialPolicy")  %>% 
+  select (Author, Title, Source, PubYr, Topic) %>% 
+  print()
+
+# Show all articles where Leg_Act, Crit_Insub, or Endorse_Partisan was equal to 1
+## (in other words, articles in which the author called for legislative activity, criticized, or made
+## an explicitly partisan statement)
+
+adjdataset %>% arrange(PubYr) %>% 
+  filter(Leg_Act== 1 | Crit_Insub== 1 | Endorse_Partisan ==1)  %>% 
+  select (Author, Title, Source, PubYr, Topic, Leg_Act, Crit_Insub, Endorse_Partisan) %>% 
+  print()
+
+
+# create a df called quest_prof that contains articles that either criticized or were #expressly partisan, as well as whether someone was in a role at the time that may have # made such behavior ok
+
+quest_prof <-adjdataset %>% arrange(PubYr, Topic) %>% 
+  filter(Crit_Insub== 1 | Endorse_Partisan ==1)  %>% 
+  select (Author, Title, Source, PubYr, Topic, Crit_Insub, Endorse_Partisan, Role) %>% 
+  view()
+
+## Do a couple of things here.  Create several new variables.  
+# The first is a variable called case-count that counts the number of times by publishing #year an article published that calls for legislative action, criticizes or is #insubordinate, or is blatantly partisan. The second variable, prop_yr, is simply a 
+# proportion of annual publications where these conditions hold true.
+# The third variable is called dom_pol_count which counts the number of publications
+# by publishing year that are written on topics of domestic policy, and the fourth 
+# variable is a proportion of this type of article by year. 
+
+adjdataset <- adjdataset %>% group_by(PubYr) %>% 
+  mutate(
+    case_count=sum(Leg_Act ==1 | Crit_Insub==1 | Endorse_Partisan==1), 
+    prop_yr=(case_count/Yrcount),
+    dom_pol_count=sum(Topic=="DomesticPolicy"),
+    dom_pol_prop=(dom_pol_count/Yrcount)
+  ) %>% view()
+
+# Now create two variables, leg_crit_part and crit_part that take a 1 if certain 
+# conditions are met.  This will come in handy for the glm regressions that
+# will be conducted later.  
+
+adjdataset <- adjdataset %>% 
+  mutate(
+    leg_crit_part=case_when(
+      (Leg_Act==1 | Crit_Insub ==1 | Endorse_Partisan==1 & Role ==0) ~ 1,
+      (Leg_Act != 1 & Crit_Insub != 1 & Endorse_Partisan !=1 | Role==1) ~ 0
+    ),
+    crit_part=case_when(
+      (Crit_Insub ==1 | Endorse_Partisan==1 & Role ==0) ~ 1,
+      (Crit_Insub != 1 & Endorse_Partisan != 1 | Role ==1) ~ 0
+    )
+  ) %>% 
+  view()
+
+```
+
+\singlespace
+```{r table4, fig.align = "center", include=TRUE, echo=FALSE}
+#Need to adjust the width and spacing of this table
+quest_prof %>%
+  kable(format="latex", caption="Op-Eds authored by Retired Military Officers that Strongly Criticized Civilian Leaders, or were Expressly Partisan, 1979-2020", longtable=T) %>%
+  kable_styling(font_size=10, latex_options="striped", repeat_header_continued=T) %>% 
+  column_spec(1, width="9.5em") %>% 
+  column_spec(2, width="15em") %>% 
+  column_spec(3:4, width="2.5em") %>%
+  column_spec(5, width="5em") %>%
+  column_spec(6, width="6em") %>%
+  row_spec(0, bold=T)
+```
+\doublespace
+
+First, 17 of the 49 publications are, upon a closer reading, determined to not reflect possible violations of military professionalism. This is worth showcasing in order to draw attention to the fact that there are instances of retired military officers authoring opinion pieces which address the subjects of social policy related to the military, domestic policy, and figures by name while simultaneously upholding standards of military professionalism. However, the data reveals that in practice, such instances are questionable. The practical implication is simple and straightforward: if military officers decide to write about topics other than war fighting and operations, troop support and institutional culture, or strategic advice, they need to carefully craft their argument so as to not violate norms of military professionalism.
+
+Second, and resulting from the first, is that across the entire data set, instances of potential violations of military professionalism in the op-eds published by retired military officers in major US newspapers is a somewhat rare occurrence. Indeed, the entire count of potentially questionable publications with respect to military professionalism across the data set is just 32 of 344 total observations, or 9.3% of the entire sample. Thus, ample support exists to confirm the first hypothesis, that the vast majority of opinion pieces authored by retired military officers uphold standards of military professionalism. 
+
+A third and interesting finding, however, is that the first publishing year in which an opinion piece penned by a retired officer potentially failed to uphold professional standards is 1998, nearly halfway across the sample in terms of publishing year. Why is this the case? We will deal more with the suspected culprits of this trend, rising political polarization and rising institutional credibility of the military, later in this paper. The point to make is that without question, retired military officers before 1998 had plenty of opportunities either to air partisan preferences and/or to address topics that may have similarly pushed the limits of military professionalism. In fact, many of these retired officers would have been veterans of the Vietnam and Korean Wars, and perhaps, like Maxwell Taylor, an author who is in the sample data, veterans of World War Two. Moreover, the data shows that these retirees wrote opinion pieces ( a total of 46 observations were written before the first observation in Table 4 raises a question about military professionalism), but that in doing so, they stayed clearly within the bounds of military professionalism. 
+
+Fourth, Table 4 reveals that several retired military officers wrote publications not from the perspective of a retired military officer, but from the perspective of other professional and political roles that these officers served in after retiring from the military. These include op-eds by: Retired Air Force Lieutenant General Claudius Watts, who wrote an op-ed regarding the advantages of all-male education while serving as the president of the Citadel; Retired Army General Barry McCaffrey, who penned an opinion piece while serving in the administration of Bill Clinton as the Director of the Office of National Drug Control Policy; and Retired Marine Corps Colonel John Murtha, who also served in the US House of Representatives. Each of these authors addressed topics that one should reasonably expect them to on the basis of the roles each was serving in. This would include, in the case of John Murtha, making obviously partisan agreements and thus, revealing political preferences. 
+
+Table 4 reveals, fifth, that several publications are deemed as possibly having violated military professionalism in that they address topics that may be considered outside of the realm of proper military expertise. It is worth briefly commenting on several of these examples. In his _Washington Post_ editorial, "Home Should Not Be a War Zone," Retired Army General Stanley McChrystal addresses the tragic nature of mass shootings in America. He states in the article, "...as a combat veteran and proud American, I believe we need a national response to the gun violence that threatens so many of our communities" [@mcchrystal_home_2016]. He later, in 2018, pens an op-ed entitled "Good Riddance" in which he discusses the evolution of his views on Robert E. Lee and other Confederate soldiers and symbols [@mcchyrstal_stanley_good_2018]. Retired Army Brigadier General Ty Seidule similarly, in 2020, advocates for the renaming of several Army installations [@seidule_ty_what_2020]. Other examples of observations coded as potentially violating military professionalism based on the topic of the publication include articles penned by Retired Navy Admiral Mike Mullen (entitled "The Refugees We Need") and co-authors Retired Army Lieutenant General Mark Hertling and Retired Naval Admiral Robert Natter (entitled "Cutting Refugee Admissions Will Have Severe Consequences for the US Military").  
+
+These articles are certainly not unreasonable in that they, in the opinion of the author of this article, express reasonable thoughts and ideas to many of the nation's pressing problems, including gun violence, the appropriate legacy of Confederate symbols, and national immigration policy. To be clear, many Americans agree with the stance these officers take in the articles they have published. One can even make a strong, perhaps even a compelling argument, why these officers might be uniquely qualified to address aspects of some of these topics in that they possess expertise commanding large and powerful organizations charged to carry out violence on behalf of the country (related to the issue of gun control), that they may have experience serving and leading troops on bases named after Confederate generals (related to the issue of Confederate symbols and bases named after Confederate generals), and that they have have considerable experience serving alongside soldiers of multiple ethnicities as well as considerable experience in Iraq and Afghanistan (related to the issue of improving American immigration policy). 
+
+But I contend that it is also not wrong to insist that these and other contentious national issues are most appropriately solved by elected civilian officials and not by retired military officers. Interestingly, in July of 2020, General Mark Milley, the Chairman of the Joint Chiefs of Staff, was asked by US Representative Anthony Brown, D-MD, during a hearing held by the House Armed Services Committee, to "comment on the naming of Army installations after Confederate soldiers," and whether the continued use of the names of these bases "reflects the values" that the military is trying to instill in the nation's armed forces [@milley_mark_general_2020]? Milley's response was instructive. He offered the Congressmen the idea that even as the Department of Defense continues to take a hard look at the issue, the decision to remove those names should reflect the decision to adopt those names in the first place in that such a decision was "a political decision" [@milley_mark_general_2020]. Milley's answer was the appropriate one, I contend, because it recognized that regardless of how he feels about this issue, the issue is not for him (or the military) to solve. Many other topics addressed by publications listed in Table 4, to include gun violence and immigration, fall into the same realm.
+
+A sixth finding is that there are roughly three clusters of observations in Table Four with respect to the year of publication. In the first cluster (1998-1999), the publications reveal multiple grievances between certain retired military officers and the manner in which President Clinton was planning or using military force abroad. Only two of the five observations in this first cluster are coded as possibly having violated standards of military professionalism. 
+
+The second cluster refers to publications penned between 2004-2006. Most of these comprise part of or are related to the so-called "Revolt of the Generals," which occurred near the 2004 US midterm elections and referred to sharp disagreements that entered the public arena between multiple US generals and admirals and President George W. Bush's Secretary of Defense, Donald Rumsfeld. These disagreements were directly related to these military leaders' disagreement about Rumsfeld's leadership regarding the planning and execution of the early years of the war in Iraq. Retired Army General Tommy Franks penned two observations that essentially provided public support for the President, George W. Bush, while Retired Army Major General Paul Eaton, a critic of Rumsfeld, authored two of the pieces published in this cluster. Of the seven observations published in Table 4 between 2004-2006, all but one contained possible violations of the concept of military professionalism. 
+
+The third and largest cluster occurs between 2016-2019.  The 23 observations in this cluster reveals concern over the candidate and later President Donald Trump. The titles alone of many of these opinion pieces reveal, at a minimum, clear partisan preferences by many of the authors. Retired Air Force General Michael Hayden, Navy Admirals Mike Mullen and William McRaven, and Army General Stanley McChrystal are among the retired officers who authored several publications during this time period. All but four of the observations in this cluster are coded as having potentially violated standards of military professionalism. Of note, one observation in this cluster entitled, "Fists Raised at West Point" and published in the Washington Post is actually a compendium of two anonymous letters, each one taking an opposite stance on the appropriateness of an incident in which a photograph at West Point's 2016 graduation ceremony captured a graduating female cadet raising a clenched a fist, an action which some saw as an inappropriate political gesture related to the growing Black Lives Matter movement [@unknown_fists_2016].  
+
+## Variation in Military Professionalism Over Time
+
+```{r build plots, include = FALSE, echo=FALSE}
+plot1<- ggplot(data=adjdataset, mapping=aes(x=PubYr, y=prop_yr)) + geom_point() + geom_smooth() + labs(x="Year", y="Annual Proportion", color=NULL) + geom_vline(xintercept = 1981, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1989, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1993, size=.2, colour="dodgerblue") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=2017, size=.2, colour="tomato") +
+  geom_text(aes(x=1981, label="Reagan",y=.2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=.2), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=.4), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=.3), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=.4), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=0), colour="tomato", angle=90, vjust=1, text=element_text(size=9))  
+  
+plot2 <- ggplot(data=adjdataset, mapping=aes(x=PubYr, y=dom_pol_prop)) + geom_point() + geom_smooth() + labs(x="Year", y="Proportion", color=NULL)+ geom_vline(xintercept = 1981, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1989, size=.2, colour="tomato") + 
+  geom_vline(xintercept=1993, size=.2, colour="dodgerblue") + geom_vline(xintercept=2001, size=.2, colour="tomato") + 
+  geom_vline(xintercept=2009, size=.2, colour="dodgerblue") +
+  geom_vline(xintercept=2017, size=.2, colour="tomato") +
+  geom_text(aes(x=1981, label="Reagan",y=.25), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1989, label="Bush 41",y=.25), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=1993, label="Clinton",y=.25), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2001, label="Bush 43",y=.3), colour="tomato", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2009, label="Obama",y=.3), colour="dodgerblue", angle=90, vjust=1, text=element_text(size=9)) + 
+  geom_text(aes(x=2017, label="Trump",y=-.05), colour="tomato", angle=90, vjust=1, text=element_text(size=9))  
+  
+```
+
+Figure 3, below, plots both the total number and proportion of yearly opinion pieces authored by retired military officers that address topics of social policy affecting the military, domestic policy, and political administrations or figures. The points are the actual terms (number and proportion, respectively), while the blue line represents a smoothed line of best fit for the data. Both plots reveal that beginning with the first year of the data, 1979, there has a moderate increase until approximately 2005, followed by a decline until approximately 2011, followed by a sharp increase that has persisted until the present day. What explains these dynamics - both the increase that occurred between 1979 - 2005 as well as the sharper increase between 2012 - today - and the decline that occurred between roughly 2005 - 2011? According to the theory developed at the beginning of this paper, a significant reason stems from changes in political polarization and institutional credibility that have occurred over the past four decades.
+
+```{r figure 3, include=TRUE, warning= FALSE, message = FALSE, echo=FALSE}
+grid.arrange(plot1, plot2, ncol=2, top="Figure 3: Proportion of Op-Eds Published Which\n (L) Call for Legislative Action, Criticize Civilian Leaders, or are Partisan\n in nature; or (R) Address Domestic Political Topics")
+```
+
+To understand how measurements of political polarization have changed over time, I rely on the DW-NOMINATE (dynamic-weight, nominal three step estimation) scores that were originally developed by the political scientists Keith Poole and Howard Rosenthal in the early 1980s [@jeffrey_b_lewis_voteview_2020]. The DW-NOMINATE data are one measure that uses roll-call voting data for each member of congress to assign a score to the member of congress on a liberal-conservative dimension, ranging from -1 (extreme liberal) to 1 (extreme conservative) [@jeffrey_b_lewis_voteview_2020]. The data is frequently relied upon by academics, journalists, and the media to understand how a variety of political bodies, to include Congress and political parties, have changed over time. Over the time period examined in this paper, polarization in each chamber of Congress, the House of Representatives and the Senate, has increased [@jeffrey_b_lewis_voteview_2020]. The distance in party mean DW-NOMINATE scores in the late 1970s was just less than .6, while the distance today for both chambers is above .8 [@jeffrey_b_lewis_voteview_2020]. 
+
+Changes in the institutional credibility of the American military institution can be seen by examining public opinion data. Pollsters survey the American public annually to gauge their trust in a variety of institutions. Using Gallup opinion polling, one sees that since the late 1970s, the credibility of the American military as an institution has gradually increased [@gallup_polls_confidence_2020]. In 1979, 54% of those surveyed expressed either a great deal or quite a lot of confidence in the military, while in 2020, 72% expressed the same [@gallup_polls_confidence_2020]. These trends in political polarization and confidence in the military are displayed in Figure Four, below. The top and middle graph show changes in means between Republicans and Democrats in the House of Representatives (top graph) and Senate (middle graph) since 1979, while the bottom graph shows changes in the percentage of surveyed Americans who reported either a great deal of or a lot of confidence in the military institution over the same time period. 
+
+```{r figure 4, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+#adjust the data to account for polarization by creating a new dataset called polaradjdataset.  
+#In this dataset, create variables that capture ideological distance in each the House and Senate along each of the two dimensions according to Poole and Rosenthal's DW-NOMINATE data
+
+# scale the data by multiplying by 100
+
+polaradjdataset <-adjdataset %>% mutate (
+  House_distance_dim1=abs(House_Dem_mean_nom1-House_Rep_mean_nom1)*100,
+  Sen_distance_dim1=abs(Sen_Dem_mean_nom1-Sen_Rep_mean_nom1)*100,
+  House_distance_dim2=abs(House_Dem_mean_nom2-House_Rep_mean_nom2)*100,
+  Sen_distance_dim2=abs(Sen_Dem_mean_nom2-Sen_Rep_mean_nom2)*100
+) %>% view ()
+
+# Create a variable called polar_and_cred that uses the melt function (from the library reshape2")
+#note that the id.var will serve as the common axis for these 
+polar_and_cred <- melt(subset(polaradjdataset, select=c(PubYr, House_distance_dim1, Sen_distance_dim1, Inst_Cred_Gallup)), id.var="PubYr")
+
+# 
+ggplot(polar_and_cred, aes(x=PubYr, y=value)) + geom_line(aes(color=variable)) + facet_grid(variable~., scales="free_y") + theme(legend.position = "none") +
+  labs(
+    title = "Figure Four: Distance Between Party Means in the House,\n the US Senate,\n and American Confidence in the Military, 1979-2020"
+  )
+```
+
+While it is possible that the trend in increasing institutional credibility of the US military over the past four decades may be at least partially responsible for the increasing trend in the number of opinion pieces published by retired military officers, a trend that the data supported earlier as shown in Figure 2, rising institutional credibility alone does not adequately explain the trends shown in Figure 3: that there has been a sharp increase over the past four decades in retired military officers penning pieces that address non-traditional military topics that lay outside the bounds of relevant military expertise, or pieces that express partisan sentiment. The theory laid out earlier in this paper predicted that as political polarization increases, three mechanisms are at work which have strong impacts on the military professional: it becomes increasingly difficult to remain politically neutral as partisan conflicts subsume a greater number of issues; as this occurs, strong feelings of dislike or disdain surface against those who hold on opposing view; and alterations in one's sense of loyalty arise, particularly as issues that individuals hold to most dearly raise the salience of one's identity. 
+
+To test if changes in political polarization adequately explain the changes in the qualitative nature (increasing trends of potential violations of military professionalism) of opinion pieces authored by retired military officers, I conduct a logit regression of the variable _questionable_professionalism_ while holding institutional trust in the military constant at its mean (71 percent) and varying the value of the mean ideological distance between both major political parties in the House between 1979-2020. Conducting such a regression allows one to examine, given the data assembled, the predictive likelihood of publishing an opinion piece that violates military professionalism given varying levels of political polarization and constant institutional credibility in the military. These results are displayed in Figure 5, below. 
+
+
+```{r logit analysis, include=FALSE, echo=FALSE}
+
+#next, conduct logit regressions where the DV is first, values of leg_crit_part and
+# then, where the DV is crit_part
+
+#model 1
+
+mod1 <- glm(leg_crit_part ~ Inst_Cred_Gallup + House_distance_dim1 + AuthSex + AuthRank + Topic, 
+  family=binomial(link="logit"), 
+  data=polaradjdataset
+  )
+  
+summary(mod1)
+tidy(mod1)
+glance(mod1)
+
+# model 2
+mod2 <- glm(crit_part ~ Inst_Cred_Gallup + House_distance_dim1 + AuthSex + AuthRank + Topic, 
+    family=binomial(link="logit"),
+    data=polaradjdataset
+    )
+
+summary(mod2)
+tidy(mod2)
+glance(mod2)
+
+# model 3 - remove topic as an IV because there is significant correlation between
+# one type of topic (domestic policy) and the DV
+
+mod3 <- glm(leg_crit_part ~ Inst_Cred_Gallup + House_distance_dim1 + AuthSex + AuthRank,
+    family=binomial(link="logit"),
+    data=polaradjdataset
+    )
+
+summary(mod3)
+tidy(mod3)
+glance(mod3)
+
+# model 4 - same as mod3, but change the DV to crit_part
+
+mod4 <- glm(crit_part ~ Inst_Cred_Gallup + House_distance_dim1 + AuthSex + AuthRank,
+    family=binomial(link="logit"),
+    data=polaradjdataset
+    )
+
+summary(mod4)
+tidy(mod4)
+glance(mod4)
+```
+
+```{r regression table, include=TRUE, echo=FALSE, results="asis"}
+stargazer(mod3, mod4, 
+          title="Table 3: Logistic Regression Results", 
+          column.labels = c('Legislative Activity, Criticize, or Partisan','Criticize or Partisan'),
+          covariate.labels = c('Institutional Credibility', 'Congressional Polarization', 'Male', 'Mixed Authorship', 'Unknown Authorship', 'Rank'),
+          align=TRUE)
+         
+```
+
+
+
+
+
+The graph clearly shows a non-linear relationship between increasing political polarization and the likelihood that an opinion piece authored by a retired military officer will potentially violate aspects of military professionalism. While the confidence intervals at each point estimate are relatively large, the graph demonstrates that the predicted probability of violating military professionalism is different between relative extremes along the x axis. In other words, the political polarization levels that exist today, as measured by the ideological distance between members of the two prominent political parties in the house, is predicted to have resoundingly different impacts on military professionalism than the polarization levels that existed several decades ago. The polarization levels that existed several decades ago, in the late 1970s and 1980s, may have had negligible, if any impact, on the likelihood of a retired military officer violating military professionalism in the content of a published opinion piece, but the political landscape is simply different today. Contemporary polarization levels, insofar as the predictive power of the model is concerned, changed the environment: at contemporary polarization levels (the far right of the x axis), there is roughly a 17% chance of a retired military officer's published opinion piece violating the standards and norms of military professionalism, with confidence intervals that range from roughly 11% to nearly 25%.  
+
+Given these dynamics, as well as the results of both Figures 3 and 5, ample evidence exists to confirm the second hypothesis, which stated that as a result of increasing political polarization, there will be an increase in recent years in the number of op-eds written about topics that are not relevant to military expertise, or that reveal inappropriate partisan sentiments, among authors which are a vital component of the institutional military, retired military officers.  
+
+## Does Combat Attenuate Polarization's Impact on Military Professionalism?
+
+Why did Figure 3 reveal a sharp drop between approximately 2005-2011 in both the real number and proportion of annual opinion pieces authored by retired military officers that address non-traditional military topics, such as social policy that impacts the military, domestic policy, and political administrations/figures? What was it about this time period that made it unlike any other span of years across the past four decades? 
+
+One compelling answer is that between these years, roughly 2005-2011, the military was heavily involved in combat operations to a point such that the institution was taxed tremendously, thereby necessitating that it remain focused on its wartime mission. Repeated deployments during the Global War on Terrorism, which included substantial surges of forces to both Iraq (2007-2008) and Afghanistan (2010-2011), as well as sustained US casualties resulting from these conflicts, possibly shaped the military institution so strongly such that even retired military officers acknowledged that the military's institutional energy required a laser-sharp focus on combat requirements. This is not to suggest the military was not heavily engaged in conflicts nor active around the glove at other times throughout the past four decades (which we know is not the case), but to instead suggest that even retired military officers are perhaps more sensitive to combat requirements and missions undertaken by the military as higher levels of continued operational strain and duress are endured. Though more data is required to fully test this argument, other scholars have argued similarly in that periods of transition, especially away from major combat operations and into eras of downsizing and relative peace, often seem to test the very essence of military professions in significant ways [@snider_once_2012].  
+
+# Conclusion: Will the Military Remain Professional in a Polarized Setting?
+
+The goal of this paper was to explore and examine the ways in which political polarization and institutional credibility have impacted the professionalism of the military over the past fifty years. Examining the published opinion pieces authored by retired military officers in major US newspapers revealed that although the vast number of total opinion publications uphold the military's norms and traditions concerning military professionalism, a couple of worrisome trends are evident in the data: first, retired military officers are increasingly writing about topics outside of the umbrella of traditional national security topics, and second, retired officers are expressing partisan preferences at a greater rate than they previously did. What do these trends mean, and should they cause concern? If so, what should be done about it?
+
+First, these findings illuminate the power and pervasiveness of increasing political polarization, and in particular, its impact not only on political institutions, but also on professions, which the military prides itself on being. Thus, if the military, which has for decades adopted and promulgated norms of apolitical and nonpartisan expression, has been impacted by rising political polarization, it stands to reason that other political institutions and professions also have been impacted. While the specific manifestations of political polarization's increase and spread in non-military institutions and professions might be different, the fact that the military is experiencing a noticeable impact as a result of increasing political polarization speaks to its significant power and influence. 
+
+Indeed, evident in the content of opinion pieces authored by retired military officers over the past four decades are the three features of contemporary American political polarization developed in the theory proffered earlier in this paper: the loss of politically neutral space as more issues enter the partisan battleground, the creation of strong feelings of dislike for those who hold to opposing views on these issues, and perhaps worst for the military, alterations in an individual's concept of loyalty, which arises as the salience of one's identity is raised as the issues that an individual holds most dearly to are increasingly at stake. Moreover, the data supported what most scholars of American politics have argued for: a realization that polarizing politics across America's political landscape will likely not disappear anytime soon, regardless of which party holds the nation's highest office.
+
+Second, these findings underscore the challenge that the military as a profession has in "reigning in" its retired officers and compelling them to stay out of partisan battles, and out of politics more broadly. Among the features and traits of a profession is that it is self-policing; however, the data indicates that current efforts by active military leaders to police and clean up the behavior of its retired elites is not working. Indeed, the letters and pleas of previous military leaders to retired military officers, including those written by now Retired Army General Martin Dempsey and Retired Marine Corps General Joseph Dunford, both of which were referenced in this paper, are simply not working. This suggests that stronger and more creative efforts are required.  
+
+Third, these findings demonstrate that the phrase "politicization of the military," which has long been a proper concern of academics, journalists, the military, and citizens alike, should not be intellectually confined to notions of how politicians or other political leaders political leaders attempt to harness or exploit the military for political purposes or advantages. Though such efforts do occur and are a genuine cause for concern that continue to deserve both scholarly and practical attention, the evidence presented in this paper shows that "politicization of the military" is also occurring at the hands and through the words of particular retired military officers. Gaining a better understanding of the impacts of political polarization on the military profession remains a critical area for future research. Other scholars such as Michael Robinson have explored the specific ways that polarization is impacting the interactions between the military and the public [@robinson_michael_danger_2018]. Though this paper focused on the ways that polarization may impact professional military behavior, it recognized but stopped short of discussing polarization's subsequent impact on various "military outcomes," which may arguably include even more decisive events, such as achieving victory or defeat in battle, or the ability to formulate sound strategic advice. These outcomes and more, and the role of polarization in influencing them, deserve to be explored further.
+
+Maintaining credibility and trust with the American public is crucial for the military, but should a polarized political climate endure, the military needs to also understand that credibility and trust can be abused to the point that they also can constitute significant risks. One such risk is that as polarization worsens, military leaders, to include military retirees, abuse the high level of credibility they currently enjoy with the American public to advocate for obviously partisan positions. Such actions, though, in a polarized setting, might actually result in an increase in the credibility of the military institution, at least among citizens who share the same partisan sentiments advocated for by military leaders, which might, somewhat perversely, entice more of the same behavior. A second risk, stemming from the first, is that a polarized setting sets the stage for the military institution to eventually openly jockey with civilian leaders, either for power or for control, a concern that generations of scholars have warned us about [@finer_man_1962; @brooks_shaping_2008-1]. Were either of these risks to materialize, the character and nature of the American military as an institution, and likely, American democracy, would be irrevocably changed. 
+
+There are no simple solutions for the military with respect to the risks posed by rising political polarization. Two possible ideas, however, are apropos to this discussion. One involves identity, and the other, credibility. First, our nation's military is composed of soldiers who come from every walk of life throughout America, and accordingly, in the years to come, many future soldiers and leaders will bear the features of a polarized society. Thus, the military's challenge, and one which it must embrace itself for immediately, is integrating the multiple identities each soldier carries with them as people in such a way that each can still proudly wear the uniform and bear the identity of an American service member. Though this challenge is not new for the US military, increasing political polarization has significantly raised the level of difficulty the military faces in tackling such a vital challenge. Scholars who have studied multi-ethnic militaries across the world have argued that it is military leaders, not civilians, who ultimately devise effective solutions to the problems posed by soldiers who carry multiple loyalties, and interestingly, only as a result of combat requirements [@peled_question_1998]. Perhaps the American challenge is even greater in that at least for the near term future, there is no major war that will necessitate the coming together of disparate loyalties and identities among future soldiers.   
+
+The second idea, and one that may sound like anathema to modern military leaders, is that perhaps the level of trust and credibility between the American public and the military institution should not be the ultimate indicator of the military's performance as a profession. In suggesting this, I am not suggesting that credibility and trust are not important or that the concept should be disregarded entirely. The American public is, after all, the client of the American military and ultimately, it is their opinion that counts.I am suggesting, however, that for the reasons laid out in this paper, credibility and trust are influenced by the mechanisms through which polarization works, to include the loss of politically-neutral space, increased negative feelings toward those who hold differing opinions, and most sinister of all, alterations in one's concept of loyalty. For these reasons, I am simply offering the notion that _credibility can be deceiving_ in polarized times. Now, more than ever before, military leaders will need to rely on individual moral courage over and above any other trait in order to perform their duties as military professionals.  
+\singlespace
+\pagebreak
+
+
+
+
