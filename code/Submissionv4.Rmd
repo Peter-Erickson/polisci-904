@@ -585,13 +585,28 @@ mod4 <- glm(crit_part ~ Inst_Cred_Gallup + House_distance_dim1 + AuthSex + AuthR
 summary(mod4)
 tidy(mod4)
 glance(mod4)
+
+#model 5 - now check for robustness using aff_polar as the polarization variable
+mod5 <- glm(leg_crit_part ~ Inst_Cred_Gallup + aff_polar + AuthSex + AuthRank,
+    family=binomial(link="logit"),
+    data=polaradjdataset
+    )
+
+summary(mod5)
+
+mod6 <- glm(crit_part ~ Inst_Cred_Gallup + aff_polar + AuthSex + AuthRank,
+    family=binomial(link="logit"),
+    data=polaradjdataset
+    )
+
+summary(mod6)
 ```
 
 ```{r regression table, include=TRUE, echo=FALSE, results="asis"}
-stargazer(mod3, mod4, 
+stargazer(mod3, mod4, mod5, mod6,
           title="Table 3: Logistic Regression Results", 
-          column.labels = c('Legislative Activity, Criticize, or Partisan','Criticize or Partisan'),
-          covariate.labels = c('Institutional Credibility', 'Congressional Polarization', 'Male', 'Mixed Authorship', 'Unknown Authorship', 'Rank'),
+          column.labels = c('Model 3','Model 4','Model 5', 'Model 6'),
+          covariate.labels = c('Institutional Credibility', 'Congressional Polarization', 'Affective Polarization', 'Male', 'Mixed Authorship', 'Unknown Authorship', 'Rank'),
           align=TRUE)
          
 ```
